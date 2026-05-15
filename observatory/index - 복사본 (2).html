@@ -21,8 +21,8 @@
         .menu-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
         .card { background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border-radius: 20px; padding: 1.5rem; text-align: center; border: 1px solid rgba(0,229,255,0.3); transition: transform 0.3s; }
         .card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,229,255,0.2); }
-        .menu-card { padding: 1.5rem; }
-        .menu-card img, .card img { width:100%; border-radius:15px; margin-bottom:1rem; height:auto; }
+        .menu-card { padding: 1.5rem; } /* 메뉴 세부 카드 스타일 */
+        .menu-card img { width:100%; border-radius:15px; margin-bottom:1rem; }
         .menu-card h4 { font-family: 'Playfair Display', serif; color: #a78bfa; font-size: 1.3rem; margin-bottom: 0.5rem; }
         .menu-card p { font-size: 0.95rem; opacity: 0.9; }
         ul { list-style: none; text-align: left; }
@@ -32,7 +32,6 @@
         .stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; }
         .star { position: absolute; width: 2px; height: 2px; background: #fff; border-radius: 50%; animation: twinkle 2s infinite; }
         @keyframes twinkle { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; transform: scale(1.5); } }
-        .special-img { display: block; margin: 1rem auto; max-width: 100%; border-radius: 15px; }
         footer { text-align: center; padding: 2rem; background: rgba(0,0,0,0.5); }
         @media (max-width: 768px) { .hero h1 { font-size: 2.5rem; } section { padding: 40px 5%; } .menu-grid { grid-template-columns: 1fr; } }
     </style>
@@ -75,19 +74,11 @@
         </div>
     </section>
 
-    <!-- 메뉴 (special_menu.jpg 추가: 상단 대표 메뉴 카드) -->
+    <!-- 메뉴 (업데이트됨: 각 메뉴에 개별 이미지 추가) -->
     <section id="menu">
         <h2>미르의 별 시리즈</h2>
-        <!-- 새 대표 메뉴 카드 (4:3 비율) -->
-        <div class="grid menu-grid" style="grid-template-columns: 1fr; max-width: 400px; margin: 0 auto 2rem;">
-            <div class="card menu-card">
-                <img src="special_menu.jpg" alt="미르미르의 특별 대표 메뉴">
-                <h4>미르미르의 특별 대표 메뉴</h4>
-                <p>미르미르가 깊이 고민하며 만든 레스토랑의 상징. 우주의 정수를 담은 걸작.</p>
-            </div>
-        </div>
         <div class="grid menu-grid">
-            <!-- 기존 메뉴 카드들 -->
+            <!-- 기적의 메뉴: 세부 카드화 -->
             <div class="card menu-card">
                 <img src="은재의별코스.jpg" alt="은재의 별 코스">
                 <h4>은재의 별 코스 (우주 에센스 디저트)</h4>
@@ -103,6 +94,7 @@
                 <h4>세계수 열매 와인</h4>
                 <p>위그드라실의 열매로 빚은 영원한 와인.</p>
             </div>
+            <!-- 일반 메뉴: 세부 카드화 -->
             <div class="card menu-card">
                 <img src="은하수샐러드.jpg" alt="은하수 샐러드">
                 <h4>은하수 샐러드</h4>
@@ -121,21 +113,19 @@
         </div>
     </section>
 
-    <!-- 서비스 특징 (만남의공간.jpg 추가) -->
+    <!-- 서비스 특징 -->
     <section id="service">
         <h2>프라이빗한 만남의 공간</h2>
         <div class="grid">
             <div class="card">
-                <img src="만남의공간.jpg" alt="프라이빗한 만남의 공간" style="width:100%; border-radius:15px; margin-bottom:1rem;">
                 <p>메이드봇의 완벽 서비스 + 미르와 미스티아의 직접 응대. 오직 초대된 분만을 위한 고요한 우주 여행.</p>
             </div>
         </div>
     </section>
 
-    <!-- 예약 안내 (특별한초대.jpg 추가) -->
+    <!-- 예약 안내 -->
     <section id="reservation">
         <h2>특별 초대</h2>
-        <img src="특별한초대.jpg" alt="특별 초대 이미지" class="special-img" style="max-width: 500px; aspect-ratio: 4/3;">
         <p style="text-align:center; font-size:1.2rem; margin-bottom:2rem;">초대제 운영. 미르님께 직접 신청하세요.</p>
         <button class="cta" onclick="alert('미르님께 연락 주세요! 🌟')">초대 신청</button>
     </section>
