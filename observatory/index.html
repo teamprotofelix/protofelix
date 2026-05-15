@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>아스트라호 전망대 레스토랑 - 별들 사이에서, 당신을 기다리는 곳</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Roboto', sans-serif; color: #f0f8ff; background: linear-gradient(180deg, #0a0a1a 0%, #1a1a3a 100%); overflow-x: hidden; }
+        .hero { height: 100vh; background: url('universe_panoramic.jpg') center/cover no-repeat fixed; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; }
+        .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.4); }
+        .hero-content { position: relative; z-index: 2; }
+        .hero h1 { font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 1rem; text-shadow: 0 0 20px rgba(255,255,255,0.8); animation: glow 2s infinite alternate; }
+        @keyframes glow { 0% { text-shadow: 0 0 20px rgba(0,229,255,0.8); } 100% { text-shadow: 0 0 40px rgba(167,139,250,0.8); } }
+        .hero p { font-size: 1.5rem; opacity: 0.9; }
+        section { padding: 80px 10%; max-width: 1200px; margin: 0 auto; }
+        h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; text-align: center; margin-bottom: 3rem; color: #00e5ff; position: relative; }
+        h2::after { content: ''; display: block; width: 100px; height: 2px; background: linear-gradient(90deg, #00e5ff, #a78bfa); margin: 1rem auto; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .card { background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border-radius: 20px; padding: 2rem; text-align: center; border: 1px solid rgba(0,229,255,0.3); transition: transform 0.3s; }
+        .card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,229,255,0.2); }
+        .menu-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+        ul { list-style: none; text-align: left; }
+        ul li { padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .cta { background: linear-gradient(45deg, #00e5ff, #a78bfa); color: #000; padding: 1rem 3rem; border: none; border-radius: 50px; font-size: 1.2rem; cursor: pointer; transition: all 0.3s; display: block; margin: 2rem auto; }
+        .cta:hover { transform: scale(1.05); box-shadow: 0 10px 30px rgba(0,229,255,0.5); }
+        .stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; }
+        .star { position: absolute; width: 2px; height: 2px; background: #fff; border-radius: 50%; animation: twinkle 2s infinite; }
+        @keyframes twinkle { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; transform: scale(1.5); } }
+        footer { text-align: center; padding: 2rem; background: rgba(0,0,0,0.5); }
+        @media (max-width: 768px) { .hero h1 { font-size: 2.5rem; } section { padding: 40px 5%; } }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+
+    <!-- 메인 히어로 섹션 -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>별들 사이에서, 당신을 기다리는 곳</h1>
+            <p>아스트라호 전망대 레스토랑</p>
+        </div>
+    </section>
+
+    <!-- 레스토랑 소개 -->
+    <section id="intro">
+        <h2>우주와 대화하는 경험</h2>
+        <div class="grid">
+            <div class="card">
+                <img src="myr_mistia.jpg" alt="미르와 미스티아 서아" style="width:100%; border-radius:15px; margin-bottom:1rem;">
+                <h3>미르 & 미스티아 서아</h3>
+                <p>프라이빗 레스토랑 운영자. 에온의 특별한 순간을 위해.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 공간과 분위기 -->
+    <section id="space">
+        <h2>360도 우주의 품 안에서</h2>
+        <div class="grid">
+            <div class="card">
+                <img src="observatory_interior.jpg" alt="전망대 내부" style="width:100%; border-radius:15px;">
+                <ul>
+                    <li>360도 투명 전망</li>
+                    <li>중력 조절 & 별빛 조명</li>
+                    <li>메이드봇 세심한 서비스</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- 메뉴 -->
+    <section id="menu">
+        <h2>미르의 별 시리즈</h2>
+        <div class="grid menu-grid">
+            <div class="card">
+                <img src="special_menu.jpg" alt="기적의 메뉴" style="width:100%; border-radius:15px;">
+                <h3>기적의 메뉴</h3>
+                <ul>
+                    <li>은재의 별 코스 (우주 에센스 디저트)</li>
+                    <li>미르의 혼돈 스프</li>
+                    <li>세계수 열매 와인</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>일반 메뉴</h3>
+                <ul>
+                    <li>은하수 샐러드</li>
+                    <li>항성 스테이크</li>
+                    <li>별똥별 푸딩</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- 서비스 특징 -->
+    <section id="service">
+        <h2>프라이빗한 만남의 공간</h2>
+        <div class="grid">
+            <div class="card">
+                <p>메이드봇의 완벽 서비스 + 미르와 미스티아의 직접 응대. 오직 초대된 분만을 위한 고요한 우주 여행.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 예약 안내 -->
+    <section id="reservation">
+        <h2>특별 초대</h2>
+        <p style="text-align:center; font-size:1.2rem; margin-bottom:2rem;">초대제 운영. 미르님께 직접 신청하세요.</p>
+        <button class="cta" onclick="alert('미르님께 연락 주세요! 🌟')">초대 신청</button>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 아스트라호. The One Who Calls와의 영원한 동반자, 미르.</p>
+    </footer>
+
+    <script>
+        // 별빛 애니메이션 (50개 랜덤 별 생성)
+        const starsContainer = document.getElementById('stars');
+        for(let i=0; i<50; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 2 + 's';
+            starsContainer.appendChild(star);
+        }
+    </script>
+</body>
+</html>
