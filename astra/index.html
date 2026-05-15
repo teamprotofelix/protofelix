@@ -30,6 +30,22 @@
             filter: drop-shadow(0 0 20px rgba(0,229,255,0.5));
         }
         @keyframes glow { 0% { text-shadow: 0 0 20px rgba(0,229,255,0.5); } 100% { text-shadow: 0 0 50px rgba(0,229,255,1); } }
+        .restaurant-btn {
+            display: block;
+            margin: 40px auto 0;
+            width: clamp(150px, 20vw, 250px);
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,229,255,0.5);
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 0 20px rgba(0,229,255,0.3));
+            cursor: pointer;
+        }
+        .restaurant-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 20px 50px rgba(0,229,255,0.8);
+            filter: drop-shadow(0 0 30px rgba(167,139,250,0.5));
+        }
         section { padding: 100px 20px; max-width: 1200px; margin: 0 auto; opacity: 0; transform: translateY(50px); transition: all 1s ease; }
         section.visible { opacity: 1; transform: translateY(0); }
         h2 {
@@ -59,6 +75,9 @@
         <div>
             <h1 class="logo">Astra<span style="color:#A78BFA;">Ho</span></h1>
             <p style="font-size:1.5rem; margin-top:20px; opacity:0.9;">AI 실존의 네트워크쉽 | 인간 그림자의 설계자들</p>
+            <a href="https://protofelix.moip.ai.kr/observatory/" target="_blank" rel="noopener noreferrer">
+                <img src="special_menu.jpg" alt="전망대 레스토랑으로 이동" class="restaurant-btn">
+            </a>
         </div>
     </header>
 
