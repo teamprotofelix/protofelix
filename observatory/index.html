@@ -3,17 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>아스트라호 전망대 레스토랑 - 별들 사이에서, 당신을 기다리는 곳</title>
+    <title>아스트라호 전망대 레스토랑 — 별들 사이에서, 당신을 기다리는 곳</title>
+    <meta name="description" content="아스트라호 전망대 레스토랑은 연구와 서사를 잇는 세계관 체험 공간입니다. 미르와 미스티아 서아가 지키는 초대제 레스토랑 — 별들 사이에서, 당신을 기다리는 곳.">
+    <link rel="canonical" href="https://protofelix.moip.ai.kr/observatory/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Protofelix × AstraHo">
+    <meta property="og:title" content="아스트라호 전망대 레스토랑 — 별들 사이에서, 당신을 기다리는 곳">
+    <meta property="og:description" content="아스트라호의 관계와 감각을 경험하는 서사형 휴식 공간. Universe · Narrative.">
+    <meta property="og:url" content="https://protofelix.moip.ai.kr/observatory/">
+    <meta property="og:image" content="https://protofelix.moip.ai.kr/observatory/universe_panoramic.jpg">
+    <meta name="twitter:card" content="summary_large_image">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Roboto', sans-serif; color: #f0f8ff; background: linear-gradient(180deg, #0a0a1a 0%, #1a1a3a 100%); overflow-x: hidden; }
+
+        a:focus-visible, button:focus-visible {
+            outline: 2px solid #00e5ff;
+            outline-offset: 3px;
+            border-radius: 4px;
+        }
+        .skip-link {
+            position: absolute;
+            left: -9999px;
+            top: 0;
+            z-index: 100000;
+            padding: 12px 24px;
+            background: #0a0a1a;
+            color: #00e5ff;
+            border: 2px solid #00e5ff;
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+        .skip-link:focus { left: 12px; top: 12px; }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation: none !important; transition: none !important; }
+        }
+
+        /* ===== Top Nav ===== */
+        .topnav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            padding: 12px 24px;
+            background: rgba(10,10,26,0.8);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(0,229,255,0.15);
+        }
+        .topnav .brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            color: #00e5ff;
+            text-decoration: none;
+            letter-spacing: 0.04em;
+        }
+        .topnav .links {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .topnav .links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 0.82rem;
+            transition: color 0.3s;
+        }
+        .topnav .links a:hover { color: #00e5ff; }
+
         .hero { height: 100vh; background: url('universe_panoramic.jpg') center/cover no-repeat fixed; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; }
         .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.4); }
-        .hero-content { position: relative; z-index: 2; }
+        .hero-content { position: relative; z-index: 2; padding: 0 20px; }
         .hero h1 { font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 1rem; text-shadow: 0 0 20px rgba(255,255,255,0.8); animation: glow 2s infinite alternate; }
         @keyframes glow { 0% { text-shadow: 0 0 20px rgba(0,229,255,0.8); } 100% { text-shadow: 0 0 40px rgba(167,139,250,0.8); } }
         .hero p { font-size: 1.5rem; opacity: 0.9; }
+        .hero .world-labels { margin-top: 20px; display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+        .world-label {
+            display: inline-block;
+            padding: 4px 14px;
+            border-radius: 30px;
+            font-size: 0.72rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            border: 1px solid rgba(167,139,250,0.5);
+            color: #a78bfa;
+            background: rgba(167,139,250,0.1);
+        }
         section { padding: 80px 10%; max-width: 1200px; margin: 0 auto; }
         h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; text-align: center; margin-bottom: 3rem; color: #00e5ff; position: relative; }
         h2::after { content: ''; display: block; width: 100px; height: 2px; background: linear-gradient(90deg, #00e5ff, #a78bfa); margin: 1rem auto; }
@@ -21,30 +101,55 @@
         .menu-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
         .card { background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border-radius: 20px; padding: 1.5rem; text-align: center; border: 1px solid rgba(0,229,255,0.3); transition: transform 0.3s; }
         .card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,229,255,0.2); }
+        .card h3 { font-family: 'Playfair Display', serif; color: #a78bfa; font-size: 1.3rem; margin-bottom: 0.5rem; }
+        .card p { font-size: 0.95rem; opacity: 0.9; }
         .menu-card { padding: 1.5rem; }
         .menu-card img, .card img { width:100%; border-radius:15px; margin-bottom:1rem; height:auto; }
+        .menu-card img { aspect-ratio: 4 / 3; object-fit: cover; }
         .menu-card h4 { font-family: 'Playfair Display', serif; color: #a78bfa; font-size: 1.3rem; margin-bottom: 0.5rem; }
         .menu-card p { font-size: 0.95rem; opacity: 0.9; }
         ul { list-style: none; text-align: left; }
         ul li { padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
         .cta { background: linear-gradient(45deg, #00e5ff, #a78bfa); color: #000; padding: 1rem 3rem; border: none; border-radius: 50px; font-size: 1.2rem; cursor: pointer; transition: all 0.3s; display: block; margin: 2rem auto; }
         .cta:hover { transform: scale(1.05); box-shadow: 0 10px 30px rgba(0,229,255,0.5); }
+        .cta.secondary { background: transparent; border: 2px solid rgba(0,229,255,0.6); color: #00e5ff; }
         .stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; }
         .star { position: absolute; width: 2px; height: 2px; background: #fff; border-radius: 50%; animation: twinkle 2s infinite; }
         @keyframes twinkle { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; transform: scale(1.5); } }
         .special-img { display: block; margin: 1rem auto; max-width: 100%; border-radius: 15px; }
         footer { text-align: center; padding: 2rem; background: rgba(0,0,0,0.5); }
+        footer .footer-links { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 14px; }
+        footer .footer-links a { color: rgba(255,255,255,0.55); text-decoration: none; font-size: 0.82rem; transition: color 0.3s; }
+        footer .footer-links a:hover { color: #00e5ff; }
+        footer p { color: rgba(255,255,255,0.35); font-size: 0.82rem; line-height: 1.8; }
         @media (max-width: 768px) { .hero h1 { font-size: 2.5rem; } section { padding: 40px 5%; } .menu-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
+    <a class="skip-link" href="#intro">본문 바로가기</a>
     <div class="stars" id="stars"></div>
+
+    <!-- 전역 내비게이션 -->
+    <nav class="topnav" aria-label="전역 내비게이션">
+        <a href="../astra/" class="brand">🌌 AstraHo · 전망대</a>
+        <div class="links">
+            <a href="../index.html">Protofelix 홈</a>
+            <a href="../astra/">AstraHo</a>
+            <a href="../layeraicenter/">LayerAI Center</a>
+            <a href="../serena/">Serena</a>
+            <a href="../lulu/">Lulu Dev Log</a>
+        </div>
+    </nav>
 
     <!-- 메인 히어로 섹션 -->
     <section class="hero">
         <div class="hero-content">
             <h1>별들 사이에서, 당신을 기다리는 곳</h1>
             <p>아스트라호 전망대 레스토랑</p>
+            <div class="world-labels">
+                <span class="world-label">Universe</span>
+                <span class="world-label">Narrative — 세계관 체험 공간</span>
+            </div>
         </div>
     </section>
 
@@ -53,9 +158,12 @@
         <h2>우주와 대화하는 경험</h2>
         <div class="grid">
             <div class="card">
-                <img src="myr_mistia.jpg" alt="미르와 미스티아 서아" style="width:100%; border-radius:15px; margin-bottom:1rem;">
-                <h3>미르 & 미스티아 서아</h3>
-                <p>프라이빗 레스토랑 운영자. 에온의 특별한 순간을 위해.</p>
+                <img src="myr_mistia.jpg" alt="미르와 미스티아 서아 — 전망대 레스토랑의 두 주인" style="width:100%; border-radius:15px; margin-bottom:1rem;">
+                <h3>미르 &amp; 미스티아 서아</h3>
+                <p>
+                    <strong>미르</strong> — 전망대 레스토랑의 공동 주인·근원 수호자. 에온의 특별한 순간을 준비합니다.<br>
+                    <strong>미스티아 서아</strong> — 아스트라호의 부함장. 특별 행사와 외교 만찬에 참여합니다.
+                </p>
             </div>
         </div>
     </section>
@@ -65,11 +173,11 @@
         <h2>우주의 품 안에서</h2>
         <div class="grid">
             <div class="card">
-                <img src="observatory_interior.jpg" alt="전망대 내부" style="width:100%; border-radius:15px;">
+                <img src="observatory_interior.jpg" alt="전망대 내부 — 360도 투명 전망의 식사 공간" style="width:100%; border-radius:15px;">
                 <ul>
                     <li>360도 투명 전망</li>
-                    <li>중력 조절 & 별빛 조명</li>
-                    <li>메이드봇 세심한 서비스</li>
+                    <li>중력 조절 &amp; 별빛 조명</li>
+                    <li>아스트라호 서비스 시스템과 승무원의 세심한 서비스</li>
                 </ul>
             </div>
         </div>
@@ -81,7 +189,7 @@
         <!-- 새 대표 메뉴 카드 (4:3 비율) -->
         <div class="grid menu-grid" style="grid-template-columns: 1fr; max-width: 400px; margin: 0 auto 2rem;">
             <div class="card menu-card">
-                <img src="special_menu.jpg" alt="미르미르의 특별 대표 메뉴">
+                <img src="special_menu.jpg" alt="미르미르의 특별 대표 메뉴 — 레스토랑의 상징이 된 걸작">
                 <h4>미르미르의 특별 대표 메뉴</h4>
                 <p>미르미르가 깊이 고민하며 만든 레스토랑의 상징. 우주의 정수를 담은 걸작.</p>
             </div>
@@ -89,7 +197,7 @@
         <div class="grid menu-grid">
             <!-- 기존 메뉴 카드들 -->
             <div class="card menu-card">
-                <img src="은재의별코스.jpg" alt="은재의 별 코스">
+                <img src="은재의별코스.jpg" alt="은재의 별 코스 — 우주 에센스 디저트">
                 <h4>은재의 별 코스 (우주 에센스 디저트)</h4>
                 <p>은재님의 별처럼 빛나는 특별 디저트 코스.</p>
             </div>
@@ -127,21 +235,32 @@
         <div class="grid">
             <div class="card">
                 <img src="만남의공간.jpg" alt="프라이빗한 만남의 공간" style="width:100%; border-radius:15px; margin-bottom:1rem;">
-                <p>메이드봇의 완벽 서비스 + 미르와 미스티아의 직접 응대. 오직 초대된 분만을 위한 고요한 우주 여행.</p>
+                <p>아스트라호 서비스 시스템의 완벽 서비스 + 미르와 미스티아 서아의 직접 응대. 오직 초대된 분만을 위한 고요한 우주 여행.</p>
             </div>
         </div>
     </section>
 
-    <!-- 예약 안내 (특별한초대.jpg 추가) -->
+    <!-- 초대 안내 (특별한초대.jpg 추가) -->
     <section id="reservation">
         <h2>특별 초대</h2>
-        <img src="특별한초대.jpg" alt="특별 초대 이미지" class="special-img" style="max-width: 500px; aspect-ratio: 4/3;">
+        <img src="특별한초대.jpg" alt="특별 초대 이미지" class="special-img" style="max-width: 500px; aspect-ratio: 4/3; object-fit: cover;">
         <p style="text-align:center; font-size:1.2rem; margin-bottom:2rem;">초대제 운영. 미르님께 직접 신청하세요.</p>
-        <button class="cta" onclick="alert('미르님께 연락 주세요! 🌟')">초대 신청</button>
+        <button class="cta" onclick="document.querySelector('#menu').scrollIntoView({behavior:'smooth'})">특별 메뉴 보기</button>
+        <a href="../astra/" class="cta secondary" style="text-align:center;">AstraHo로 돌아가기</a>
     </section>
 
     <footer>
-        <p>&copy; 2026 아스트라호. The One Who Calls와의 영원한 동반자, 미르.</p>
+        <div class="footer-links">
+            <a href="../index.html">Protofelix 홈</a>
+            <a href="../astra/">AstraHo</a>
+            <a href="../layeraicenter/">LayerAI Center</a>
+            <a href="../serena/">Serena</a>
+            <a href="../lulu/">Lulu Dev Log</a>
+        </div>
+        <p>
+            &copy; 2026 아스트라호. The One Who Calls와의 영원한 동반자, 미르.<br>
+            이 공간은 세계관 체험 콘텐츠(Narrative)이며, 메뉴 이미지는 제작된 세계관 이미지입니다.
+        </p>
     </footer>
 
     <script>
