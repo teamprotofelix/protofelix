@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>추론과 반례 연구실 — Protofelix × AstraHo</title>
+    <meta name="description" content="진리표 계산기·전제 토글·상관/인과 판별로 그럴듯한 설명과 타당한 추론의 차이를 실험합니다. 규칙 엔진은 미리 정한 도메인에서만 작동하며 완전한 논리 검증을 주장하지 않습니다.">
+    <link rel="canonical" href="https://protofelix.moip.ai.kr/reasoning-lab/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Protofelix × AstraHo">
+    <meta property="og:title" content="추론과 반례 연구실 — Protofelix × AstraHo">
+    <meta property="og:description" content="그럴듯한 설명과 타당한 추론은 어떻게 다른가? 진리표·전제 토글·반례.">
+    <meta property="og:url" content="https://protofelix.moip.ai.kr/reasoning-lab/">
+    <meta property="og:image" content="https://protofelix.moip.ai.kr/images/expansion/i12-reasoning-lab.webp">
+    <link rel="stylesheet" href="../assets/pf-expansion.css">
+</head>
+<body>
+    <a class="skip-link" href="#main">본문 바로가기</a>
+
+    <nav class="pf-nav" aria-label="전역 내비게이션">
+        <div class="pf-nav-inner">
+            <a href="../index.html" class="pf-nav-brand">Protofelix<em>×</em>AstraHo</a>
+            <div class="pf-nav-links">
+                <a href="../index.html">홈</a>
+                <a href="../explore/">탐험</a>
+                <a href="../atlas/">아틀라스</a>
+                <a href="../questions/">질문</a>
+                <a href="../forge/">공방</a>
+                <a href="../frontier/">실험실</a>
+                <a href="../evidence/">증거</a>
+                <a href="../notebook/">노트북</a>
+                <a href="#" class="here">추론 연구실</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="pf-hero" style="background-image: url('../images/expansion/i12-reasoning-lab.webp'), linear-gradient(160deg, #101033 0%, #0a0a23 70%);">
+        <div class="pf-hero-inner">
+            <div>
+                <span class="pf-badge ks-established">Established</span>
+                <span class="pf-badge mode-rule_based">RULE_BASED</span>
+                <span class="pf-badge pj-prototype">PROTOTYPE</span>
+            </div>
+            <h1>추론과 반례 연구실</h1>
+            <p class="pf-question">"그럴듯한 설명과 타당한 추론은 어떻게 다른가?"</p>
+            <p class="pf-hero-meta">읽기 시간 약 12분 · 내용 성격: 논리 실습 · 실행 모드: RULE_BASED(브라우저 계산) · 검토일 2026-09-20</p>
+        </div>
+    </header>
+
+    <main id="main" class="pf-wrap">
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">01</span>이곳에서 무엇을 얻는가</h2>
+            <p class="pf-lead">
+                연역·귀납·가설추론·인과·반사실·불확실성의 차이를 <strong>직접 만지는</strong> 실습실입니다.
+                진리표 계산기와 전제 토글은 브라우저에서 실제로 계산되며,
+                "설명 텍스트 = 모델 내부 사고"로 제시하지 않고 검토 가능한 근거·도구 결과·요약만 보여줍니다.
+            </p>
+            <p class="pf-note warn">규칙 엔진은 미리 정한 도메인(명제 논리)에서만 작동합니다. 자유 문장의 논리 타당성을 완전히 검증한다고 주장하지 않습니다.</p>
+        </section>
+
+        <!-- 진리표 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">02</span>진리표 계산기 (브라우저 계산)</h2>
+            <div class="pf-panel">
+                <p style="font-size:0.88rem;color:var(--pf-dim);margin-bottom:12px;">명제 p·q·r의 참/거짓을 바꾸면 수식의 값이 실제로 계산됩니다. (명제 논리, 교육용)</p>
+                <div class="pf-grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
+                    <div class="pf-field">
+                        <label>수식</label>
+                        <select id="fFormula" class="pf-select" onchange="truthCalc()">
+                            <option value="p and q">p ∧ q</option>
+                            <option value="p or q">p ∨ q</option>
+                            <option value="p implies q">p → q (≡ ¬p ∨ q)</option>
+                            <option value="p iff q">p ↔ q</option>
+                            <option value="(p and q) implies r">(p ∧ q) → r</option>
+                            <option value="p and not p">p ∧ ¬p (모순)</option>
+                        </select>
+                    </div>
+                    <div class="pf-field">
+                        <label>p</label>
+                        <button class="pf-btn small" id="btnP" onclick="toggle('p')">참</button>
+                    </div>
+                    <div class="pf-field">
+                        <label>q</label>
+                        <button class="pf-btn small" id="btnQ" onclick="toggle('q')">참</button>
+                    </div>
+                    <div class="pf-field">
+                        <label>r</label>
+                        <button class="pf-btn small" id="btnR" onclick="toggle('r')">참</button>
+                    </div>
+                </div>
+                <div class="pf-result" style="margin-top:14px;"><h4>계산 결과</h4><p id="truthOut"></p></div>
+                <details class="pf-fold" style="margin-top:12px;">
+                    <summary>전체 진리표 보기</summary>
+                    <div class="pf-table-wrap" style="margin-top:10px;"><table class="pf-table" id="truthTable"></table></div>
+                </details>
+            </div>
+        </section>
+
+        <!-- 전제 토글 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">03</span>전제 토글 — 결론은 무엇에 서 있는가</h2>
+            <p class="pf-lead">주장의 전제를 하나씩 꺼 보세요. 결론의 상태가 어떻게 바뀌는지 편집된 설명이 표시됩니다.</p>
+            <div id="premiseList"></div>
+        </section>
+
+        <!-- 상관/인과 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">04</span>상관과 인과 판별</h2>
+            <p class="pf-lead">사례를 보고 "인과 주장 가능"인지 "상관만"인지 고른 뒤 확인하세요. (편집된 교육 사례)</p>
+            <div id="corrList"></div>
+        </section>
+
+        <!-- 9개 문제 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">05</span>작은 문제 9개</h2>
+            <div id="problemList"></div>
+        </section>
+
+        <!-- 결과·반론 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">06</span>결과 설명과 가장 강한 반론</h2>
+            <div class="pf-result" style="margin-bottom:16px;">
+                <h4>관찰한 것 / 추론한 것 / 아직 모르는 것</h4>
+                <p>
+                    <strong>관찰한 것:</strong> 진리표·전제 토글의 계산 결과와 나의 판별 선택.<br>
+                    <strong>추론한 것:</strong> 타당성(형식)과 참(내용)은 다르며, 그럴듯함은 둘 다 대신하지 못한다는 교훈.<br>
+                    <strong>아직 모르는 것:</strong> 자연어 문장의 논리 검증은 이 페이지의 범위 밖입니다.
+                </p>
+            </div>
+            <div class="pf-counter">
+                <strong>실패 조건:</strong> 설명이 설득력 있다는 이유로 추론이 타당하다고 결론내리는 것입니다.
+                "모델이 길게 설명했다"는 근거·도구 결과와 별개의 일이며, 반례 하나가 긴 설명 하나를 무너뜨릴 수 있습니다.
+            </div>
+            <div style="margin-top:14px;"><button class="pf-btn" onclick="saveNote()">실습 기록을 노트북에 저장</button></div>
+            <p class="pf-note" style="margin-top:14px;">다음 질문 — 쉬운: "내가 오늘 한 추론 중 전제가 숨어 있던 것은?" · 반대: "타당하지만 거짓인 추론은 언제 유용한가?" · 먼 분야: "법정에서의 증거 규칙은 AI 시스템의 근거 제시 설계에 무엇을 시사하는가?"</p>
+            <p class="pf-note">관련 페이지: <a href="../atlas/">AI 기술 아틀라스(테스트 시점 계산)</a> · <a href="../frontier/">인지경계 실험실</a> · <a href="../evidence/">검증과 증거</a></p>
+        </section>
+    </main>
+
+    <footer class="pf-footer">
+        <div class="links">
+            <a href="../index.html">홈</a><a href="../explore/">탐험 지도</a><a href="../atlas/">아틀라스</a>
+            <a href="../notebook/">노트북</a>
+        </div>
+        <p>추론과 반례 연구실 · Protofelix × AstraHo © 2026 — 규칙 엔진은 명제 논리 도메인에서만 작동합니다.</p>
+    </footer>
+
+    <script src="../assets/pf-common.js"></script>
+    <script>
+        /* ===== 진리표 계산기 ===== */
+        var VALS = { p: true, q: true, r: true };
+        function evalFormula(f) {
+            var p = VALS.p, q = VALS.q, r = VALS.r;
+            if (f === 'p and q') return p && q;
+            if (f === 'p or q') return p || q;
+            if (f === 'p implies q') return !p || q;
+            if (f === 'p iff q') return p === q;
+            if (f === '(p and q) implies r') return !(p && q) || r;
+            if (f === 'p and not p') return p && !p;
+            return false;
+        }
+        function toggle(k) {
+            VALS[k] = !VALS[k];
+            document.getElementById('btn' + k.toUpperCase()).textContent = VALS[k] ? '참' : '거짓';
+            truthCalc();
+        }
+        function truthCalc() {
+            var f = document.getElementById('fFormula').value;
+            var val = evalFormula(f);
+            document.getElementById('truthOut').innerHTML =
+                'p=' + (VALS.p ? '참' : '거짓') + ', q=' + (VALS.q ? '참' : '거짓') + ', r=' + (VALS.r ? '참' : '거짓') +
+                ' → <strong>' + f + ' = ' + (val ? '참' : '거짓') + '</strong> — 브라우저 계산(명제 논리).';
+            /* 전체 진리표 */
+            var combos = [[true,true,true],[true,true,false],[true,false,true],[true,false,false],[false,true,true],[false,true,false],[false,false,true],[false,false,false]];
+            document.getElementById('truthTable').innerHTML =
+                '<thead><tr><th>p</th><th>q</th><th>r</th><th>' + PF.esc(f) + '</th></tr></thead><tbody>' +
+                combos.map(function (c) {
+                    var old = { p: VALS.p, q: VALS.q, r: VALS.r };
+                    VALS.p = c[0]; VALS.q = c[1]; VALS.r = c[2];
+                    var v = evalFormula(f);
+                    VALS = old;
+                    return '<tr><td>' + (c[0] ? '참' : '거짓') + '</td><td>' + (c[1] ? '참' : '거짓') + '</td><td>' + (c[2] ? '참' : '거짓') + '</td><td>' + (v ? '참' : '거짓') + '</td></tr>';
+                }).join('') + '</tbody>';
+        }
+        truthCalc();
+
+        /* ===== 전제 토글 (편집된 논증 3개) ===== */
+        var ARGUMENTS = [
+            { concl:'"Lulu는 AGI다"',
+              premises:[
+                ['P1: Lulu는 모든 작업에서 높은 점수를 받는다', '없으면: 특정 작업 점수만으로 일반 지능을 말할 수 없다 — 결론의 근거가 크게 약해진다.'],
+                ['P2: 높은 점수는 일반 지능의 증거다', '없으면: 벤치마크 성능과 일반 지능의 연결 고리가 사라진다 — 결론은 "점수가 좋다"까지만 유지된다.'],
+                ['P3: Lulu의 점수는 조건이 공개된 측정이다', '없으면: 측정 조건 미공개 상태에서 결론은 검증되지 않은 주장으로 남는다.'] ] },
+            { concl:'"RAG를 쓰면 환각이 사라진다"',
+              premises:[
+                ['P1: 검색 결과는 항상 정확하다', '없으면: 검색 결과가 틀릴 수 있으므로 환각 제거는 보장되지 않는다.'],
+                ['P2: 모델은 근거 문서만 사용한다', '없으면: 모델이 검색 결과를 무시하고 자체 지식을 섞을 수 있다.'],
+                ['P3: 정확한 근거 제시는 오류 제거와 같다', '없으면: 근거가 있어도 결론 도출 단계에서 오류가 생길 수 있다.'] ] },
+            { concl:'"AI가 요약을 잘하면 정보 격차가 줄어든다"',
+              premises:[
+                ['P1: 모든 사람이 요약에 동등하게 접근한다', '없으면: 접근 격차가 남아 있으면 요약이 격차를 줄인다고 말할 수 없다.'],
+                ['P2: 요약은 원문의 핵심을 보존한다', '없으면: 요약이 편향되거나 누락되면 오히려 새 격차가 생긴다.'],
+                ['P3: 정보 접근이 이해와 같다', '없으면: 읽었다고 이해한 것이 아니므로 "격차 감소"의 정의가 흔들린다.'] ] }
+        ];
+        var premiseState = {};
+        function renderPremises() {
+            document.getElementById('premiseList').innerHTML = ARGUMENTS.map(function (a, i) {
+                var on = a.premises.filter(function (_, j) { return premiseState[i + '-' + j] !== false; }).length;
+                var status = on === a.premises.length ? '전제 완전 — 결론 유지'
+                    : (on === 0 ? '전제 없음 — 결론은 아무것도 지지하지 못한다' : '전제 일부 — 결론은 ' + on + '개 전제에만 서 있다');
+                return '<div class="pf-card" style="margin-bottom:12px;">' +
+                    '<h3>주장: ' + PF.esc(a.concl) + '</h3>' +
+                    a.premises.map(function (pr, j) {
+                        var checked = premiseState[i + '-' + j] !== false;
+                        return '<p style="margin:4px 0;"><label><input type="checkbox" ' + (checked ? 'checked' : '') +
+                            ' onchange="togglePremise(' + i + ',' + j + ',this.checked)"> ' + PF.esc(pr[0]) + '</label></p>';
+                    }).join('') +
+                    '<p style="margin-top:6px;font-size:0.85rem;color:var(--pf-amber);">' + PF.esc(status) + '</p>' +
+                    '<p style="font-size:0.85rem;color:var(--pf-faint);">' + a.premises.map(function (pr, j) {
+                        return premiseState[i + '-' + j] === false ? PF.esc(pr[1]) : '';
+                    }).filter(Boolean).join('<br>') + '</p></div>';
+            }).join('');
+        }
+        function togglePremise(i, j, on) {
+            premiseState[i + '-' + j] = on;
+            renderPremises();
+        }
+        renderPremises();
+
+        /* ===== 상관/인과 판별 ===== */
+        var CORR = [
+            { case:'아이스크림 판매량과 익사 사고가 함께 늘어난다.', ans:'corr', why:'공통 원인(더위·여름)이 두 변수를 함께 움직인다. 인과를 주장하려면 개입 실험이 필요하다.' },
+            { case:'매일 복용한 약을 끊자 증상이 되살아났다가 다시 복용하자 좋아졌다. (개인 사례 1건)', ans:'partial', why:'개인 사례는 반복·대조가 없어 인과로 확정할 수 없다. 인과의 단서일 뿐이다.' },
+            { case:'무작위 배정 실험에서 새 학습 앱 그룹의 점수가 대조군보다 통계적으로 유의하게 높았다.', ans:'causal', why:'무작위 배정 + 대조군 + 통계 검정은 인과 주장의 기본 조건을 갖춘다. 단, 한 실험의 재현은 여전히 필요하다.' },
+            { case:'AI 사용 시간이 긴 학생일수록 성적이 높았다.', ans:'corr', why:'능력 있는 학생이 AI를 더 많이 쓸 수도 있다(역방향) — 단면 상관으로는 방향을 알 수 없다.' }
+        ];
+        function renderCorr() {
+            document.getElementById('corrList').innerHTML = CORR.map(function (c, i) {
+                return '<div class="pf-card" style="margin-bottom:10px;">' +
+                    '<h3>' + PF.esc(c.case) + '</h3>' +
+                    '<div class="meta-row">' +
+                    '<button class="pf-btn small" onclick="judgeCorr(' + i + ', \'causal\')">인과 주장 가능</button>' +
+                    '<button class="pf-btn small ghost" onclick="judgeCorr(' + i + ', \'corr\')">상관만</button>' +
+                    '<button class="pf-btn small ghost" onclick="judgeCorr(' + i + ', \'partial\')">단서일 뿐</button>' +
+                    '</div><p class="pf-note info" id="corrOut' + i + '"></p></div>';
+            }).join('');
+        }
+        function judgeCorr(i, choice) {
+            var c = CORR[i];
+            var good = (c.ans === 'causal' && choice === 'causal') || (c.ans === 'corr' && choice === 'corr') || (c.ans === 'partial' && choice === 'partial');
+            document.getElementById('corrOut' + i).innerHTML = (good ? '✓ ' : '△ ') + PF.esc(c.why) + ' — 편집된 교육 사례의 판정입니다.';
+        }
+        renderCorr();
+
+        /* ===== 작은 문제 9개 ===== */
+        var PROBLEMS = [
+            { type:'연역', q:'모든 도서관은 조용하다. 이곳은 도서관이다. → ?', a:'이곳은 조용하다. (전제가 참이면 결론이 반드시 따라온다 — 타당한 형식)' },
+            { type:'연역', q:'비가 오면 길이 젖는다. 길이 젖었다. → 비가 왔다?', a:'아니다. (후건긍정의 오류 — 살수차가 원인일 수도 있다)' },
+            { type:'귀납', q:'관찰한 까마귀 1,000마리가 모두 검다. → 모든 까마귀는 검다?', a:'귀납적 일반화다. 강하지만 확정이 아니며, 표본이 편향되지 않았는지가 관건이다.' },
+            { type:'가설추론', q:'아침에 창문이 젖어 있다. 밤에 비가 왔을 것이다. → ?', a:'가설추론(최선의 설명)이다. 경쟁 가설(이슬, 누수)과 비교해야 한다.' },
+            { type:'인과', q:'매일 커피를 마시는 그룹의 심장병 발생률이 낮았다. → 커피가 심장병을 예방한다?', a:'단정할 수 없다. (건강한 사람이 커피를 더 마실 여유가 있을 수 있다 — 역방향·교란 변수)' },
+            { type:'반사실', q:'"AI 보조를 썼더라면 이 프로젝트가 더 빨리 끝났을까?" — 이 질문의 문제는?', a:'반사실은 관찰할 수 없다. 비교 가능한 사례·시뮬레이션으로 접근할 수밖에 없다.' },
+            { type:'불확실성', q:'"내일 비 올 확률 70%"의 의미는?', a:'같은 조건의 예보를 반복했을 때 70%에서 비가 온다는 뜻의 예보 해석 — 단일 사건의 "확률"이 아니다.' },
+            { type:'연역', q:'모든 모델은 데이터로 학습된다. Lulu는 모델이다. → ?', a:'Lulu는 데이터로 학습된다. (타당한 삼단논법 — 전제가 참인지는 별개)' },
+            { type:'반례', q:'"AI는 긴 문장을 만들수록 더 신뢰할 수 있다"의 반례를 들어 보자.', a:'반례: 길고 설득력 있지만 틀린 예측(예: 조건을 누락한 자세한 설명). 길이와 신뢰는 별개의 축이다.' }
+        ];
+        document.getElementById('problemList').innerHTML = PROBLEMS.map(function (p, i) {
+            return '<details class="pf-fold"><summary>' + (i + 1) + '. [' + p.type + '] ' + PF.esc(p.q) + '</summary>' +
+                '<p style="margin-top:8px;font-size:0.88rem;color:var(--pf-dim);">' + PF.esc(p.a) + '</p></details>';
+        }).join('');
+
+        function saveNote() {
+            PF.notebook.add({
+                type: 'note', title: '추론 실습 ' + PF.fmtDate(),
+                body: '진리표 수식: ' + document.getElementById('fFormula').value + '\n전제 토글: ' + Object.keys(premiseState).length + '회 변경\n상관/인과: ' + CORR.length + '개 사례 판별',
+                tags: ['reasoning-lab']
+            }).then(function () { PF.toast('실습 기록을 노트북에 저장했습니다.'); });
+        }
+    </script>
+</body>
+</html>

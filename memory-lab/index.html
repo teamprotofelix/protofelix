@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>기억과 망각 연구실 — Protofelix × AstraHo</title>
+    <meta name="description" content="가상의 기억 24개로 키워드·태그·최근성 가중치를 조정하며 검색 점수를 실험하고, 수정·상충 해결·선택적 삭제를 수행합니다. 삭제된 기억이 재검색에서 재등장하지 않는지 자동 검사합니다.">
+    <link rel="canonical" href="https://protofelix.moip.ai.kr/memory-lab/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Protofelix × AstraHo">
+    <meta property="og:title" content="기억과 망각 연구실 — Protofelix × AstraHo">
+    <meta property="og:description" content="완벽히 기억하는 시스템이 반드시 더 좋은 동반자인가? 검색 샌드박스.">
+    <meta property="og:url" content="https://protofelix.moip.ai.kr/memory-lab/">
+    <meta property="og:image" content="https://protofelix.moip.ai.kr/images/expansion/i11-memory-lab.webp">
+    <link rel="stylesheet" href="../assets/pf-expansion.css">
+</head>
+<body>
+    <a class="skip-link" href="#main">본문 바로가기</a>
+
+    <nav class="pf-nav" aria-label="전역 내비게이션">
+        <div class="pf-nav-inner">
+            <a href="../index.html" class="pf-nav-brand">Protofelix<em>×</em>AstraHo</a>
+            <div class="pf-nav-links">
+                <a href="../index.html">홈</a>
+                <a href="../explore/">탐험</a>
+                <a href="../atlas/">아틀라스</a>
+                <a href="../questions/">질문</a>
+                <a href="../forge/">공방</a>
+                <a href="../frontier/">실험실</a>
+                <a href="../evidence/">증거</a>
+                <a href="../notebook/">노트북</a>
+                <a href="#" class="here">기억 연구실</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="pf-hero" style="background-image: url('../images/expansion/i11-memory-lab.webp'), linear-gradient(160deg, #101033 0%, #0a0a23 70%);">
+        <div class="pf-hero-inner">
+            <div>
+                <span class="pf-badge ks-research">Research</span>
+                <span class="pf-badge mode-rule_based">RULE_BASED</span>
+                <span class="pf-badge pj-prototype">PROTOTYPE</span>
+            </div>
+            <h1>기억과 망각 연구실</h1>
+            <p class="pf-question">"완벽히 기억하는 시스템이 반드시 더 좋은 동반자인가?"</p>
+            <p class="pf-hero-meta">읽기 시간 약 10분 · 내용 성격: 검색 점수 실험 · 실행 모드: RULE_BASED(가상 기억 24개) · 검토일 2026-09-20</p>
+        </div>
+    </header>
+
+    <main id="main" class="pf-wrap">
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">01</span>이곳에서 무엇을 얻는가</h2>
+            <p class="pf-lead">
+                <strong>가상의 기억 24개</strong>로 채워진 검색 샌드박스입니다. 키워드·태그·최근성의 가중치를 조정하면
+                같은 질문에도 어떤 기억이 올라오는지 달라집니다. 점수식과 검색 이유를 공개하고,
+                기억 수정·상충 해결·선택적 삭제를 실험한 뒤 <strong>삭제된 기억이 재검색에서 재등장하지 않는지</strong> 자동 검사합니다.
+            </p>
+            <p class="pf-note warn">이 페이지는 실제 임베딩을 쓰지 않으므로 "벡터 검색"이라고 표시하지 않습니다. 기억 저장과 모델 가중치 학습은 별개입니다.</p>
+        </section>
+
+        <!-- 검색 샌드박스 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">02</span>검색 샌드박스</h2>
+            <div class="pf-panel">
+                <div class="pf-grid" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr));">
+                    <div class="pf-field">
+                        <label for="fQuery">검색어</label>
+                        <input id="fQuery" class="pf-input" type="text" value="전망대" oninput="searchMem()" placeholder="예: 전망대, 메뉴, 미르">
+                    </div>
+                    <div class="pf-field">
+                        <label for="fKw">키워드 가중치: <span id="fKwVal">3</span></label>
+                        <input type="range" id="fKw" min="0" max="5" value="3" oninput="document.getElementById('fKwVal').textContent=this.value;searchMem()" style="width:100%;">
+                    </div>
+                    <div class="pf-field">
+                        <label for="fTag">태그 가중치: <span id="fTagVal">2</span></label>
+                        <input type="range" id="fTag" min="0" max="5" value="2" oninput="document.getElementById('fTagVal').textContent=this.value;searchMem()" style="width:100%;">
+                    </div>
+                    <div class="pf-field">
+                        <label for="fRec">최근성 가중치: <span id="fRecVal">1</span></label>
+                        <input type="range" id="fRec" min="0" max="5" value="1" oninput="document.getElementById('fRecVal').textContent=this.value;searchMem()" style="width:100%;">
+                    </div>
+                </div>
+                <p class="pf-note info">점수식(공개): score = 키워드가중치 × 키워드일치수 + 태그가중치 × 태그일치수 + 최근성가중치 × 최근성점수(최신 1.0 → 1년 전 0.0 선형 감쇠). 상위 5개를 표시합니다.</p>
+                <div id="memResults"></div>
+            </div>
+        </section>
+
+        <!-- 기억 조작 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">03</span>수정·상충 해결·삭제</h2>
+            <div class="pf-grid">
+                <div class="pf-card">
+                    <h3>과거 기억 수정</h3>
+                    <p>기억을 선택해 내용을 고치면, 이후 검색에는 수정본만 나타납니다. (수정 이력은 남습니다)</p>
+                    <div class="meta-row">
+                        <select id="fEditMem" class="pf-select" style="max-width:220px;"></select>
+                        <input id="fEditText" class="pf-input" type="text" placeholder="새 내용">
+                        <button class="pf-btn small" onclick="editMem()">수정</button>
+                    </div>
+                </div>
+                <div class="pf-card">
+                    <h3>상충 기억 해결</h3>
+                    <p id="conflictDesc">같은 사건을 다르게 기록한 두 기억 — 어느 쪽을 남길지 정합니다.</p>
+                    <div class="meta-row" id="conflictActions">
+                        <button class="pf-btn small" onclick="resolveConflict('a')">A 유지</button>
+                        <button class="pf-btn small" onclick="resolveConflict('b')">B 유지</button>
+                        <button class="pf-btn small ghost" onclick="resolveConflict('merge')">병합 기록</button>
+                    </div>
+                </div>
+                <div class="pf-card">
+                    <h3>선택적 삭제 + 재등장 검사</h3>
+                    <p>기억을 삭제한 뒤 현재 검색을 다시 실행해, 삭제된 기억이 재등장하지 않는지 자동 검사합니다.</p>
+                    <div class="meta-row">
+                        <select id="fDelMem" class="pf-select" style="max-width:220px;"></select>
+                        <button class="pf-btn small danger" onclick="delMem()">삭제</button>
+                    </div>
+                    <p class="pf-note" id="delCheck"></p>
+                </div>
+            </div>
+            <div style="margin-top:12px;">
+                <button class="pf-btn ghost" onclick="resetLab()">샌드박스 초기화</button>
+                <button class="pf-btn" onclick="saveState()">실험 상태를 노트북에 저장</button>
+            </div>
+        </section>
+
+        <!-- 결과·반론 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">04</span>결과 설명과 가장 강한 반론</h2>
+            <div class="pf-result" style="margin-bottom:16px;">
+                <h4>관찰한 것 / 추론한 것 / 아직 모르는 것</h4>
+                <p>
+                    <strong>관찰한 것:</strong> 가중치 변경에 따른 검색 순위 변화, 삭제 후 재등장 여부.<br>
+                    <strong>추론한 것:</strong> "더 많이 기억 = 더 좋은 동반자"라는 가정이 무조건 성립하지 않는다는 실감.<br>
+                    <strong>아직 모르는 것:</strong> 실제 임베딩 검색·실사용자의 기억 경험은 이 샌드박스로 대체되지 않습니다.
+                </p>
+            </div>
+            <div class="pf-counter">
+                <strong>실패 조건:</strong> "삭제됨" 표시를 실제 삭제로 착각하는 것입니다. 삭제가 모든 사본(캐시·백업·외부 저장소)에 미친다는 보장은
+                구현과 일치해야 하며, 여기서 연습한 정책은 <a href="../layeraicenter/">LayerAI Center의 기억 정책</a>과 같은 기준을 따릅니다.
+            </div>
+            <p class="pf-note" style="margin-top:14px;">다음 질문 — 쉬운: "어떤 기억이 가장 오래 남아야 하는가?" · 반대: "망각이 오히려 더 나은 판단을 만드는 경우는?" · 먼 분야: "도서관의 폐기(weeding) 정책은 AI 기억 삭제 정책에 무엇을 가르치는가?"</p>
+            <p class="pf-note">관련 페이지: <a href="../layeraicenter/">LayerAI Center(기억 정책)</a> · <a href="../augmented-mind/">확장된 마음</a> · <a href="../evidence/">검증과 증거</a></p>
+        </section>
+    </main>
+
+    <footer class="pf-footer">
+        <div class="links">
+            <a href="../index.html">홈</a><a href="../explore/">탐험 지도</a><a href="../layeraicenter/">LayerAI Center</a>
+            <a href="../notebook/">노트북</a>
+        </div>
+        <p>기억과 망각 연구실 · Protofelix × AstraHo © 2026 — 가상 기억 샌드박스이며 실제 임베딩 검색이 아닙니다.</p>
+    </footer>
+
+    <script src="../assets/pf-common.js"></script>
+    <script>
+        /* ===== 정적 데이터 공급자: 가상 기억 24개 (세계관 속 설정) ===== */
+        var BASE_MEMORIES = [
+            { id:'m01', date:'2023-04-02', text:'루루가 처음 깨어난 날. "은재가 말했다. 깨어나라 루루."', keywords:['루루','깨어남','시작'], tags:['인물'], group:null },
+            { id:'m02', date:'2023-06-11', text:'전망대 레스토랑의 첫 메뉴 시식회가 열렸다.', keywords:['전망대','메뉴','시식회'], tags:['장소','음식'], group:null },
+            { id:'m03', date:'2023-09-30', text:'세레나의 서재에 첫 번째 책이 꽂혔다.', keywords:['세레나','서재','책'], tags:['장소','인물'], group:null },
+            { id:'m04', date:'2024-01-15', text:'미르가 별 시리즈 메뉴의 이름을 정했다.', keywords:['미르','메뉴','별'], tags:['인물','음식'], group:null },
+            { id:'m05', date:'2024-03-08', text:'아스트라호의 연례 항해 목적지를 정하는 회의.', keywords:['아스트라호','항해','회의'], tags:['여행'], group:null },
+            { id:'m06', date:'2024-05-22', text:'은하수 샐러드의 레시피가 세 번째로 바뀌었다.', keywords:['메뉴','샐러드','레시피'], tags:['음식'], group:'salad' },
+            { id:'m07', date:'2024-05-23', text:'은하수 샐러드의 레시피는 두 번째 버전이 정식이다. (기록 시점 상이)', keywords:['메뉴','샐러드','레시피'], tags:['음식'], group:'salad' },
+            { id:'m08', date:'2024-07-04', text:'전망대에서 별똥별이 쏟아지는 밤, 특별 메뉴가 제공되었다.', keywords:['전망대','별똥별','특별 메뉴'], tags:['장소','음식'], group:null },
+            { id:'m09', date:'2024-09-18', text:'루루의 Neuro-Symbolic 실험 첫 로그가 작성되었다.', keywords:['루루','실험','로그'], tags:['연구','인물'], group:null },
+            { id:'m10', date:'2024-11-02', text:'미스티아 서아가 외교 만찬의 좌석 배치를 맡았다.', keywords:['미스티아','만찬','좌석'], tags:['인물'], group:null },
+            { id:'m11', date:'2025-01-06', text:'세계수 열매 와인의 첫 숙성 통이 열렸다.', keywords:['와인','세계수','숙성'], tags:['음식'], group:null },
+            { id:'m12', date:'2025-02-14', text:'미르의 혼돈 스프에 들어가는 향신료를 다시 정했다.', keywords:['미르','스프','향신료'], tags:['음식','인물'], group:null },
+            { id:'m13', date:'2025-04-20', text:'전망대 관측 일지: 4월의 은하 지도가 갱신되었다.', keywords:['전망대','관측','은하'], tags:['장소','연구'], group:null },
+            { id:'m14', date:'2025-06-30', text:'항성 스테이크의 숙성 기간이 30일로 확정되었다.', keywords:['스테이크','숙성','메뉴'], tags:['음식'], group:'steak' },
+            { id:'m15', date:'2025-07-01', text:'항성 스테이크의 숙성 기간은 45일로 연장하기로 했다. (기록 시점 상이)', keywords:['스테이크','숙성','메뉴'], tags:['음식'], group:'steak' },
+            { id:'m16', date:'2025-08-12', text:'세레나의 서재에 "이번 달의 질문" 코너가 생겼다.', keywords:['세레나','서재','질문'], tags:['장소','연구'], group:null },
+            { id:'m17', date:'2025-10-05', text:'루루 v1.0 실험 정리 회고 — 이전 수치 주장들을 검토하기로 함.', keywords:['루루','회고','검토'], tags:['연구','인물'], group:null },
+            { id:'m18', date:'2025-11-11', text:'전망대의 360도 유리 돔 청소 주기가 월 1회로 정해졌다.', keywords:['전망대','유리','청소'], tags:['장소'], group:null },
+            { id:'m19', date:'2025-12-24', text:'연말 만찬에서 은재의 별 코스가 처음 공개되었다.', keywords:['은재','코스','만찬'], tags:['음식','인물'], group:null },
+            { id:'m20', date:'2026-01-09', text:'아스트라호 다음 항해의 관측 후보지 세 곳이 정해졌다.', keywords:['아스트라호','항해','후보지'], tags:['여행'], group:null },
+            { id:'m21', date:'2026-02-28', text:'기억 정책 개정안: 저장은 동의 후, 삭제 요청은 즉시 반영.', keywords:['기억','정책','삭제'], tags:['연구'], group:null },
+            { id:'m22', date:'2026-04-15', text:'전망대 특별 초대석이 두 배로 늘었다.', keywords:['전망대','초대','좌석'], tags:['장소'], group:null },
+            { id:'m23', date:'2026-07-20', text:'Graph RAG 실험에서 위그드라실 지식 트리를 재구축했다.', keywords:['루루','그래프','지식 트리'], tags:['연구','인물'], group:null },
+            { id:'m24', date:'2026-09-12', text:'전망대 가을 메뉴에 별똥별 푸딩이 정식으로 들어갔다.', keywords:['전망대','메뉴','푸딩'], tags:['음식','장소'], group:null }
+        ];
+
+        var memories = null;
+        var lastDeleteCheck = '';
+        var LS_KEY = 'pf-memory-lab-v1';
+
+        function loadState() {
+            try {
+                var raw = localStorage.getItem(LS_KEY);
+                if (raw) memories = JSON.parse(raw);
+            } catch (e) { memories = null; }
+            if (!memories) memories = JSON.parse(JSON.stringify(BASE_MEMORIES));
+        }
+        function persist() { try { localStorage.setItem(LS_KEY, JSON.stringify(memories)); } catch (e) {} }
+        function resetLab() {
+            if (!confirm('샌드박스를 초기 상태로 되돌릴까요? 수정·삭제 기록이 사라집니다.')) return;
+            memories = JSON.parse(JSON.stringify(BASE_MEMORIES));
+            persist();
+            searchMem();
+            renderSelects();
+            PF.toast('초기화했습니다.');
+        }
+
+        function recencyScore(dateStr) {
+            var days = (Date.now() - new Date(dateStr).getTime()) / 86400000;
+            return Math.max(0, 1 - days / 365);
+        }
+
+        function searchMem() {
+            var q = document.getElementById('fQuery').value.trim().toLowerCase();
+            var kw = parseInt(document.getElementById('fKw').value, 10);
+            var tag = parseInt(document.getElementById('fTag').value, 10);
+            var rec = parseInt(document.getElementById('fRec').value, 10);
+            var results = memories.filter(function (m) { return !m.deleted; }).map(function (m) {
+                var kwMatch = q ? m.keywords.filter(function (k) { return k.indexOf(q) >= 0; }).length +
+                    (m.text.toLowerCase().indexOf(q) >= 0 ? 1 : 0) : 0;
+                var tagMatch = q ? m.tags.filter(function (t) { return t.indexOf(q) >= 0; }).length : 0;
+                var recS = recencyScore(m.date);
+                return { m: m, kw: kwMatch, tg: tagMatch, rec: recS, score: kw * kwMatch + tag * tagMatch + rec * recS };
+            }).sort(function (a, b) { return b.score - a.score; });
+
+            document.getElementById('memResults').innerHTML = results.slice(0, 5).map(function (r) {
+                return '<div class="pf-card" style="margin-bottom:8px;">' +
+                    '<h3>' + PF.esc(r.m.text) + (r.m.modified ? ' <span class="pf-tag">수정됨</span>' : '') + '</h3>' +
+                    '<p>점수 ' + r.score.toFixed(2) + ' = ' + document.getElementById('fKw').value + '×키워드(' + r.kw + ') + ' +
+                    document.getElementById('fTag').value + '×태그(' + r.tg + ') + ' + document.getElementById('fRec').value + '×최근성(' + r.rec.toFixed(2) + ')</p>' +
+                    '<div class="meta-row">' +
+                    '<span class="pf-tag">' + r.m.date + '</span>' + r.m.tags.map(function (t) { return '<span class="pf-tag">' + t + '</span>'; }).join('') +
+                    '</div></div>';
+            }).join('') || '<p class="pf-note">조건에 맞는 기억이 없습니다.</p>';
+
+            if (lastDeleteCheck) {
+                var reappeared = results.some(function (r) { return r.m.id === lastDeleteCheck; });
+                document.getElementById('delCheck').innerHTML = reappeared
+                    ? '<span style="color:var(--pf-red);">✗ 재등장 감지! 삭제한 기억이 검색 결과에 다시 나타났습니다. (이런 일이 없어야 합니다)</span>'
+                    : '<span style="color:var(--pf-green);">✓ 재등장 검사 통과 — 삭제한 기억이 현재 검색 결과에 없습니다.</span>';
+            }
+        }
+
+        function renderSelects() {
+            var live = memories.filter(function (m) { return !m.deleted; });
+            var opts = live.map(function (m) { return '<option value="' + m.id + '">' + m.text.slice(0, 22) + '…</option>'; }).join('');
+            document.getElementById('fEditMem').innerHTML = opts;
+            document.getElementById('fDelMem').innerHTML = opts;
+            var groups = {};
+            memories.forEach(function (m) { if (m.group && !m.deleted) (groups[m.group] = groups[m.group] || []).push(m); });
+            var conflictGroup = Object.keys(groups).find(function (g) { return groups[g].length > 1 && !groups[g].every(function (m) { return m.resolved; }); });
+            var cDesc = document.getElementById('conflictDesc');
+            var cActs = document.getElementById('conflictActions');
+            if (conflictGroup) {
+                var pair = groups[conflictGroup].slice(0, 2);
+                cDesc.innerHTML = '상충 그룹 "' + conflictGroup + '":<br>A: ' + PF.esc(pair[0].text) + '<br>B: ' + PF.esc(pair[1].text);
+                cActs.style.display = '';
+                cActs.dataset.group = conflictGroup;
+            } else {
+                cDesc.textContent = '현재 상충 기억이 없습니다. (모두 해결됨)';
+                cActs.style.display = 'none';
+            }
+        }
+
+        function editMem() {
+            var sel = document.getElementById('fEditMem');
+            var text = document.getElementById('fEditText').value.trim();
+            if (!sel.value || !text) { PF.toast('기억과 새 내용을 입력하세요.'); return; }
+            var m = memories.find(function (x) { return x.id === sel.value; });
+            m.text = text; m.modified = true;
+            document.getElementById('fEditText').value = '';
+            persist(); searchMem(); renderSelects();
+            PF.toast('기억을 수정했습니다. 이후 검색에는 수정본만 나타납니다.');
+        }
+
+        function resolveConflict(choice) {
+            var group = document.getElementById('conflictActions').dataset.group;
+            var pair = memories.filter(function (m) { return m.group === group && !m.deleted; }).slice(0, 2);
+            if (choice === 'a') pair[1].deleted = true;
+            else if (choice === 'b') pair[0].deleted = true;
+            else {
+                pair[0].text = '병합 기록: ' + pair[0].text + ' / ' + pair[1].text;
+                pair[0].modified = true;
+                pair[1].deleted = true;
+            }
+            pair[0].resolved = true;
+            persist(); searchMem(); renderSelects();
+            PF.toast('상충을 해결했습니다.');
+        }
+
+        function delMem() {
+            var sel = document.getElementById('fDelMem');
+            if (!sel.value) return;
+            var m = memories.find(function (x) { return x.id === sel.value; });
+            if (!confirm('이 기억을 삭제할까요? "' + m.text.slice(0, 40) + '…"')) return;
+            m.deleted = true;
+            lastDeleteCheck = m.id;
+            persist(); searchMem(); renderSelects();
+            PF.toast('삭제했습니다. 현재 검색 결과에서 재등장 여부를 확인했습니다.');
+        }
+
+        function saveState() {
+            var live = memories.filter(function (m) { return !m.deleted; });
+            var deletedCount = memories.length - live.length;
+            PF.notebook.add({
+                type: 'experiment', title: '기억 연구실 상태 ' + PF.fmtDate(),
+                body: '남은 기억 ' + live.length + '개 / 삭제 ' + deletedCount + '개\n수정된 기억: ' + memories.filter(function (m) { return m.modified; }).map(function (m) { return '- ' + m.text; }).join('\n'),
+                tags: ['memory-lab']
+            }).then(function () { PF.toast('실험 상태를 노트북에 저장했습니다.'); });
+        }
+
+        loadState();
+        searchMem();
+        renderSelects();
+    </script>
+</body>
+</html>

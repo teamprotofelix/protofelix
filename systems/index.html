@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 시스템 설계대 — Protofelix × AstraHo</title>
+    <meta name="description" content="입력·검색·메모리·모델·규칙 검사·도구·평가·인간 승인·출력 블록을 조합해 파이프라인을 설계하고, 권한·평가 누락 경고와 가정 기반 비용을 계산해 architecture.json으로 내보냅니다.">
+    <link rel="canonical" href="https://protofelix.moip.ai.kr/systems/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Protofelix × AstraHo">
+    <meta property="og:title" content="AI 시스템 설계대 — Protofelix × AstraHo">
+    <meta property="og:description" content="원하는 능력은 어떤 시스템 구조를 요구하는가? 블록 조합과 경고.">
+    <meta property="og:url" content="https://protofelix.moip.ai.kr/systems/">
+    <meta property="og:image" content="https://protofelix.moip.ai.kr/images/expansion/i18-systems.webp">
+    <link rel="stylesheet" href="../assets/pf-expansion.css">
+</head>
+<body>
+    <a class="skip-link" href="#main">본문 바로가기</a>
+
+    <nav class="pf-nav" aria-label="전역 내비게이션">
+        <div class="pf-nav-inner">
+            <a href="../index.html" class="pf-nav-brand">Protofelix<em>×</em>AstraHo</a>
+            <div class="pf-nav-links">
+                <a href="../index.html">홈</a>
+                <a href="../explore/">탐험</a>
+                <a href="../atlas/">아틀라스</a>
+                <a href="../questions/">질문</a>
+                <a href="../forge/">공방</a>
+                <a href="../frontier/">실험실</a>
+                <a href="../evidence/">증거</a>
+                <a href="../notebook/">노트북</a>
+                <a href="#" class="here">설계대</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="pf-hero" style="background-image: url('../images/expansion/i18-systems.webp'), linear-gradient(160deg, #101033 0%, #0a0a23 70%);">
+        <div class="pf-hero-inner">
+            <div>
+                <span class="pf-badge ks-research">Research</span>
+                <span class="pf-badge mode-rule_based">RULE_BASED</span>
+                <span class="pf-badge pj-prototype">PROTOTYPE</span>
+            </div>
+            <h1>AI 시스템 설계대</h1>
+            <p class="pf-question">"원하는 능력은 어떤 시스템 구조를 요구하는가?"</p>
+            <p class="pf-hero-meta">읽기 시간 약 10분 · 내용 성격: 아키텍처 설계 도구 · 실행 모드: RULE_BASED(+가정 기반 비용) · 검토일 2026-09-20</p>
+        </div>
+    </header>
+
+    <main id="main" class="pf-wrap">
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">01</span>이곳에서 무엇을 얻는가</h2>
+            <p class="pf-lead">
+                입력·검색·메모리·모델·규칙 검사·도구·평가·인간 승인·출력의 아홉 블록을 버튼으로 조합해
+                파이프라인을 설계합니다. 블록 연결은 <strong>데이터 타입과 권한</strong>에 따라 검사되고,
+                비용은 실제 가격이 아닌 <strong>사용자 입력 기반 가정값</strong>으로 계산됩니다.
+                결과는 architecture.json과 Markdown 명세로 내보냅니다 — 실제 도구를 실행하지 않습니다.
+            </p>
+            <p class="pf-note info">워크플로(고정 파이프라인)와 에이전트(모델이 경로를 결정)의 차이는 <a href="../sources/">Building Effective Agents</a>를 기준으로 설명합니다.</p>
+        </section>
+
+        <!-- 설계대 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">02</span>블록 조합</h2>
+            <div class="pf-panel">
+                <div class="pf-grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
+                    <div class="pf-field">
+                        <label for="fPreset">프리셋 (6개)</label>
+                        <select id="fPreset" class="pf-select" onchange="loadPreset()">
+                            <option value="">— 직접 조합 —</option>
+                            <option value="reading">독서 동반자</option>
+                            <option value="qa">자료 기반 질의</option>
+                            <option value="critic">창작 비평</option>
+                            <option value="codereview">코드 검토</option>
+                            <option value="hypothesis">가설 탐색</option>
+                            <option value="journal">개인 기록</option>
+                        </select>
+                    </div>
+                    <div class="pf-field">
+                        <label for="fRequests">가정: 일일 요청 수</label>
+                        <input id="fRequests" class="pf-input" type="number" min="1" max="100000" value="100" oninput="renderPipeline()">
+                    </div>
+                </div>
+                <p style="font-size:0.8rem;color:var(--pf-faint);margin-bottom:10px;">블록 추가 (버튼으로 조작 — 드래그 없이 키보드로도 가능):</p>
+                <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;" id="blockPalette"></div>
+                <div id="pipeline" style="min-height:60px;border:1px dashed var(--pf-border);border-radius:12px;padding:12px;">
+                    <p class="pf-note">파이프라인이 비어 있습니다. 블록을 추가하거나 프리셋을 불러오세요.</p>
+                </div>
+                <div id="warnings" style="margin-top:12px;"></div>
+                <div id="costOut" style="margin-top:12px;"></div>
+                <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;">
+                    <button class="pf-btn primary" onclick="exportArch()">architecture.json 다운로드</button>
+                    <button class="pf-btn ghost" onclick="exportMd()">Markdown 명세 다운로드</button>
+                    <button class="pf-btn" onclick="saveArch()">노트북에 저장</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 결과·반론 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">03</span>결과 설명과 가장 강한 반론</h2>
+            <div class="pf-result" style="margin-bottom:16px;">
+                <h4>관찰한 것 / 추론한 것 / 아직 모르는 것</h4>
+                <p>
+                    <strong>관찰한 것:</strong> 블록 순서·권한 검사 경고·가정 비용 합계 (브라우저 계산).<br>
+                    <strong>추론한 것:</strong> 경고는 편집된 설계 상식입니다 — 실제 시스템의 위험은 구현·테스트에서 드러납니다.<br>
+                    <strong>아직 모르는 것:</strong> 비용은 내가 넣은 가정값의 산물이며 실제 가격이 아닙니다.
+                </p>
+            </div>
+            <div class="pf-counter">
+                <strong>실패 조건:</strong> 설계도가 있으니 안전하다고 믿는 것입니다. 도구 블록은 실행 전 인간 승인,
+                평가 블록은 결과의 측정 조건, 출력 블록은 외부 영향의 구분을 요구합니다 —
+                누락된 평가·권한 경고를 무시한 설계도는 JSON으로 아름답게 저장되어도 위험합니다.
+            </div>
+            <p class="pf-note" style="margin-top:14px;">다음 질문 — 쉬운: "내가 쓰는 도구는 어느 블록 조합에 가장 가까운가?" · 반대: "블록이 많을수록 좋은 시스템인가?" · 먼 분야: "건축 도면의 '검토 날인' 제도는 AI 설계 문서의 승인에 무엇을 시사하는가?"</p>
+            <p class="pf-note">관련 페이지: <a href="../atlas/">AI 기술 아틀라스(에이전트 워크플로)</a> · <a href="../alignment/">가치와 정렬의 협상실</a> · <a href="../evidence/">검증과 증거</a></p>
+        </section>
+    </main>
+
+    <footer class="pf-footer">
+        <div class="links">
+            <a href="../index.html">홈</a><a href="../explore/">탐험 지도</a><a href="../atlas/">아틀라스</a>
+            <a href="../notebook/">노트북</a>
+        </div>
+        <p>AI 시스템 설계대 · Protofelix × AstraHo © 2026 — 실제 도구를 실행하지 않으며 비용은 가정값입니다.</p>
+    </footer>
+
+    <script src="../assets/pf-common.js"></script>
+    <script>
+        /* ===== 정적 데이터 공급자: 블록 9개 ===== */
+        var BLOCKS = {
+            input:    { name: '입력', cost: 0, desc: '사용자 요청·자료가 들어오는 지점' },
+            retrieval:{ name: '검색', cost: 1, desc: '외부 문서·지식 검색 (RAG)' },
+            memory:   { name: '메모리', cost: 1, desc: '동의 후 저장·검색·삭제 가능한 기억' },
+            model:    { name: '모델', cost: 5, desc: '생성·추론을 담당하는 모델 호출' },
+            rules:    { name: '규칙 검사', cost: 1, desc: '형식·조건의 규칙 기반 검증' },
+            tools:    { name: '도구', cost: 3, desc: '외부 실행 도구 (되돌리기 어려울 수 있음)' },
+            eval:     { name: '평가', cost: 2, desc: '결과 품질·조건 측정' },
+            approval: { name: '인간 승인', cost: 1, desc: '출력·실행 전 인간 확인 지점' },
+            output:   { name: '출력', cost: 0, desc: '결과가 세상으로 나가는 지점' }
+        };
+        var PRESETS = {
+            reading: ['input', 'memory', 'model', 'approval', 'output'],
+            qa: ['input', 'retrieval', 'model', 'rules', 'eval', 'approval', 'output'],
+            critic: ['input', 'model', 'rules', 'eval', 'output'],
+            codereview: ['input', 'retrieval', 'model', 'rules', 'eval', 'approval', 'output'],
+            hypothesis: ['input', 'retrieval', 'memory', 'model', 'rules', 'eval', 'output'],
+            journal: ['input', 'memory', 'model', 'output']
+        };
+        var pipeline = [];
+
+        function renderPalette() {
+            document.getElementById('blockPalette').innerHTML = Object.keys(BLOCKS).map(function (id) {
+                var used = pipeline.filter(function (b) { return b === id; }).length;
+                return '<button class="pf-btn small" onclick="addBlock(\'' + id + '\')">+ ' + BLOCKS[id].name +
+                    (used ? ' (' + used + ')' : '') + '</button>';
+            }).join('');
+        }
+
+        function addBlock(id) {
+            if (pipeline.length >= 12) { PF.toast('블록은 최대 12개까지입니다.'); return; }
+            pipeline.push(id);
+            renderPipeline();
+        }
+        function removeBlock(i) { pipeline.splice(i, 1); renderPipeline(); }
+        function moveBlock(i, dir) {
+            var j = i + dir;
+            if (j < 0 || j >= pipeline.length) return;
+            var t = pipeline[i]; pipeline[i] = pipeline[j]; pipeline[j] = t;
+            renderPipeline();
+        }
+
+        function loadPreset() {
+            var id = document.getElementById('fPreset').value;
+            if (!id) { pipeline = []; renderPipeline(); return; }
+            pipeline = PRESETS[id].slice();
+            renderPipeline();
+            PF.toast('프리셋을 불러왔습니다: ' + id);
+        }
+
+        function validate() {
+            var warns = [];
+            if (!pipeline.length) return ['파이프라인이 비어 있습니다.'];
+            if (pipeline[0] !== 'input') warns.push('입력 블록이 첫 번째가 아닙니다 — 요청이 어디서 들어오는지 명시하세요.');
+            if (pipeline[pipeline.length - 1] !== 'output') warns.push('출력 블록이 마지막이 아닙니다 — 결과가 어디로 나가는지 명시하세요.');
+            if (pipeline.indexOf('tools') >= 0 && pipeline.indexOf('approval') < 0) warns.push('도구 블록이 있지만 인간 승인이 없습니다 — 실행 전 승인 지점이 필요합니다.');
+            if (pipeline.indexOf('tools') >= 0 && pipeline.indexOf('approval') >= 0 && pipeline.indexOf('tools') > pipeline.indexOf('approval')) warns.push('도구가 인간 승인보다 뒤에 있습니다 — 승인은 실행 전이어야 합니다.');
+            if (pipeline.indexOf('eval') < 0) warns.push('평가 블록이 없습니다 — 결과를 어떻게 측정할지 명시하세요.');
+            if (pipeline.indexOf('rules') < 0) warns.push('규칙 검사 블록이 없습니다 — 형식·조건 검증 없이 출력됩니다.');
+            if (pipeline.indexOf('model') >= 0 && pipeline.indexOf('input') > pipeline.indexOf('model')) warns.push('모델이 입력보다 앞에 있습니다.');
+            return warns;
+        }
+
+        function cost() {
+            var req = Math.max(1, parseInt(document.getElementById('fRequests').value, 10) || 1);
+            var sum = pipeline.reduce(function (acc, id) { return acc + BLOCKS[id].cost; }, 0);
+            return { unit: sum, total: sum * req, req: req };
+        }
+
+        function renderPipeline() {
+            var box = document.getElementById('pipeline');
+            if (!pipeline.length) {
+                box.innerHTML = '<p class="pf-note">파이프라인이 비어 있습니다. 블록을 추가하거나 프리셋을 불러오세요.</p>';
+            } else {
+                box.innerHTML = '<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">' +
+                    pipeline.map(function (id, i) {
+                        var b = BLOCKS[id];
+                        return '<span class="pf-card" style="padding:10px 12px;margin:0;">' +
+                            '<strong>' + b.name + '</strong><br>' +
+                            '<span style="font-size:0.72rem;color:var(--pf-faint);">단위 ' + b.cost + '</span><br>' +
+                            '<button class="pf-btn small ghost" onclick="moveBlock(' + i + ',-1)" ' + (i === 0 ? 'disabled' : '') + '>◀</button> ' +
+                            '<button class="pf-btn small ghost" onclick="moveBlock(' + i + ',1)" ' + (i === pipeline.length - 1 ? 'disabled' : '') + '>▶</button> ' +
+                            '<button class="pf-btn small danger" onclick="removeBlock(' + i + ')">✕</button>' +
+                            '</span>' + (i < pipeline.length - 1 ? '<span style="color:var(--pf-cyan);">→</span>' : '');
+                    }).join('') + '</div>';
+            }
+            var warns = validate();
+            document.getElementById('warnings').innerHTML = warns.length
+                ? '<div class="pf-counter" style="margin-bottom:10px;"><strong>누락·권한 경고:</strong><br>' + warns.map(PF.esc).join('<br>') + '</div>'
+                : '<p class="pf-note info">검사 통과 — 필수 경고 없음. (검사는 편집된 규칙입니다)</p>';
+            var c = cost();
+            document.getElementById('costOut').innerHTML = '<div class="pf-result"><h4>가정 기반 비용 (브라우저 계산)</h4><p>' +
+                '블록 단위 합: ' + c.unit + ' · 일일 요청 ' + c.req + '회 가정 → <strong>일일 합계 ' + c.total + '</strong><br>' +
+                '※ 단위 비용은 편집된 가정값이며 실제 가격이 아닙니다. 요청 수를 바꾸면 합계가 다시 계산됩니다.</p></div>';
+            renderPalette();
+        }
+
+        function archData() {
+            var c = cost();
+            return {
+                schema: 'pf-system-architecture', schemaVersion: 1,
+                pipeline: pipeline.map(function (id, i) { return { order: i + 1, block: id, name: BLOCKS[id].name, assumedUnitCost: BLOCKS[id].cost, note: BLOCKS[id].desc }; }),
+                assumptions: { dailyRequests: c.req, unitCostIsAssumed: true },
+                estimatedDailyTotal: c.total,
+                warnings: validate(),
+                limitations: ['실제 도구를 실행하지 않았습니다.', '비용은 편집된 가정값입니다.', '경고 규칙은 편집된 설계 상식입니다.'],
+                createdAt: new Date().toISOString()
+            };
+        }
+
+        function exportArch() {
+            if (!pipeline.length) { PF.toast('먼저 블록을 조합해 주세요.'); return; }
+            PF.download('architecture.json', JSON.stringify(archData(), null, 2), 'application/json;charset=utf-8');
+            PF.toast('architecture.json을 다운로드했습니다.');
+        }
+        function exportMd() {
+            if (!pipeline.length) { PF.toast('먼저 블록을 조합해 주세요.'); return; }
+            var d = archData();
+            var md = '# AI 시스템 설계 명세\n\n' + d.pipeline.map(function (p) { return p.order + '. ' + p.name + ' — ' + p.note; }).join('\n') +
+                '\n\n## 가정\n- 일일 요청: ' + d.assumptions.dailyRequests + '\n- 단위 비용은 가정값\n\n## 경고\n' +
+                (d.warnings.length ? d.warnings.map(function (w) { return '- ' + w; }).join('\n') : '- 없음') +
+                '\n\n> 실제 도구를 실행하지 않았습니다.';
+            PF.download('pf-architecture.md', md, 'text/markdown;charset=utf-8');
+            PF.toast('Markdown 명세를 다운로드했습니다.');
+        }
+        function saveArch() {
+            if (!pipeline.length) { PF.toast('먼저 블록을 조합해 주세요.'); return; }
+            PF.notebook.add({ type: 'brief', title: '시스템 설계 ' + PF.fmtDate(), body: JSON.stringify(archData(), null, 2), tags: ['systems'] })
+                .then(function () { PF.toast('설계 명세를 노트북에 저장했습니다.'); });
+        }
+
+        renderPipeline();
+    </script>
+</body>
+</html>

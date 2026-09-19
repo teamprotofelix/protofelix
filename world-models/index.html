@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>세계모델 시뮬레이터 — Protofelix × AstraHo</title>
+    <meta name="description" content="10×10 격자 세계에서 전체 지도를 아는 계획(A*)과 부분 관측 계획을 비교하고, 환경 규칙이 바뀐 뒤 예상 경로와 실제 경로의 차이를 시각화합니다. 단순 게임을 학습형 세계모델 구현이라고 부르지 않습니다.">
+    <link rel="canonical" href="https://protofelix.moip.ai.kr/world-models/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Protofelix × AstraHo">
+    <meta property="og:title" content="세계모델 시뮬레이터 — Protofelix × AstraHo">
+    <meta property="og:description" content="행동하기 전에 상상한 세계가 틀렸다면? 격자 세계 계획 비교.">
+    <meta property="og:url" content="https://protofelix.moip.ai.kr/world-models/">
+    <meta property="og:image" content="https://protofelix.moip.ai.kr/images/expansion/i13-world-models.webp">
+    <link rel="stylesheet" href="../assets/pf-expansion.css">
+</head>
+<body>
+    <a class="skip-link" href="#main">본문 바로가기</a>
+
+    <nav class="pf-nav" aria-label="전역 내비게이션">
+        <div class="pf-nav-inner">
+            <a href="../index.html" class="pf-nav-brand">Protofelix<em>×</em>AstraHo</a>
+            <div class="pf-nav-links">
+                <a href="../index.html">홈</a>
+                <a href="../explore/">탐험</a>
+                <a href="../atlas/">아틀라스</a>
+                <a href="../questions/">질문</a>
+                <a href="../forge/">공방</a>
+                <a href="../frontier/">실험실</a>
+                <a href="../evidence/">증거</a>
+                <a href="../notebook/">노트북</a>
+                <a href="#" class="here">세계모델</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="pf-hero" style="background-image: url('../images/expansion/i13-world-models.webp'), linear-gradient(160deg, #101033 0%, #0a0a23 70%);">
+        <div class="pf-hero-inner">
+            <div>
+                <span class="pf-badge ks-research">Research</span>
+                <span class="pf-badge mode-rule_based">RULE_BASED</span>
+                <span class="pf-badge pj-prototype">PROTOTYPE</span>
+            </div>
+            <h1>세계모델 시뮬레이터</h1>
+            <p class="pf-question">"행동하기 전에 상상한 세계가 틀렸다면?"</p>
+            <p class="pf-hero-meta">읽기 시간 약 10분 · 내용 성격: 격자 세계 계획 비교 · 실행 모드: RULE_BASED(브라우저 계산, A*) · 검토일 2026-09-20</p>
+        </div>
+    </header>
+
+    <main id="main" class="pf-wrap">
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">01</span>이곳에서 무엇을 얻는가</h2>
+            <p class="pf-lead">
+                10×10 격자 세계에서 <strong>전체 지도를 아는 계획(A* 알고리즘)</strong>과 <strong>부분 관측 계획</strong>을 비교하고,
+                환경 규칙이 바뀐 뒤 <strong>예상 경로와 실제 경로의 차이</strong>를 시각화합니다.
+                이 시뮬레이터는 전통 알고리즘을 정확히 명명하며, 단순 게임을 최신 학습형 세계모델 구현이라고 부르지 않습니다.
+            </p>
+            <p class="pf-note info">A*(전통 경로 탐색 알고리즘)를 사용합니다. 학습형 환경 표현을 살펴볼 출발점은 <a href="../sources/">World Models 원논문</a>입니다.</p>
+        </section>
+
+        <!-- 시뮬레이션 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">02</span>시뮬레이션</h2>
+            <div class="pf-panel">
+                <div class="pf-grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
+                    <div class="pf-field">
+                        <label for="fScenario">시나리오</label>
+                        <select id="fScenario" class="pf-select">
+                            <option value="full">① 전체 지도 계획 (지도를 모두 알고 계획)</option>
+                            <option value="partial">② 부분 관측 (주변 칸만 알며 이동)</option>
+                            <option value="changed">③ 환경 규칙 변경 (A로 계획 → B에서 실행)</option>
+                        </select>
+                    </div>
+                    <div class="pf-field">
+                        <label for="fMap">실행 지도 (③번은 항상 B)</label>
+                        <select id="fMap" class="pf-select">
+                            <option value="A">지도 A — 안정된 환경</option>
+                            <option value="B">지도 B — 변경된 환경</option>
+                        </select>
+                    </div>
+                </div>
+                <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                    <button class="pf-btn primary" onclick="runSim()">시뮬레이션 실행</button>
+                    <button class="pf-btn ghost" onclick="renderGrid()">리셋</button>
+                </div>
+                <p class="pf-note info" id="simOut">시나리오를 고르고 실행하세요. 최대 스텝 상한 300 — 무제한 실행은 없습니다.</p>
+                <div id="gridView" style="overflow-x:auto;margin-top:12px;"></div>
+                <p class="pf-note">범례: <span style="color:var(--pf-cyan);">S</span> 시작 · <span style="color:var(--pf-gold-light);">G</span> 목표 · <span style="color:var(--pf-amber);">◌</span> 계획 경로 · <span style="color:var(--pf-green);">·</span> 실제 이동 · <span style="color:var(--pf-red);">■</span> 벽(발견됨) · <span style="color:var(--pf-faint);">?</span> 미탐사</p>
+            </div>
+        </section>
+
+        <!-- 결과·반론 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">03</span>결과 설명과 가장 강한 반론</h2>
+            <div class="pf-result" style="margin-bottom:16px;">
+                <h4>관찰한 것 / 추론한 것 / 아직 모르는 것</h4>
+                <p>
+                    <strong>관찰한 것:</strong> 계획 경로·실제 경로·재계획 횟수·실패 지점 (브라우저 계산).<br>
+                    <strong>추론한 것:</strong> "세계를 아는 계획"과 "모르면서 움직이는 계획"의 비용 차이가 어디서 생기는지.<br>
+                    <strong>아직 모르는 것:</strong> 이 격자는 학습된 세계모델이 아니며, 학습형 모델의 실제 예측 품질은 별도의 실험이 필요합니다.
+                </p>
+            </div>
+            <div class="pf-counter">
+                <strong>실패 조건:</strong> 규칙이 바뀐 환경에서 "계획대로 될 것"이라는 기대가 실패를 키웁니다.
+                이 시뮬레이터가 보여주는 것도 그것입니다 — 모델과 세계의 어긋남은 계획의 비용으로 나타나며,
+                재계획·관측이 그 비용을 줄이는지가 실제 연구 질문입니다.
+            </div>
+            <div style="margin-top:14px;"><button class="pf-btn" onclick="saveSim()">시뮬레이션 결과를 노트북에 저장</button></div>
+            <p class="pf-note" style="margin-top:14px;">다음 질문 — 쉬운: "내가 이번 주 세운 계획 중 '지도를 다 안다고 가정한' 것은?" · 반대: "불확실한 지도를 더 자세히 탐사하면 오히려 늦어지지 않는가?" · 먼 분야: "항해사의 '죽은 계산(dead reckoning)'은 부분 관측 계획과 무엇이 같은가?"</p>
+            <p class="pf-note">관련 페이지: <a href="../atlas/">AI 기술 아틀라스(세계모델 카드)</a> · <a href="../sources/">원전 도서관(World Models)</a> · <a href="../reasoning-lab/">추론과 반례 연구실</a></p>
+        </section>
+    </main>
+
+    <footer class="pf-footer">
+        <div class="links">
+            <a href="../index.html">홈</a><a href="../explore/">탐험 지도</a><a href="../atlas/">아틀라스</a>
+            <a href="../notebook/">노트북</a>
+        </div>
+        <p>세계모델 시뮬레이터 · Protofelix × AstraHo © 2026 — A* 기반 격자 교육용 모형이며 학습형 세계모델이 아닙니다.</p>
+    </footer>
+
+    <script src="../assets/pf-common.js"></script>
+    <script>
+        var SIZE = 10;
+        var START = [0, 0], GOAL = [9, 9];
+        /* 지도 A: r3에 c0..c7 벽(통로 c8,c9), r6에 c1..c9 벽(통로 c0) */
+        /* 지도 B(변경): r3 벽이 c0..c8로 확장(통로 c9만), r6은 동일 */
+        function buildMap(kind) {
+            var g = [];
+            for (var r = 0; r < SIZE; r++) { g.push(new Array(SIZE).fill(0)); }
+            function wallRow(rr, cs) { cs.forEach(function (c) { g[rr][c] = 1; }); }
+            var row3 = [];
+            for (var c = 0; c <= (kind === 'A' ? 7 : 8); c++) row3.push(c);
+            wallRow(3, row3);
+            var row6 = [];
+            for (var c2 = 1; c2 <= 9; c2++) row6.push(c2);
+            wallRow(6, row6);
+            g[START[0]][START[1]] = 0; g[GOAL[0]][GOAL[1]] = 0;
+            return g;
+        }
+        var MAP_A = buildMap('A'), MAP_B = buildMap('B');
+
+        /* A* (0=열림, 1=벽, -1=미지 → 열림으로 취급) */
+        function aStar(grid, start, goal) {
+            var open = [{ p: start, g: 0, f: h(start, goal) }];
+            var came = {}, cost = {};
+            var key = function (p) { return p[0] + ',' + p[1]; };
+            cost[key(start)] = 0;
+            var seen = {};
+            while (open.length) {
+                open.sort(function (a, b) { return a.f - b.f; });
+                var cur = open.shift();
+                var ck = key(cur.p);
+                if (seen[ck]) continue;
+                seen[ck] = true;
+                if (cur.p[0] === goal[0] && cur.p[1] === goal[1]) {
+                    var path = [], p = goal;
+                    while (!(p[0] === start[0] && p[1] === start[1])) {
+                        path.unshift(p);
+                        p = came[key(p)];
+                    }
+                    path.unshift(start);
+                    return path;
+                }
+                neighbors(cur.p).forEach(function (n) {
+                    if (n[0] < 0 || n[0] >= SIZE || n[1] < 0 || n[1] >= SIZE) return;
+                    if (grid[n[0]][n[1]] === 1) return;
+                    var nk = key(n);
+                    var ng = cost[ck] + 1;
+                    if (cost[nk] === undefined || ng < cost[nk]) {
+                        cost[nk] = ng;
+                        came[nk] = cur.p;
+                        open.push({ p: n, g: ng, f: ng + h(n, goal) });
+                    }
+                });
+            }
+            return null;
+        }
+        function h(a, b) { return Math.abs(a[0] - b[0]) + Math.abs(a[1] - b[1]); }
+        function neighbors(p) { return [[p[0]-1,p[1]],[p[0]+1,p[1]],[p[0],p[1]-1],[p[0],p[1]+1]]; }
+        function key(p) { return p[0] + ',' + p[1]; }
+
+        var lastRun = null;
+
+        function runSim() {
+            var scenario = document.getElementById('fScenario').value;
+            var mapKind = scenario === 'changed' ? 'B' : document.getElementById('fMap').value;
+            var real = mapKind === 'A' ? MAP_A : MAP_B;
+            var planMap = scenario === 'changed' ? MAP_A : real;
+            var out = document.getElementById('simOut');
+
+            var knowledge;
+            if (scenario === 'full') {
+                knowledge = planMap.map(function (row) { return row.slice(); });
+            } else {
+                knowledge = planMap.map(function (row) { return row.map(function () { return -1; }); });
+                reveal(knowledge, START, real);
+            }
+
+            var planned = aStar(knowledge, START, GOAL);
+            var planCost = planned ? planned.length - 1 : null;
+
+            /* 실행 (부분 관측 실행기 — 미지 칸은 열림으로 가정, 막히면 발견·재계획) */
+            var pos = START.slice(), path = [START.slice()];
+            var replans = 0, failPoint = null, MAX = 300, steps = 0;
+            var currentPlan = aStar(knowledge, pos, GOAL);
+            while (!(pos[0] === GOAL[0] && pos[1] === GOAL[1]) && steps < MAX) {
+                steps++;
+                if (!currentPlan || currentPlan.length < 2) { failPoint = pos.slice(); break; }
+                var next = currentPlan[1];
+                if (real[next[0]][next[1]] === 1) {
+                    knowledge[next[0]][next[1]] = 1; /* 벽 발견 */
+                    replans++;
+                    currentPlan = aStar(knowledge, pos, GOAL);
+                    if (!currentPlan) { failPoint = pos.slice(); break; }
+                    continue;
+                }
+                pos = next.slice();
+                path.push(pos.slice());
+                reveal(knowledge, pos, real);
+                currentPlan = aStar(knowledge, pos, GOAL);
+            }
+            var reached = pos[0] === GOAL[0] && pos[1] === GOAL[1];
+            var actualCost = path.length - 1;
+
+            lastRun = { scenario: scenario, planCost: planCost, actualCost: actualCost, steps: steps, replans: replans, failPoint: failPoint, reached: reached };
+            out.innerHTML =
+                '<strong>결과 (브라우저 계산):</strong> ' +
+                '계획 비용 ' + (planCost === null ? '계획 불가(미지 포함)' : planCost) + ' / 실제 비용 ' + actualCost +
+                ' / 재계획 ' + replans + '회' + (failPoint ? ' / <span style="color:var(--pf-red);">실패 지점: (' + (failPoint[0] + 1) + ',' + (failPoint[1] + 1) + ')</span>' : '') +
+                (reached ? ' / 목표 도달 ✓' : ' / 목표 미도달 ✗') +
+                (steps >= MAX ? ' / 스텝 상한(300) 도달' : '');
+            if (scenario === 'changed') {
+                out.innerHTML += '<br><span style="color:var(--pf-amber);">환경 규칙 변경 시나리오: 지도 A로 세운 계획이 지도 B에서 어긋나는 지점을 ◌(계획) vs ·(실제)로 확인하세요.</span>';
+            }
+            renderGrid(knowledge, planned, path, failPoint, scenario);
+        }
+
+        function reveal(k, pos, real) {
+            neighbors(pos).forEach(function (n) {
+                if (n[0] >= 0 && n[0] < SIZE && n[1] >= 0 && n[1] < SIZE) k[n[0]][n[1]] = real[n[0]][n[1]];
+            });
+            k[pos[0]][pos[1]] = 0;
+        }
+
+        function renderGrid(knowledge, planned, actual, failPoint, scenario) {
+            var planSet = {}, actSet = {};
+            (planned || []).forEach(function (p) { planSet[key(p)] = true; });
+            actual.forEach(function (p) { actSet[key(p)] = true; });
+            var failKey = failPoint ? key(failPoint) : null;
+            var html = '<table style="border-collapse:collapse;margin:0 auto;">';
+            for (var r = 0; r < SIZE; r++) {
+                html += '<tr>';
+                for (var c = 0; c < SIZE; c++) {
+                    var k = key([r, c]);
+                    var ch = '·', color = 'var(--pf-faint)', bg = 'transparent';
+                    if (r === START[0] && c === START[1]) { ch = 'S'; color = 'var(--pf-cyan)'; }
+                    else if (r === GOAL[0] && c === GOAL[1]) { ch = 'G'; color = 'var(--pf-gold-light)'; }
+                    else if (knowledge && knowledge[r][c] === 1) { ch = '■'; color = 'var(--pf-red)'; }
+                    else if (failKey && k === failKey) { ch = '✗'; color = 'var(--pf-red)'; }
+                    else if (planSet[k]) { ch = '◌'; color = 'var(--pf-amber)'; }
+                    else if (actSet[k]) { ch = '·'; color = 'var(--pf-green)'; }
+                    else if (knowledge && knowledge[r][c] === -1) { ch = '?'; color = 'var(--pf-faint)'; }
+                    else { ch = '·'; color = 'rgba(255,255,255,0.12)'; }
+                    html += '<td style="width:30px;height:30px;text-align:center;font-size:0.85rem;color:' + color + ';border:1px solid rgba(255,255,255,0.05);">' + ch + '</td>';
+                }
+                html += '</tr>';
+            }
+            html += '</table>';
+            document.getElementById('gridView').innerHTML = html;
+        }
+
+        function saveSim() {
+            if (!lastRun) { PF.toast('먼저 시뮬레이션을 실행해 주세요.'); return; }
+            PF.notebook.add({
+                type: 'experiment', title: '세계모델 시뮬레이션 ' + PF.fmtDate(),
+                body: JSON.stringify(lastRun, null, 2) + '\n\n(A* 기반 격자 교육용 모형 — 학습형 세계모델이 아닙니다.)',
+                tags: ['world-models']
+            }).then(function () { PF.toast('시뮬레이션 결과를 노트북에 저장했습니다.'); });
+        }
+
+        document.getElementById('fScenario').addEventListener('change', function () {
+            var isChanged = this.value === 'changed';
+            document.getElementById('fMap').disabled = isChanged;
+            if (isChanged) document.getElementById('fMap').value = 'B';
+        });
+        renderGrid();
+    </script>
+</body>
+</html>

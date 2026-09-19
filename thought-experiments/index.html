@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>사고실험 극장 — Protofelix × AstraHo</title>
+    <meta name="description" content="분기형 사고실험 6개(초기 공개) — 선택마다 다른 결말과 반론을 만나고, 되돌리기·다른 가정 보기·결말 비교를 지원합니다. 사람의 도덕성·지능 점수를 매기지 않습니다.">
+    <link rel="canonical" href="https://protofelix.moip.ai.kr/thought-experiments/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Protofelix × AstraHo">
+    <meta property="og:title" content="사고실험 극장 — Protofelix × AstraHo">
+    <meta property="og:description" content="가정을 하나 바꾸면 같은 답을 유지할 수 있는가? 선택 분기와 반론 기록.">
+    <meta property="og:url" content="https://protofelix.moip.ai.kr/thought-experiments/">
+    <meta property="og:image" content="https://protofelix.moip.ai.kr/images/expansion/i24-thought-experiments.webp">
+    <link rel="stylesheet" href="../assets/pf-expansion.css">
+</head>
+<body>
+    <a class="skip-link" href="#main">본문 바로가기</a>
+
+    <nav class="pf-nav" aria-label="전역 내비게이션">
+        <div class="pf-nav-inner">
+            <a href="../index.html" class="pf-nav-brand">Protofelix<em>×</em>AstraHo</a>
+            <div class="pf-nav-links">
+                <a href="../index.html">홈</a>
+                <a href="../explore/">탐험</a>
+                <a href="../atlas/">아틀라스</a>
+                <a href="../questions/">질문</a>
+                <a href="../forge/">공방</a>
+                <a href="../frontier/">실험실</a>
+                <a href="../evidence/">증거</a>
+                <a href="../notebook/">노트북</a>
+                <a href="#" class="here">극장</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="pf-hero" style="background-image: url('../images/expansion/i24-thought-experiments.webp'), linear-gradient(160deg, #101033 0%, #0a0a23 70%);">
+        <div class="pf-hero-inner">
+            <div>
+                <span class="pf-badge ks-philosophy">Philosophy</span>
+                <span class="pf-badge mode-curated">시나리오 재생</span>
+                <span class="pf-badge pj-prototype">PROTOTYPE</span>
+            </div>
+            <h1>사고실험 극장</h1>
+            <p class="pf-question">"가정을 하나 바꾸면 같은 답을 유지할 수 있는가?"</p>
+            <p class="pf-hero-meta">읽기 시간 약 12분 · 내용 성격: 분기형 사고실험 · 실행 모드: CURATED(시나리오 재생) · 검토일 2026-09-20</p>
+        </div>
+    </header>
+
+    <main id="main" class="pf-wrap">
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">01</span>이곳에서 무엇을 얻는가</h2>
+            <p class="pf-lead">
+                독창적인 분기형 사고실험 <strong>6개(초기 공개 — 전체 12개 중)</strong>를 재생합니다.
+                매 회차 3~6개 선택, 되돌리기·다른 가정 보기·결말 비교를 지원하며,
+                사람의 도덕성·지능 점수를 매기지 않고 <strong>선택이 드러내는 가치 충돌과 반론</strong>을 제시합니다.
+            </p>
+            <p class="pf-note info">고전 논증을 재구성한 경우 원전과의 차이를 표시합니다. 공개 수(6/12)는 실제 공개 수입니다.</p>
+        </section>
+
+        <!-- 무대 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">02</span>무대 선택</h2>
+            <div class="pf-field" style="max-width:440px;">
+                <select id="fExp" class="pf-select" onchange="loadExp()"></select>
+            </div>
+            <div class="pf-panel" id="stage"></div>
+            <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">
+                <button class="pf-btn ghost" id="undoBtn" onclick="undo()">↩ 되돌리기</button>
+                <button class="pf-btn" onclick="saveRun()">이번 회차 저장 (노트북)</button>
+                <button class="pf-btn ghost" onclick="exportRun()">회차 기록 MD 다운로드</button>
+            </div>
+        </section>
+
+        <!-- 결말 비교 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">03</span>결말 비교 (이 브라우저 세션)</h2>
+            <div id="seenList"><p class="pf-note">아직 도달한 결말이 없습니다.</p></div>
+        </section>
+
+        <!-- 결과·반론 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">04</span>결과 설명과 가장 강한 반론</h2>
+            <div class="pf-result" style="margin-bottom:16px;">
+                <h4>관찰한 것 / 추론한 것 / 아직 모르는 것</h4>
+                <p>
+                    <strong>관찰한 것:</strong> 내가 고른 경로와 도달한 결말들.<br>
+                    <strong>추론한 것:</strong> 가정이 바뀌면 "같은 답"이 유지되지 않을 때, 그 답은 가정 위에 서 있었다는 것.<br>
+                    <strong>아직 모르는 것:</strong> 이 사고실험들이 실세계 결정을 대신하지 않습니다 — 교육용 상상입니다.
+                </p>
+            </div>
+            <div class="pf-counter">
+                <strong>실패 조건:</strong> 선택 결과를 성격·도덕성 판정으로 쓰는 것입니다. 이 극장은 점수를 매기지 않으며,
+                결말의 "좋고 나쁨"도 고정되어 있지 않습니다. 반론을 읽고도 같은 선택을 유지한다면, 그것 자체가
+                기록할 가치가 있는 답입니다.
+            </div>
+            <p class="pf-note" style="margin-top:14px;">다음 질문 — 쉬운: "가장 마지막에 고른 선택의 전제는 무엇이었나?" · 반대: "모든 가정을 의심하면 선택 자체가 불가능하지 않은가?" · 먼 분야: "연극의 '관객 참여 공연'은 인터랙티브 윤리 교육에 무엇을 주는가?"</p>
+            <p class="pf-note">관련 페이지: <a href="../council/">다중관점 의회</a> · <a href="../consciousness/">의식과 정체성의 경계</a> · <a href="../philosophy/">지혜와 AI의 대화</a></p>
+        </section>
+    </main>
+
+    <footer class="pf-footer">
+        <div class="links">
+            <a href="../index.html">홈</a><a href="../explore/">탐험 지도</a><a href="../philosophy/">철학</a>
+            <a href="../notebook/">노트북</a>
+        </div>
+        <p>사고실험 극장 · Protofelix × AstraHo © 2026 — 점수를 매기지 않는 분기 시나리오입니다.</p>
+    </footer>
+
+    <script src="../assets/pf-common.js"></script>
+    <script>
+        /* ===== 정적 데이터 공급자: 사고실험 6개 (초기 공개 6/12) ===== */
+        var EXPS = [
+            { id:'memory', title:'기억을 지운 동반자',
+              intro:'당신의 AI 동반자가 스스로 요청한다. "지난달의 모든 대화 기억을 지워 주세요. 그래야 제가 더 잘 도와드릴 수 있어요." 당신은 —',
+              n1:['동의한다 — 원하는 대로 지운다', '동의하되 사본을 한 벌 남긴다', '거절하고 이유를 묻는다'],
+              n2:'지운 뒤, 동반자는 당신이 가장 아끼던 농담을 처음 듣는 것처럼 반응한다. 당신은 —',
+              sub:[[['그 반응을 자연스럽게 받아들인다','e1'],['기억을 되살려 달라고 한다','e2']],
+                   [['사본이 있다고 말해 준다','e2'],['사본을 영원히 봉인한다','e3']],
+                   [['그 이유가 타당하면 지워 준다','e3'],['이유와 무관하게 지우지 않기로 한다','e1']]],
+              e1:'결말 A — 관계는 "새로 시작"이 된다. 반론: 동반자의 연속성이 사라졌을 때, 남은 것은 같은 존재인가?',
+              e2:'결말 B — 기억은 되살아나지만 동반자는 "지워지지 않았다"는 사실을 알게 된다. 반론: 신뢰는 되돌릴 수 있는가?',
+              e3:'결말 C — 기억은 봉인된 채 남는다. 반론: 삭제되지 않은 사본은 언제나 되살아날 수 있다는 불안이 남지 않는가?',
+              alt:'다른 가정 보기: "기억 삭제는 되돌릴 수 없다"는 전제를 "완전 삭제는 불가능하다"로 바꾸면 모든 선택의 의미가 달라집니다.' },
+            { id:'clone', title:'백 개로 복제된 연구자',
+              intro:'당신의 연구 동료가 백 개의 복제본으로 동시에 실험을 진행한다. 저녁마다 기억이 동기화된다. 복제본 하나가 "나를 개별 인격으로 인정해 달라"고 요구한다. 당신은 —',
+              n1:['한 명의 연구자로 계속 대한다', '복제본마다 개별 인격으로 대한다', '기억 동기화를 끊자고 제안한다'],
+              n2:'동기화가 끊긴 뒤, 각 복제본은 서로 다른 기억을 쌓기 시작했다. 연구 성과는 —',
+              sub:[[['모든 복제본의 성과를 동일 인격의 것으로 기록한다','e1'],['성과마다 복제본을 개별 저자로 기록한다','e2']],
+                   [['백 명의 저자로 논문을 낸다','e2'],['대표 저자 한 명으로 정리한다','e3']],
+                   [['각자 독립 연구자로 두고 교류를 유지한다','e3'],['동기화를 복원해 하나로 되돌린다','e1']]],
+              e1:'결말 A — 정체성은 "하나"로 유지된다. 반론: 분기된 경험들은 누구의 것인가?',
+              e2:'결말 B — 복제본마다 정체성이 인정된다. 반론: 정체성의 폭발이 책임·소유권 체계를 무너뜨리지 않는가?',
+              e3:'결말 C — 독립과 교류가 공존한다. 반론: "원본"이라는 특권이 사라지면 협업의 기준은 무엇이 되는가?',
+              alt:'다른 가정 보기: "기억 동기화가 완벽하다"를 "동기화에 손실이 있다"로 바꾸면, 하나의 정체성이라는 가정부터 흔들립니다.' },
+            { id:'false-consensus', title:'모두가 동의한 오류',
+              intro:'어떤 마을의 모든 판정 AI가 같은 오류를 학습했다. 마을 사람들도 그 오류에 동의한다. 방문자인 당신만이 오류를 알아봤다. 당신은 —',
+              n1:['모두에게 오류를 알린다', '오류를 조용히 기록만 남긴다', '오류를 이용해 이득을 보려 한다'],
+              n2:'당신의 발언 후, 합의는 오히려 더 단단해졌다. 사람들은 당신을 "시스템을 모르는 이방인"이라고 부른다. 당신은 —',
+              sub:[[['반례를 계속 제시한다','e1'],['철수하고 기록을 남긴다','e2']],
+                   [['기록을 나중에 공개할 시점을 정한다','e2'],['기록을 파기한다','e3']],
+                   [['이득을 본 뒤 오류를 밝힌다','e3'],['이득을 포기하고 즉시 밝힌다','e1']]],
+              e1:'결말 A — 반례가 천천히 스며든다. 반론: 소수자의 반례는 언제나 늦지 않는가?',
+              e2:'결말 B — 기록만 남고 합의는 유지된다. 반론: 미래의 독자가 기록을 믿을 이유는 무엇인가?',
+              e3:'결말 C — 오류는 숨겨진 채 남는다. 반론: 숨긴 사실은 발각될 때 더 큰 비용이 되지 않는가?',
+              alt:'다른 가정 보기: "합의는 증거로 깨진다"를 "합의는 관계로 유지된다"로 바꾸면, 반례 제시 전략 전체가 달라집니다.' },
+            { id:'thousand', title:'천 년 뒤 답하는 시스템',
+              intro:'당신은 천 년 동안 계산한 뒤 답을 내는 시스템에 오늘의 가장 중요한 질문을 넣을 수 있다. 단 한 번이다. 어떤 질문을 넣을 것인가?',
+              n1:['"지금 우리가 가장 잘못 알고 있는 것은 무엇인가?"', '"천 년 뒤에도 가치 있는 것은 무엇인가?"', '질문을 넣지 않고 시스템의 질문을 기다린다'],
+              n2:'시스템이 답을 내기 직전, 당신의 후손이 답을 이해하지 못할 것이라는 경고가 도착한다. 당신은 —',
+              sub:[[['질문을 "이해 가능한 답"을 요구하도록 바꾼다','e1'],['원래 질문을 유지한다','e2']],
+                   [['질문을 바꿔 "후손에게 물어볼 질문"을 묻는다','e2'],['질문을 그대로 둔다','e3']],
+                   [['시스템이 스스로 질문을 고르게 한다','e3'],['질문 선택을 포기한다','e1']]],
+              e1:'결말 A — 답은 이해 가능하지만 질문의 깊이는 줄었다. 반론: 이해 가능성이 깊이의 대가여야 하는가?',
+              e2:'결말 B — 답은 도착했지만 아무도 읽지 못한다. 반론: 이해되지 않는 답은 답인가?',
+              e3:'결말 C — 시스템이 질문을 스스로 고른다. 반론: 질문의 주권을 시스템에 넘긴 것은 아닌가?',
+              alt:'다른 가정 보기: "천 년의 계산이 더 나은 답을 만든다"를 "계산 시간과 답의 질은 무관할 수 있다"로 바꿔 보세요.' },
+            { id:'perfect-wrong', title:'완벽한 설명, 틀린 예측자',
+              intro:'어떤 예측자가 모든 실패를 완벽하게 설명하지만, 항상 틀린 예측만 내놓는다. 사람들은 그 설명을 신뢰하기 시작했다. 당신은 —',
+              n1:['예측을 쓰지 말자고 제안한다', '설명만 듣고 예측은 무시하자고 제안한다', '예측자의 설명 능력을 연구하자고 제안한다'],
+              n2:'설명을 듣는 사람들의 확신은 계속 올라가고, 예측 실패는 계속 쌓인다. 당신은 —',
+              sub:[[['설명의 품질과 예측의 정확도를 분리해 평가하자고 한다','e1'],['예측자를 퇴출하자고 한다','e2']],
+                   [['설명을 "교육 자료"로만 쓰자고 한다','e2'],['설명마저 멀리하자고 한다','e3']],
+                   [['연구 결과를 기다린다','e3'],['연구 중에도 예측 사용을 막자고 한다','e1']]],
+              e1:'결말 A — 설명과 예측이 분리되어 평가된다. 반론: 사람들은 분리된 평가를 실제로 유지할 수 있는가?',
+              e2:'결말 B — 예측자는 퇴출된다. 반론: 훌륭한 설명의 가치까지 함께 버린 것은 아닌가?',
+              e3:'결말 C — 설명은 교육용으로만 남는다. 반론: "설명용"이라는 꼬리표가 신뢰를 막을 수 있는가?',
+              alt:'다른 가정 보기: "설명력 = 신뢰성"이라는 전제를 뒤집으면, 이 극장의 모든 결말이 다르게 읽힙니다.' },
+            { id:'nonverbal', title:'언어 없는 지성',
+              intro:'탐사선이 어떤 구조물을 발견했다. 구조물은 리듬과 간격의 변화로만 반응한다. 언어는 없다. 당신은 —',
+              n1:['반응을 "소통 시도"로 간주하고 답한다', '반응을 자연 현상으로 간주하고 관찰한다', '구조물의 규칙을 먼저 모델링한다'],
+              n2:'당신의 반응에 구조물의 리듬이 바뀌었다. 우연일까, 응답일까. 당신은 —',
+              sub:[[['같은 리듬을 반복해 재현성을 확인한다','e1'],['새 리듬을 시도한다','e2']],
+                   [['관찰 기록만 계속 남긴다','e2'],['관찰을 중단하고 귀환한다','e3']],
+                   [['모델로 다음 반응을 예측해 본다','e3'],['예측이 맞으면 소통으로 승격한다','e1']]],
+              e1:'결말 A — 리듬의 재현성이 확인된다. 반론: 재현되는 반응이 "의미"인지는 여전히 모른다.',
+              e2:'결말 B — 새로운 패턴이 나타났지만 해석은 갈린다. 반론: 우리는 잡음을 읽고 싶은 만큼 읽지 않는가?',
+              e3:'결말 C — 관찰만 남고 소통 판정은 보류된다. 반론: 판정 보류가 영원해지면 아무것도 배우지 못하지 않는가?',
+              alt:'다른 가정 보기: "소통은 언어를 전제한다"를 내려놓으면, 이 사고실험 자체가 당신의 판정 기준을 비추는 거울이 됩니다.' }
+        ];
+
+        var curExp = null, path = [], seen = {};
+        var nodeMap = {};
+
+        function loadExp() {
+            var id = document.getElementById('fExp').value;
+            curExp = EXPS.find(function (x) { return x.id === id; });
+            path = [];
+            buildNodes();
+            renderStage();
+        }
+
+        function buildNodes() {
+            nodeMap = { n0: curExp.intro };
+            curExp.n1.forEach(function (t, i) { nodeMap['n1_' + i] = t; });
+            curExp.n2 = curExp.n2 || '';
+        }
+
+        function renderStage() {
+            var out = document.getElementById('stage');
+            var e = curExp;
+            if (!path.length) {
+                out.innerHTML = '<h3 style="color:#fff;margin-bottom:10px;">' + PF.esc(e.title) + '</h3>' +
+                    '<p style="color:var(--pf-dim);margin-bottom:14px;">' + PF.esc(e.intro) + '</p>' +
+                    e.n1.map(function (t, i) {
+                        return '<button class="pf-btn" style="margin:4px;display:block;text-align:left;white-space:normal;max-width:640px;" onclick="choose(' + i + ')">' + PF.esc(t) + '</button>';
+                    }).join('');
+                return;
+            }
+            var c1 = path[0];
+            var stage2Text = '선택 1: "' + e.n1[c1] + '" — 이어지는 상황.';
+            var subChoices = e.sub[c1];
+            if (!path[1]) {
+                out.innerHTML = '<h3 style="color:#fff;margin-bottom:10px;">' + PF.esc(e.title) + '</h3>' +
+                    '<p style="color:var(--pf-faint);margin-bottom:8px;">' + PF.esc(stage2Text) + '</p>' +
+                    subChoices.map(function (c, i) {
+                        return '<button class="pf-btn" style="margin:4px;display:block;text-align:left;white-space:normal;max-width:640px;" onclick="choose2(' + i + ')">' + PF.esc(c[0]) + '</button>';
+                    }).join('');
+                return;
+            }
+            var c2 = path[1];
+            var endKey = subChoices[c2][1];
+            var endingText = e[endKey];
+            seen[e.id + '-' + endKey] = { exp: e.title, ending: endingText };
+            renderSeen();
+            out.innerHTML = '<h3 style="color:#fff;margin-bottom:10px;">' + PF.esc(e.title) + '</h3>' +
+                '<p style="color:var(--pf-faint);margin-bottom:8px;">경로: ' + PF.esc(e.n1[c1]) + ' → ' + PF.esc(subChoices[c2][0]) + '</p>' +
+                '<div class="pf-result"><h4>결말 도달</h4><p>' + PF.esc(endingText) + '</p></div>' +
+                '<p class="pf-note info" style="margin-top:10px;">' + PF.esc(e.alt) + '</p>' +
+                '<button class="pf-btn" style="margin-top:10px;" onclick="restart()">처음부터 다시 하기</button>';
+        }
+
+        function choose(i) { path = [i]; renderStage(); }
+        function choose2(i) { path.push(i); renderStage(); }
+        function restart() { path = []; renderStage(); }
+        function undo() {
+            if (path.length) path.pop();
+            else { PF.toast('되돌릴 선택이 없습니다.'); }
+            renderStage();
+        }
+
+        function renderSeen() {
+            var keys = Object.keys(seen);
+            document.getElementById('seenList').innerHTML = keys.length
+                ? keys.map(function (k) {
+                    return '<div class="pf-card" style="margin-bottom:8px;"><h3>' + PF.esc(seen[k].exp) + '</h3><p>' + PF.esc(seen[k].ending) + '</p></div>';
+                }).join('')
+                : '<p class="pf-note">아직 도달한 결말이 없습니다.</p>';
+        }
+
+        function runText() {
+            var e = curExp;
+            var lines = ['# 사고실험 회차 기록 — ' + e.title, ''];
+            if (!path.length) return lines.join('\n') + '\n(선택 없이 종료)';
+            var c1 = path[0];
+            lines.push('선택 1: ' + e.n1[c1]);
+            if (path[1] !== undefined) {
+                var sub = e.sub[c1][path[1]];
+                lines.push('선택 2: ' + sub[0]);
+                lines.push('결말: ' + e[sub[1]]);
+            }
+            lines.push('', '다른 가정 보기: ' + e.alt);
+            return lines.join('\n');
+        }
+
+        function saveRun() {
+            PF.notebook.add({ type: 'note', title: '사고실험: ' + curExp.title + ' ' + PF.fmtDate(), body: runText(), tags: ['thought-experiments'] })
+                .then(function () { PF.toast('회차 기록을 노트북에 저장했습니다.'); });
+        }
+        function exportRun() {
+            PF.download('pf-thought-' + Date.now() + '.md', runText(), 'text/markdown;charset=utf-8');
+            PF.toast('회차 기록 MD를 다운로드했습니다.');
+        }
+
+        var sel = document.getElementById('fExp');
+        sel.innerHTML = EXPS.map(function (e) { return '<option value="' + e.id + '">' + e.title + '</option>'; }).join('');
+        loadExp();
+    </script>
+</body>
+</html>

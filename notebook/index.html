@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>나의 탐구 노트북 — Protofelix × AstraHo</title>
+    <meta name="description" content="Protofelix 탐험에서 얻은 북마크·노트·질문·브리프·실험 기록을 이 브라우저에 저장하고 Markdown/JSON으로 내보내는 개인 노트북입니다.">
+    <link rel="canonical" href="https://protofelix.moip.ai.kr/notebook/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Protofelix × AstraHo">
+    <meta property="og:title" content="나의 탐구 노트북 — Protofelix × AstraHo">
+    <meta property="og:description" content="탐험이 끝난 뒤 내 생각에는 무엇이 남는가? 이 브라우저에 저장되는 개인 노트북.">
+    <meta property="og:url" content="https://protofelix.moip.ai.kr/notebook/">
+    <meta property="og:image" content="https://protofelix.moip.ai.kr/images/expansion/i10-notebook.webp">
+    <link rel="stylesheet" href="../assets/pf-expansion.css">
+</head>
+<body>
+    <a class="skip-link" href="#main">본문 바로가기</a>
+
+    <nav class="pf-nav" aria-label="전역 내비게이션">
+        <div class="pf-nav-inner">
+            <a href="../index.html" class="pf-nav-brand">Protofelix<em>×</em>AstraHo</a>
+            <div class="pf-nav-links">
+                <a href="../index.html">홈</a>
+                <a href="../explore/">탐험 지도</a>
+                <a href="../atlas/">아틀라스</a>
+                <a href="../questions/">질문</a>
+                <a href="../forge/">공방</a>
+                <a href="../frontier/">실험실</a>
+                <a href="../evidence/">증거</a>
+                <a href="#" class="here">노트북</a>
+                <a href="../sources/">원전</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="pf-hero" style="background-image: url('../images/expansion/i10-notebook.webp'), linear-gradient(160deg, #101033 0%, #0a0a23 70%);">
+        <div class="pf-hero-inner">
+            <div>
+                <span class="pf-badge ks-established">Established</span>
+                <span class="pf-badge mode-user_authored">USER_AUTHORED</span>
+                <span class="pf-badge pj-prototype">PROTOTYPE</span>
+            </div>
+            <h1>나의 탐구 노트북</h1>
+            <p class="pf-question">"탐험이 끝난 뒤 내 생각에는 무엇이 남는가?"</p>
+            <p class="pf-hero-meta">읽기 시간 약 3분 · 내용 성격: 개인 기록 도구 · 저장 위치: 이 브라우저 (IndexedDB) · 검토일 2026-09-20</p>
+        </div>
+    </header>
+
+    <main id="main" class="pf-wrap">
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">01</span>이곳에서 무엇을 얻는가</h2>
+            <p class="pf-lead">
+                다른 탐험 페이지에서 얻은 결과를 한곳에 모으고, Markdown/JSON으로 내보내 다른 기기에서 이어갈 수 있습니다.
+                저장은 <strong>이 브라우저</strong>에만 되며, 어떤 내용도 외부 서버로 전송되지 않습니다.
+            </p>
+            <div class="pf-grid">
+                <div class="pf-card"><h3>저장 위치를 명시합니다</h3><p>IndexedDB(브라우저 로컬 저장소). 저장 불가 시 메모리+localStorage 폴백으로 동작합니다.</p></div>
+                <div class="pf-card"><h3>내보내기·가져오기</h3><p>Markdown·JSON 다운로드, JSON 가져오기(스키마 검증, id 기준 중복 병합).</p></div>
+                <div class="pf-card"><h3>삭제 통제</h3><p>항목별 삭제와 전체 초기화는 확인 절차를 거치며, 가져온 파일은 깨지면 거절합니다.</p></div>
+            </div>
+            <p class="pf-note warn">⚠ 브라우저 데이터 삭제·시크릿 모드 종료·저장 용량 초과 시 기록이 사라질 수 있습니다. 중요한 기록은 주기적으로 내보내세요. 기기 간 공유는 파일 내보내기/가져오기로 시작합니다. 개인정보·비밀은 적지 않는 것을 권장합니다.</p>
+        </section>
+
+        <!-- 작성 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">02</span>기록 추가</h2>
+            <div class="pf-panel">
+                <div class="pf-grid" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr));">
+                    <div class="pf-field">
+                        <label for="nType">유형</label>
+                        <select id="nType" class="pf-select">
+                            <option value="note">노트</option>
+                            <option value="bookmark">북마크</option>
+                            <option value="question">질문</option>
+                            <option value="brief">브리프</option>
+                            <option value="experiment">실험</option>
+                            <option value="route">항로</option>
+                            <option value="source">출처</option>
+                        </select>
+                    </div>
+                    <div class="pf-field">
+                        <label for="nTitle">제목</label>
+                        <input id="nTitle" class="pf-input" type="text" placeholder="예: 어텐션 카드에서 얻은 질문" maxlength="500">
+                    </div>
+                    <div class="pf-field">
+                        <label for="nTags">태그 (쉼표 구분)</label>
+                        <input id="nTags" class="pf-input" type="text" placeholder="attention, 질문" maxlength="200">
+                    </div>
+                </div>
+                <div class="pf-field">
+                    <label for="nBody">본문</label>
+                    <textarea id="nBody" class="pf-textarea" placeholder="탐험에서 얻은 것, 바뀐 생각, 검증할 질문..." maxlength="50000"></textarea>
+                </div>
+                <button class="pf-btn primary" onclick="addNote()">기록 저장</button>
+                <p class="pf-note">입력 내용은 <strong>이 브라우저의 노트북에만</strong> 저장됩니다. 자유 입력을 해석하는 모델은 없으며 "제목/메모로 저장됨"이 정확한 설명입니다.</p>
+            </div>
+        </section>
+
+        <!-- 목록 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">03</span>내 기록 <span id="countBadge" style="font-size:0.7em;color:var(--pf-faint);"></span></h2>
+            <div class="pf-panel" style="margin-bottom:16px;">
+                <div class="pf-grid" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr));">
+                    <div class="pf-field">
+                        <label for="fNoteType">유형 필터</label>
+                        <select id="fNoteType" class="pf-select" onchange="renderNotes()">
+                            <option value="all">전체</option>
+                            <option value="note">노트</option>
+                            <option value="bookmark">북마크</option>
+                            <option value="question">질문</option>
+                            <option value="brief">브리프</option>
+                            <option value="experiment">실험</option>
+                            <option value="route">항로</option>
+                            <option value="source">출처</option>
+                        </select>
+                    </div>
+                    <div class="pf-field">
+                        <label for="fSearch">검색</label>
+                        <input id="fSearch" class="pf-input" type="search" placeholder="제목·본문 검색" oninput="renderNotes()">
+                    </div>
+                </div>
+            </div>
+            <div id="noteList"></div>
+        </section>
+
+        <!-- 내보내기/가져오기 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">04</span>내보내기·가져오기</h2>
+            <div class="pf-grid">
+                <div class="pf-card">
+                    <h3>내보내기</h3>
+                    <p>Markdown(읽기용)과 JSON(재가져오기용) 두 형식. URL에는 개인 본문을 넣지 않습니다.</p>
+                    <div class="meta-row">
+                        <button class="pf-btn small" onclick="PF.exportMarkdown()">Markdown 다운로드</button>
+                        <button class="pf-btn small ghost" onclick="PF.exportJSON()">JSON 다운로드</button>
+                    </div>
+                </div>
+                <div class="pf-card">
+                    <h3>가져오기 (JSON)</h3>
+                    <p>이 노트북에서 내보낸 JSON만 허용합니다. id 기준으로 중복을 병합하고, 최신 갱신일을 유지합니다.</p>
+                    <div class="meta-row">
+                        <input type="file" id="importFile" accept="application/json,.json" class="pf-input" style="max-width:260px;">
+                        <button class="pf-btn small" onclick="doImport()">가져오기</button>
+                    </div>
+                    <p class="pf-note info" id="importResult"></p>
+                </div>
+                <div class="pf-card">
+                    <h3>정리</h3>
+                    <p>항목 삭제는 각 카드에서, 전체 초기화는 아래 버튼에서 — 확인 절차를 거칩니다.</p>
+                    <div class="meta-row">
+                        <button class="pf-btn small danger" onclick="clearAll()">전체 초기화</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 반론 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">05</span>가장 강한 반론 — 저장의 한계</h2>
+            <div class="pf-counter">
+                <strong>실패 조건:</strong> "저장됨"이 곧 "보존됨"은 아닙니다. 이 노트북은 브라우저 저장소이므로
+                브라우저 데이터 삭제·비공개 모드·용량 초과 시 기록이 유실될 수 있고, 기기 간 자동 동기화는 없습니다.
+                보존을 보장하지 않으며, 중요한 기록은 파일로 내보내 두는 것이 유일한 안전책입니다.
+            </div>
+            <p class="pf-note" style="margin-top:14px;">관련 페이지: <a href="../explore/">탐험 지도</a> · <a href="../frontier/">인지경계 실험실</a> · <a href="../sources/">원전 도서관</a></p>
+        </section>
+    </main>
+
+    <footer class="pf-footer">
+        <div class="links">
+            <a href="../index.html">홈</a><a href="../explore/">탐험 지도</a><a href="../questions/">질문</a><a href="../sources/">원전</a>
+        </div>
+        <p>나의 탐구 노트북 · Protofelix × AstraHo © 2026 — 저장 위치: 이 브라우저. 개인 입력은 외부로 전송되지 않습니다.</p>
+    </footer>
+
+    <script src="../assets/pf-common.js"></script>
+    <script>
+        var TYPE_NAMES = { bookmark:'북마크', note:'노트', question:'질문', brief:'브리프', experiment:'실험', route:'항로', source:'출처' };
+
+        function addNote() {
+            var body = document.getElementById('nBody').value.trim();
+            if (!body && !document.getElementById('nTitle').value.trim()) {
+                PF.toast('제목이나 본문을 입력해 주세요.');
+                return;
+            }
+            var tags = document.getElementById('nTags').value.split(',').map(function (t) { return t.trim(); }).filter(Boolean).slice(0, 20);
+            PF.notebook.add({
+                type: document.getElementById('nType').value,
+                title: document.getElementById('nTitle').value.trim(),
+                body: body,
+                tags: tags,
+                page: 'notebook'
+            }).then(function () {
+                document.getElementById('nTitle').value = '';
+                document.getElementById('nBody').value = '';
+                document.getElementById('nTags').value = '';
+                PF.toast('노트북에 저장했습니다. (이 브라우저)');
+                renderNotes();
+            }).catch(function () {
+                PF.toast('저장에 실패했습니다. 브라우저 설정을 확인해 주세요.');
+            });
+        }
+
+        function renderNotes() {
+            var fType = document.getElementById('fNoteType').value;
+            var q = document.getElementById('fSearch').value.trim().toLowerCase();
+            PF.notebook.list().then(function (notes) {
+                document.getElementById('countBadge').textContent = '(총 ' + notes.length + '개)';
+                var list = notes.filter(function (n) {
+                    var typeOk = fType === 'all' || n.type === fType;
+                    var searchOk = !q || (n.title + ' ' + n.body + ' ' + (n.tags || []).join(' ')).toLowerCase().indexOf(q) >= 0;
+                    return typeOk && searchOk;
+                });
+                document.getElementById('noteList').innerHTML = list.map(function (n) {
+                    return '<details class="pf-fold" data-id="' + PF.esc(n.id) + '">' +
+                        '<summary>' + PF.esc(n.title) +
+                        ' <span class="pf-tag" style="margin-left:8px;">' + (TYPE_NAMES[n.type] || n.type) + '</span>' +
+                        ' <span class="pf-tag">' + PF.fmtDate(new Date(n.updatedAt)) + '</span>' +
+                        ' <span class="pf-tag">' + PF.esc(n.page) + '</span></summary>' +
+                        '<pre style="white-space:pre-wrap;color:var(--pf-dim);font-size:0.88rem;font-family:inherit;margin-top:10px;">' + PF.esc(n.body) + '</pre>' +
+                        (n.tags && n.tags.length ? '<p style="margin-top:8px;">' + n.tags.map(function (t) { return '<span class="pf-tag">#' + PF.esc(t) + '</span>'; }).join(' ') + '</p>' : '') +
+                        '<p style="margin-top:10px;">' +
+                        '<button class="pf-btn small danger" onclick="removeNote(\'' + PF.esc(n.id) + '\')">삭제</button> ' +
+                        '<button class="pf-btn small ghost" onclick="copyNote(\'' + PF.esc(n.id) + '\')">본문 복사</button>' +
+                        '</p></details>';
+                }).join('') || '<p class="pf-note">조건에 맞는 기록이 없습니다.</p>';
+            });
+        }
+
+        function removeNote(id) {
+            if (!confirm('이 기록을 삭제할까요? 되돌릴 수 없습니다.')) return;
+            PF.notebook.remove(id).then(function () {
+                PF.toast('삭제했습니다.');
+                renderNotes();
+            });
+        }
+
+        function copyNote(id) {
+            PF.notebook.list().then(function (notes) {
+                var n = notes.find(function (x) { return x.id === id; });
+                if (!n) return;
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(n.body || '').then(function () { PF.toast('본문을 복사했습니다.'); });
+                } else {
+                    PF.toast('복사가 지원되지 않는 브라우저입니다. 본문을 직접 선택해 복사하세요.');
+                }
+            });
+        }
+
+        function doImport() {
+            var file = document.getElementById('importFile').files[0];
+            var out = document.getElementById('importResult');
+            if (!file) { PF.toast('파일을 선택해 주세요.'); return; }
+            if (file.size > 5 * 1024 * 1024) { out.textContent = '5MB 이하의 JSON 파일만 가져올 수 있습니다.'; return; }
+            var reader = new FileReader();
+            reader.onload = function () {
+                PF.importJSON(reader.result).then(function (r) {
+                    out.textContent = '완료: 새 항목 ' + r.added + '개, 병합 ' + r.merged + '개, 건너뜀 ' + r.skipped + '개 (총 ' + r.total + '개).';
+                    document.getElementById('importFile').value = '';
+                    renderNotes();
+                    PF.toast('가져오기를 완료했습니다.');
+                }).catch(function (e) {
+                    out.textContent = '가져오기 거절: ' + e.message;
+                    PF.toast('가져오기 실패 — ' + e.message);
+                });
+            };
+            reader.onerror = function () { out.textContent = '파일을 읽지 못했습니다.'; };
+            reader.readAsText(file, 'utf-8');
+        }
+
+        function clearAll() {
+            if (!confirm('노트북 전체를 초기화할까요? 내보내기를 먼저 해 두는 것을 권장합니다.')) return;
+            if (!confirm('정말로 모든 기록을 삭제할까요? 이 동작은 되돌릴 수 없습니다.')) return;
+            PF.notebook.clear().then(function () {
+                PF.toast('노트북을 초기화했습니다.');
+                renderNotes();
+            });
+        }
+
+        renderNotes();
+    </script>
+</body>
+</html>

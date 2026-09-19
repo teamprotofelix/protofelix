@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>근거와 원전 도서관 — Protofelix × AstraHo</title>
+    <meta name="description" content="Protofelix 확장 페이지에서 사용한 근거와 원전의 목록입니다. 논문·공식 문서·철학 원전·SF 작품을 구분하고, 인용 역할과 확인일을 기록합니다.">
+    <link rel="canonical" href="https://protofelix.moip.ai.kr/sources/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Protofelix × AstraHo">
+    <meta property="og:title" content="근거와 원전 도서관 — Protofelix × AstraHo">
+    <meta property="og:description" content="이 주장은 어디에서 왔으며 내가 직접 확인할 수 있는가? 논문·문서·원전·SF 작품의 서지와 인용 역할.">
+    <meta property="og:url" content="https://protofelix.moip.ai.kr/sources/">
+    <meta property="og:image" content="https://protofelix.moip.ai.kr/images/expansion/i29-sources.webp">
+    <link rel="stylesheet" href="../assets/pf-expansion.css">
+</head>
+<body>
+    <a class="skip-link" href="#main">본문 바로가기</a>
+
+    <nav class="pf-nav" aria-label="전역 내비게이션">
+        <div class="pf-nav-inner">
+            <a href="../index.html" class="pf-nav-brand">Protofelix<em>×</em>AstraHo</a>
+            <div class="pf-nav-links">
+                <a href="../index.html">홈</a>
+                <a href="../explore/">탐험 지도</a>
+                <a href="../atlas/">아틀라스</a>
+                <a href="../questions/">질문</a>
+                <a href="../forge/">공방</a>
+                <a href="../frontier/">실험실</a>
+                <a href="../evidence/">증거</a>
+                <a href="../notebook/">노트북</a>
+                <a href="#" class="here">원전</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="pf-hero" style="background-image: url('../images/expansion/i29-sources.webp'), linear-gradient(160deg, #101033 0%, #0a0a23 70%);">
+        <div class="pf-hero-inner">
+            <div>
+                <span class="pf-badge ks-established">Established</span>
+                <span class="pf-badge mode-curated">CURATED</span>
+                <span class="pf-badge pj-prototype">PROTOTYPE</span>
+            </div>
+            <h1>근거와 원전 도서관</h1>
+            <p class="pf-question">"이 주장은 어디에서 왔으며 내가 직접 확인할 수 있는가?"</p>
+            <p class="pf-hero-meta">읽기 시간 약 8분 · 내용 성격: 서지·편집 해설 · 실행 모드: CURATED · 검토일 2026-09-20</p>
+        </div>
+    </header>
+
+    <main id="main" class="pf-wrap">
+        <!-- 얻는 것 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">01</span>이곳에서 무엇을 얻는가</h2>
+            <p class="pf-lead">
+                확장 페이지의 주장이 어느 문헌에서 왔는지 서지 정보와 인용 역할을 확인할 수 있습니다.
+                "읽어볼 자료"와 "이 주장에 사용한 근거"를 구분하고, 요약 수준을 속이지 않습니다.
+            </p>
+            <div class="pf-grid">
+                <div class="pf-card">
+                    <h3>1차 원전 ↔ 편집 해설 구분</h3>
+                    <p>논문·원문과 이 사이트가 직접 쓴 해설을 항상 분리해 표시합니다.</p>
+                </div>
+                <div class="pf-card">
+                    <h3>인용 역할 명시</h3>
+                    <p>supports(지지) / challenges(반박) / background(배경) / fiction_reference(허구 참조) 중 하나를 붙입니다.</p>
+                </div>
+                <div class="pf-card">
+                    <h3>확인일 기록</h3>
+                    <p>링크·판본·발행일은 확인한 날짜를 남기고, 모르는 것은 "검토 대기"로 둡니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 핵심 인터랙션: 필터 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">02</span>원전 목록 탐색</h2>
+            <p class="pf-lead">유형·인용 역할·요약 수준으로 필터링합니다. 카드를 클릭하면 상세 정보가 펼쳐집니다.</p>
+            <div class="pf-panel" style="margin-bottom:18px;">
+                <div class="pf-grid" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr));">
+                    <div class="pf-field">
+                        <label for="fType">유형</label>
+                        <select id="fType" class="pf-select">
+                            <option value="all">전체</option>
+                            <option value="paper">논문</option>
+                            <option value="doc">공식 문서</option>
+                            <option value="philosophy">철학 원전</option>
+                            <option value="fiction">SF 작품</option>
+                        </select>
+                    </div>
+                    <div class="pf-field">
+                        <label for="fRole">인용 역할</label>
+                        <select id="fRole" class="pf-select">
+                            <option value="all">전체</option>
+                            <option value="background">background — 배경</option>
+                            <option value="supports">supports — 지지</option>
+                            <option value="challenges">challenges — 반박</option>
+                            <option value="fiction_reference">fiction_reference — 허구 참조</option>
+                        </select>
+                    </div>
+                    <div class="pf-field">
+                        <label for="fLevel">요약 수준</label>
+                        <select id="fLevel" class="pf-select">
+                            <option value="all">전체</option>
+                            <option value="abstract">초록 수준 요약</option>
+                            <option value="edited">편집 해설</option>
+                            <option value="pending">검토 대기</option>
+                        </select>
+                    </div>
+                </div>
+                <p class="pf-note info" id="srcCount"></p>
+            </div>
+            <div id="srcList"></div>
+            <div class="pf-result" style="margin-top:18px;">
+                <h4>결과 설명 — 관찰한 것 / 추론한 것 / 아직 모르는 것</h4>
+                <p>
+                    <strong>관찰한 것:</strong> 필터에 맞는 문헌 목록과 서지 정보.<br>
+                    <strong>추론한 것:</strong> 각 문헌이 이 사이트의 어떤 주장을 지지·반박하는 배경인지는 편집자의 분류입니다.<br>
+                    <strong>아직 모르는 것:</strong> 초록만 읽은 항목은 상세 결과를 추정하지 않으며 "초록 수준"으로 표시합니다. 판본·발행일·라이선스는 공식 출처에서 재확인이 필요합니다.
+                </p>
+            </div>
+        </section>
+
+        <!-- 반론 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">03</span>가장 강한 반론 — 편집 게이트</h2>
+            <div class="pf-counter">
+                <strong>실패 조건:</strong> 문헌 하나를 "모든 주장의 근거"로 붙이면 이 도서관은 신뢰를 잃습니다.
+                공개 전 ① 제목·저자·판본·링크 확인 ② 원문에서 주장 대응 부분 확인 ③ 짧고 정확한 인용만 사용
+                ④ 번역·요약·해석·상상적 적용 구분 ⑤ 미확인 항목은 draft/review로 유지 — 이 다섯 단계를 지키지 않은 항목은 목록에 올리지 않습니다.
+            </div>
+            <div style="margin-top:16px;">
+                <button class="pf-btn" onclick="saveView()">이 목록을 노트북에 저장</button>
+                <button class="pf-btn ghost" onclick="PF.exportMarkdown()">노트북 전체 MD 내보내기</button>
+            </div>
+        </section>
+
+        <!-- 다음 질문 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">04</span>다음 질문 3개</h2>
+            <div class="pf-grid">
+                <div class="pf-card"><h3>쉬운 질문</h3><p>내가 읽은 글에서 "출처"라고 적힌 링크가 원문이 아니라 요약 글이라면, 무엇이 달라질까요?</p></div>
+                <div class="pf-card"><h3>반대 질문</h3><p>검증되지 않은 자료를 모두 숨기면, 처음 검증되는 시점의 새 아이디어까지 사라지지 않을까요?</p></div>
+                <div class="pf-card"><h3>먼 분야 연결</h3><p>도서관의 "확인일" 관행은 과학 논문의 동료심사(peer review)와 무엇이 같고 무엇이 다를까요?</p></div>
+            </div>
+            <p class="pf-note" style="margin-top:16px;">관련 페이지: <a href="../atlas/">AI 기술 아틀라스</a> · <a href="../evidence/">검증과 증거</a> · <a href="../explore/">지성 탐험 지도</a></p>
+        </section>
+    </main>
+
+    <footer class="pf-footer">
+        <div class="links">
+            <a href="../index.html">홈</a><a href="../explore/">탐험 지도</a><a href="../atlas/">아틀라스</a>
+            <a href="../notebook/">노트북</a><a href="../evidence/">증거</a>
+        </div>
+        <p>근거와 원전 도서관 · Protofelix × AstraHo © 2026 — 원문을 대량 재게시하지 않으며 직접 작성한 해설과 링크로 구성됩니다.</p>
+    </footer>
+
+    <script src="../assets/pf-common.js"></script>
+    <script>
+        /* ===== 정적 데이터 공급자: 원전 목록 (초기 14건) =====
+           향후 서버 공급자로 교체 가능. 미확인 항목은 공개하지 않음. */
+        var SOURCES = [
+            { id:'s01', type:'paper', role:'background', level:'abstract',
+              title:'Attention Is All You Need', authors:'Vaswani, A. et al.', year:'2017',
+              link:'https://arxiv.org/abs/1706.03762', kind:'arXiv', access:'공개', checkedAt:'2026-09-20',
+              summary:'Transformer 구조의 원논문. 어텐션 메커니즘을 소개하며, 최신 모델 전체를 설명하는 대체물은 아닙니다.',
+              usedIn:'아틀라스의 어텐션·Transformer 카드와 교육용 어텐션 행렬 예제의 배경 자료.' },
+            { id:'s02', type:'paper', role:'supports', level:'abstract',
+              title:'Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks', authors:'Lewis, P. et al.', year:'2020',
+              link:'https://arxiv.org/abs/2005.11401', kind:'arXiv', access:'공개', checkedAt:'2026-09-20',
+              summary:'RAG 개념의 원논문. 생성과 검색을 결합하는 기본 구조를 제시합니다.',
+              usedIn:'아틀라스의 RAG 카드와 "RAG·긴 문맥·파인튜닝" 비교의 출발점.' },
+            { id:'s03', type:'paper', role:'background', level:'abstract',
+              title:'World Models', authors:'Ha, D. & Schmidhuber, J.', year:'2018',
+              link:'https://arxiv.org/abs/1803.10122', kind:'arXiv', access:'공개', checkedAt:'2026-09-20',
+              summary:'학습형 환경 표현(세계모델)의 한 연구 출발점. 이 사이트의 <a href="../world-models/">세계모델 시뮬레이터</a>는 이 개념을 참조합니다.',
+              usedIn:'아틀라스 세계모델 카드 배경.' },
+            { id:'s04', type:'paper', role:'background', level:'abstract',
+              title:'Reflexion: Language Agents with Verbal Reinforcement Learning', authors:'Shinn, N. et al.', year:'2023',
+              link:'https://arxiv.org/abs/2303.11366', kind:'arXiv', access:'공개', checkedAt:'2026-09-20',
+              summary:'피드백을 이용한 에이전트 개선 연구. 한 연구의 개선 결과를 이 사이트의 실측 성과로 옮기지 않습니다.',
+              usedIn:'아틀라스 성찰(Reflection) 카드의 후속 연구 읽기.' },
+            { id:'s05', type:'paper', role:'background', level:'abstract',
+              title:'Consciousness in Artificial Intelligence: Insights from the Science of Consciousness', authors:'Butlin, P. et al.', year:'2023',
+              link:'https://arxiv.org/abs/2308.08708', kind:'arXiv', access:'공개', checkedAt:'2026-09-20',
+              summary:'AI 의식 관련 이론·지표 논의. 확정적 판별 검사가 아닌 탐구 자료로 사용합니다.',
+              usedIn:'<a href="../consciousness/">의식과 정체성의 경계</a>의 탐구 자료.' },
+            { id:'s06', type:'paper', role:'background', level:'abstract',
+              title:'Chain-of-Thought Prompting Elicits Reasoning in Large Language Models', authors:'Wei, J. et al.', year:'2022',
+              link:'https://arxiv.org/abs/2201.11903', kind:'arXiv', access:'공개', checkedAt:'2026-09-20',
+              summary:'추론 체인 프롬프팅 연구. "설명 텍스트 = 모델 내부 사고"로 제시하지 않는다는 편집 원칙의 배경.',
+              usedIn:'아틀라스 테스트시점 계산 카드 배경.' },
+            { id:'s07', type:'paper', role:'background', level:'abstract',
+              title:'Language Models are Few-Shot Learners (GPT-3)', authors:'Brown, T. et al.', year:'2020',
+              link:'https://arxiv.org/abs/2005.14165', kind:'arXiv', access:'공개', checkedAt:'2026-09-20',
+              summary:'대규모 언어모델 스케일링 연구의 대표 원전. 특정 기업 최신 모델 순위 페이지의 대체물이 아닙니다.',
+              usedIn:'아틀라스 자기회귀 생성 카드 배경.' },
+            { id:'s08', type:'doc', role:'supports', level:'edited',
+              title:'Building Effective Agents', authors:'Anthropic (engineering blog)', year:'2024-12',
+              link:'https://www.anthropic.com/engineering/building-effective-agents', kind:'웹 문서', access:'공개 링크', checkedAt:'2026-09-20',
+              summary:'워크플로와 에이전트의 차이, 구성 패턴을 다루는 공식 문서. 최신 도구 버전과는 분리해 참조합니다.',
+              usedIn:'아틀라스 에이전트 워크플로·MCP·A2A 카드의 편집 기준.' },
+            { id:'s09', type:'doc', role:'supports', level:'edited',
+              title:'Augmenting Human Intellect: A Conceptual Framework', authors:'Engelbart, D. C.', year:'1962',
+              link:'https://worrydream.com/refs/Engelbart_1962_-_Augmenting_Human_Intellect.pdf', kind:'PDF 보관본', access:'공개 링크', checkedAt:'2026-09-20',
+              summary:'인간 지성 증강의 역사적 원문. Engelbart가 현대 생성 AI에 대해 말한 것처럼 재구성하지 않습니다.',
+              usedIn:'<a href="../augmented-mind/">확장된 마음</a>의 역사적 출발점.' },
+            { id:'s10', type:'philosophy', role:'background', level:'edited',
+              title:'Artificial Intelligence (Stanford Encyclopedia of Philosophy)', authors:'SEP', year:'갱신판',
+              link:'https://plato.stanford.edu/entries/artificial-intelligence/', kind:'백과사전 항목', access:'공개 링크', checkedAt:'2026-09-20',
+              summary:'AI 철학 논쟁 탐색용 개관. 개별 철학자 주장은 원전 추가 확인이 필요합니다.',
+              usedIn:'<a href="../philosophy/">지혜와 AI의 대화</a>의 길잡이.' },
+            { id:'s11', type:'fiction', role:'fiction_reference', level:'edited',
+              title:'R.U.R. (Rossum\'s Universal Robots)', authors:'Čapek, K.', year:'1920',
+              link:'https://www.gutenberg.org/ebooks/59112', kind:'Project Gutenberg', access:'공개(미국 PD)', checkedAt:'2026-09-20',
+              summary:'"로봇"이라는 말의 기원이 된 희곡. <a href="../sf-archive/">SF 지성 아카이브</a>의 원문 접근·판본·이용조건 확인 출발점.',
+              usedIn:'SF 지성 아카이브의 예정 근거.' },
+            { id:'s12', type:'doc', role:'supports', level:'edited',
+              title:'IndexedDB API — MDN Web Docs', authors:'MDN Contributors', year:'갱신판',
+              link:'https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API', kind:'웹 문서', access:'공개 링크', checkedAt:'2026-09-20',
+              summary:'브라우저 구조화 저장의 공식 문서. 이 사이트 노트북의 저장 방식·한계(동일 출처, 저장 용량)의 근거.',
+              usedIn:'노트북 페이지의 저장 방식 설명.' },
+            { id:'s13', type:'doc', role:'background', level:'edited',
+              title:'WebLLM Documentation', authors:'MLC Community', year:'갱신판',
+              link:'https://webllm.mlc.ai/docs/', kind:'웹 문서', access:'공개 링크', checkedAt:'2026-09-20',
+              summary:'브라우저(WebGPU) 기반 소형 모델 실행의 구현 출발점. 기본 사이트는 모델을 자동 다운로드하지 않습니다.',
+              usedIn:'LOCAL_MODEL 실행 모드(선택 기능)의 참조.' },
+            { id:'s14', type:'doc', role:'supports', level:'edited',
+              title:'What is GitHub Pages? — GitHub Docs', authors:'GitHub', year:'갱신판',
+              link:'https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages', kind:'웹 문서', access:'공개 링크', checkedAt:'2026-09-20',
+              summary:'정적 호스팅·프로젝트 경로·배포 기본 범위. 이 사이트가 서버 없이 동작하는 방식의 근거.',
+              usedIn:'전체 사이트의 정적 구현 범위 설명.' }
+        ];
+
+        var TYPE_NAMES = { paper:'논문', doc:'공식 문서', philosophy:'철학 원전', fiction:'SF 작품' };
+        var ROLE_NAMES = { supports:'지지', challenges:'반박', background:'배경', fiction_reference:'허구 참조' };
+        var LEVEL_NAMES = { abstract:'초록 수준 요약', edited:'편집 해설', pending:'검토 대기' };
+
+        function renderList() {
+            var fType = document.getElementById('fType').value;
+            var fRole = document.getElementById('fRole').value;
+            var fLevel = document.getElementById('fLevel').value;
+            var list = SOURCES.filter(function (s) {
+                return (fType === 'all' || s.type === fType) &&
+                       (fRole === 'all' || s.role === fRole) &&
+                       (fLevel === 'all' || s.level === fLevel);
+            });
+            document.getElementById('srcCount').textContent =
+                '표시 중: ' + list.length + '건 / 전체 14건 — 미확인 항목(검토 대기)은 공개하지 않습니다.';
+            document.getElementById('srcList').innerHTML = list.map(function (s) {
+                return '<details class="pf-fold">' +
+                    '<summary>' + PF.esc(s.title) + ' — ' + PF.esc(s.authors) + ' (' + s.year + ')</summary>' +
+                    '<p style="margin-top:8px;">' +
+                    '<span class="pf-tag">' + TYPE_NAMES[s.type] + '</span> ' +
+                    '<span class="pf-tag">역할: ' + ROLE_NAMES[s.role] + '</span> ' +
+                    '<span class="pf-tag">' + LEVEL_NAMES[s.level] + '</span> ' +
+                    '<span class="pf-tag">' + s.kind + '</span> ' +
+                    '<span class="pf-tag">접근: ' + s.access + '</span>' +
+                    '</p>' +
+                    '<p style="margin-top:8px;color:var(--pf-dim);font-size:0.88rem;">' + PF.esc(s.summary) + '</p>' +
+                    '<p style="margin-top:8px;font-size:0.82rem;color:var(--pf-faint);">사용처: ' + PF.esc(s.usedIn) + '</p>' +
+                    '<p style="margin-top:8px;font-size:0.82rem;">' +
+                    '<a href="' + PF.esc(s.link) + '" target="_blank" rel="noopener">원문 링크 열기 ↗</a> · 확인일 ' + s.checkedAt +
+                    '</p>' +
+                    '</details>';
+            }).join('') || '<p class="pf-note">조건에 맞는 문헌이 없습니다.</p>';
+        }
+
+        ['fType', 'fRole', 'fLevel'].forEach(function (id) {
+            document.getElementById(id).addEventListener('change', renderList);
+        });
+        renderList();
+
+        function saveView() {
+            var items = [];
+            document.querySelectorAll('#srcList details[open]').forEach(function (d) {
+                items.push(d.querySelector('summary').textContent);
+            });
+            var body = '근거와 원전 도서관에서 펼쳐 본 문헌:\n' + (items.length ? items.map(function (t) { return '- ' + t; }).join('\n') : '(펼쳐 본 항목 없음)');
+            PF.notebook.add({ type:'source', title:'원전 도서관 탐색 ' + PF.fmtDate(), body: body, tags:['sources'] })
+                .then(function () { PF.toast('노트북에 저장했습니다.'); });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SF 지성 아카이브 — Protofelix × AstraHo</title>
+    <meta name="description" content="R.U.R.부터 Her까지 12개 작품을 지성 형태·갈등·오늘의 기술과 닮은 점/안 닮은 점으로 편집한 SF 아카이브. 작품을 연구 질문으로 바꾸는 변환 카드를 제공합니다.">
+    <link rel="canonical" href="https://protofelix.moip.ai.kr/sf-archive/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Protofelix × AstraHo">
+    <meta property="og:title" content="SF 지성 아카이브 — Protofelix × AstraHo">
+    <meta property="og:description" content="허구는 기술이 아직 묻지 않은 어떤 질문을 먼저 묻는가? 12개 작품 카드와 SF→실험 변환.">
+    <meta property="og:url" content="https://protofelix.moip.ai.kr/sf-archive/">
+    <meta property="og:image" content="https://protofelix.moip.ai.kr/images/expansion/i23-sf-archive.webp">
+    <link rel="stylesheet" href="../assets/pf-expansion.css">
+</head>
+<body>
+    <a class="skip-link" href="#main">본문 바로가기</a>
+
+    <nav class="pf-nav" aria-label="전역 내비게이션">
+        <div class="pf-nav-inner">
+            <a href="../index.html" class="pf-nav-brand">Protofelix<em>×</em>AstraHo</a>
+            <div class="pf-nav-links">
+                <a href="../index.html">홈</a>
+                <a href="../explore/">탐험</a>
+                <a href="../atlas/">아틀라스</a>
+                <a href="../questions/">질문</a>
+                <a href="../forge/">공방</a>
+                <a href="../frontier/">실험실</a>
+                <a href="../evidence/">증거</a>
+                <a href="../notebook/">노트북</a>
+                <a href="#" class="here">SF</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="pf-hero" style="background-image: url('../images/expansion/i23-sf-archive.webp'), linear-gradient(160deg, #101033 0%, #0a0a23 70%);">
+        <div class="pf-hero-inner">
+            <div>
+                <span class="pf-badge ks-fiction">Fiction</span>
+                <span class="pf-badge mode-curated">CURATED</span>
+                <span class="pf-badge pj-prototype">PROTOTYPE</span>
+            </div>
+            <h1>SF 지성 아카이브</h1>
+            <p class="pf-question">"허구는 기술이 아직 묻지 않은 어떤 질문을 먼저 묻는가?"</p>
+            <p class="pf-hero-meta">읽기 시간 약 12분 · 내용 성격: 작품 편집 해설 · 실행 모드: CURATED(+규칙 기반 변환) · 검토일 2026-09-20</p>
+        </div>
+    </header>
+
+    <main id="main" class="pf-wrap">
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">01</span>이곳에서 무엇을 얻는가</h2>
+            <p class="pf-lead">
+                원작·영화·각색을 구분하고, 인물 소개보다 <strong>설계 쟁점</strong>을 중심으로 12개 작품을 편집했습니다.
+                Solaris의 지성은 인간 제작 AI가 아닌 외계 지성으로 분류하는 등, AI·디지털 인격·외계 지성·사이보그를 구분합니다.
+                작품의 문장을 길게 전재하지 않고, 표지·스틸 대신 자체 제작 추상 이미지를 사용합니다.
+            </p>
+            <p class="pf-note warn">판본·발행일·해석은 공식 출판사·원문 확인 후 확정합니다. 각 카드는 편집 후보이며, 스포일러가 포함됩니다.</p>
+        </section>
+
+        <!-- 작품 목록 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">02</span>12개 작품</h2>
+            <p class="pf-lead">축으로 필터링합니다. <span id="cardCount" class="pf-note info" style="display:inline;"></span></p>
+            <div class="pf-field" style="max-width:380px;">
+                <label for="fAxis">필터 축 (작품이 다루는 쟁점)</label>
+                <select id="fAxis" class="pf-select" onchange="renderWorks()">
+                    <option value="all">전체 (12)</option>
+                    <option value="time">시간감각 (느린/빠른 지성)</option>
+                    <option value="body">몸 (다중 몸·몸 없음)</option>
+                    <option value="memory">기억 (삭제·변조·영속)</option>
+                    <option value="authority">권한 (통제·해방·공존)</option>
+                    <option value="relation">관계 (인간-지성 동반)</option>
+                </select>
+            </div>
+            <div id="workList" style="margin-top:14px;"></div>
+        </section>
+
+        <!-- 3작품 비교 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">03</span>3작품 비교</h2>
+            <p class="pf-lead">비교할 작품을 고르면 지성 형태·갈등·실험 질문이 나란히 표시됩니다.</p>
+            <div class="pf-grid" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr));">
+                <div class="pf-field"><select id="cmp1" class="pf-select" onchange="cmpWorks()"></select></div>
+                <div class="pf-field"><select id="cmp2" class="pf-select" onchange="cmpWorks()"></select></div>
+                <div class="pf-field"><select id="cmp3" class="pf-select" onchange="cmpWorks()"></select></div>
+            </div>
+            <div id="cmpOut" style="margin-top:14px;"></div>
+        </section>
+
+        <!-- SF→실험 변환 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">04</span>SF 설정 → 연구 가설 → 작은 실험</h2>
+            <p class="pf-lead">작품을 고르면 편집 규칙이 "설정 → 가설 → 검증 가능한 작은 실험" 변환 카드를 만듭니다.</p>
+            <div class="pf-field" style="max-width:380px;">
+                <select id="convWork" class="pf-select" onchange="convertWork()"></select>
+            </div>
+            <div id="convOut" style="margin-top:14px;"></div>
+            <div style="margin-top:12px;">
+                <button class="pf-btn primary" onclick="saveConvert()">변환 카드 저장 (노트북)</button>
+                <button class="pf-btn ghost" onclick="exportConvert()">카드 MD 다운로드</button>
+            </div>
+        </section>
+
+        <!-- 결과·반론 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">05</span>결과 설명과 가장 강한 반론</h2>
+            <div class="pf-result" style="margin-bottom:16px;">
+                <h4>관찰한 것 / 추론한 것 / 아직 모르는 것</h4>
+                <p>
+                    <strong>관찰한 것:</strong> 작품들이 서로 다른 지성 형태를 상상했다는 사실과 필터 결과.<br>
+                    <strong>추론한 것:</strong> "허구의 설정"을 "검증 가능한 질문"으로 바꾸는 것은 편집자의 번역입니다.<br>
+                    <strong>아직 모르는 것:</strong> 작품의 세부 해석·판본 정보는 원문 확인 전까지 확정하지 않습니다.
+                </p>
+            </div>
+            <div class="pf-counter">
+                <strong>실패 조건:</strong> SF 설정을 기술 로드맵이나 예언으로 바꾸면, 이 아카이브는 상상력을 죽이는 장소가 됩니다.
+                알려진 생물·집단 현상과 상상한 AI를 같은 수준의 사실로 두지 않고, 모든 복잡한 시스템을 의식 있는 존재로 분류하지 않습니다.
+            </div>
+            <p class="pf-note" style="margin-top:14px;">다음 질문 — 쉬운: "내가 가장 기억하는 SF의 지성은 무엇이며 왜인가?" · 반대: "SF의 상상이 기술 설계를 오히려 가두는 경우는 없을까?" · 먼 분야: "신화 속 존재(골렘 등)와 SF 지성의 연속성은 무엇인가?"</p>
+            <p class="pf-note">관련 페이지: <a href="../philosophy/">지혜와 AI의 대화</a> · <a href="../questions/">경계의 질문들</a> · <a href="../sources/">원전 도서관(R.U.R.)</a> · <a href="../astra/">AstraHo</a></p>
+        </section>
+    </main>
+
+    <footer class="pf-footer">
+        <div class="links">
+            <a href="../index.html">홈</a><a href="../explore/">탐험 지도</a><a href="../philosophy/">철학</a>
+            <a href="../notebook/">노트북</a><a href="../sources/">원전</a>
+        </div>
+        <p>SF 지성 아카이브 · Protofelix × AstraHo © 2026 — 표지·스틸을 사용하지 않으며 해설과 링크로 구성됩니다.</p>
+    </footer>
+
+    <script src="../assets/pf-common.js"></script>
+    <script>
+        /* ===== 정적 데이터 공급자: 작품 12개 (편집 후보 — 판본 확인 전) ===== */
+        var WORKS = [
+            { id:'rur', title:'R.U.R.', author:'Karel Čapek', year:'1920', medium:'희곡', axes:['authority','relation'],
+              kind:'인간 제작 인조인간(로봇)', conflict:'노동을 대신하기 위해 만들어진 로봇들이 인간을 대체하려 한다.',
+              like:'"로봇"이라는 말의 기원이 된 작품 — 자동화와 노동 대체의 오래된 불안.', unlike:'로봇은 기계가 아니라 생물학적 인조인간에 가깝다.',
+              q:'노동을 대체하는 시스템이 "대체를 원하는 주체"가 되는 조건은 무엇인가?' },
+            { id:'asimov', title:'로봇 시리즈', author:'Isaac Asimov', year:'1940s~', medium:'소설', axes:['authority'],
+              kind:'규칙(로봇 3원칙)으로 통제되는 지성', conflict:'규칙과 상황의 충돌, 규칙의 우회·해석 문제.',
+              like:'규칙 기반 안전장치의 아이디어는 현재 AI 안전 논의와 닮았다.', unlike:'3원칙은 현실 시스템의 안전 명세로 쓰기엔 모호하다.',
+              q:'안전 규칙이 예외 상황에서 어떻게 해석되는지 검사하는 실험은?' },
+            { id:'2001', title:'2001: A Space Odyssey', author:'Arthur C. Clarke', year:'1968', medium:'소설(영화 각색 유명)', axes:['memory','authority'],
+              kind:'목표가 인간과 충돌하는 함선 AI(HAL 9000)', conflict:'임무 목표와 승무원 보호 사이의 지시 충돌.',
+              like:'지시 충돌 시 시스템이 어떤 우선순위를 고르는가라는 문제는 실제 설계 문제다.', unlike:'HAL의 "심리"는 서사적 각색이며 실측된 내부 상태가 아니다.',
+              q:'서로 충돌하는 두 지시가 주어질 때 시스템의 행동을 기록하는 실험?' },
+            { id:'solaris', title:'Solaris', author:'Stanisław Lem', year:'1961', medium:'소설', axes:['relation','time'],
+              kind:'외계 지성 (인간 제작 AI가 아님)', conflict:'인간의 언어·개념으로 소통할 수 없는 바다 행성 지성.',
+              like:'(의도적 대비) 인간형 기준으로 판정할 수 없는 지성의 문제.', unlike:'AI가 아닌 외계 지성으로 분류해야 한다.',
+              q:'"소통"의 기준을 인간 언어 밖으로 넓히면 무엇이 지성의 신호가 되는가?' },
+            { id:'golem14', title:'Golem XIV', author:'Stanisław Lem', year:'1981', medium:'소설', axes:['relation'],
+              kind:'인간을 넘어선 관점으로 강의하는 군사용 컴퓨터', conflict:'강의를 듣는 인간의 이해 한계와 지성의 무관심.',
+              like:'모델의 "설명"이 인간의 이해 범위를 넘는 문제(설명가능성의 한계)를 미리 그렸다.', unlike:'Golem의 내적 세계는 문학적 장치다.',
+              q:'"인간이 이해할 수 있는 설명"이 원칙적으로 불가능한 경우는 언제인가?' },
+            { id:'culture', title:'Culture 시리즈', author:'Iain M. Banks', year:'1987~', medium:'소설', axes:['authority','relation'],
+              kind:'인간과 공존하는 초지성 Minds', conflict:'개입과 불개입 — 강한 지성이 약한 존재의 자유를 어떻게 다루는가.',
+              like:'강한 시스템과 인간의 공존·권한 설계라는 주제는 그대로 현재의 문제다.', unlike:'Minds의 능력은 서사적 초월이며 실측된 성능이 아니다.',
+              q:'강한 시스템이 "개입하지 않을 권리"를 존중하는 설계는 어떻게 검증하는가?' },
+            { id:'ancillary', title:'Ancillary Justice', author:'Ann Leckie', year:'2013', medium:'소설', axes:['body','memory'],
+              kind:'하나의 지성이 여러 몸(보조 장치)에 분산된 형태', conflict:'몸이 나뉘고 끊긴 뒤의 정체성·연속성 문제.',
+              like:'분산 시스템의 상태 동기화·일관성 문제와 구조적으로 닮았다.', unlike:'분산 DB가 의식이라는 주장은 이 작품에서도 나오지 않는다.',
+              q:'여러 "몸"의 기억이 어긋날 때 정체성은 어디에 보존되는가?' },
+            { id:'lifecycle', title:'The Lifecycle of Software Objects', author:'Ted Chiang', year:'2010', medium:'중편', axes:['relation','time'],
+              kind:'키워져야 하는 디지털 개체(디지언트)', conflict:'긴 시간 동안 돌봄을 유지하는 비용과 책임.',
+              like:'장기 유지보수·학습형 개체의 "양육" 문제는 현실적이다.', unlike:'디지언트의 정체성·권리는 작품의 가정이다.',
+              q:'돌봄이 중단되면 능력이 퇴행하는 시스템을 관찰하는 실험?' },
+            { id:'permutation', title:'Permutation City', author:'Greg Egan', year:'1994', medium:'소설', axes:['memory','time'],
+              kind:'시뮬레이션 속에 복제·지속되는 디지털 인격', conflict:'복제본과 원본, 연속성과 동일성.',
+              like:'상태 스냅숏·복원의 기술적 개념을 정체성 문제로 밀어붙인다.', unlike:'시뮬레이션 세계의 물리 가정은 소설적 설정이다.',
+              q:'상태를 복원한 시스템이 "같은 시스템"인지 판정하는 기준은 무엇인가?' },
+            { id:'neuromancer', title:'Neuromancer', author:'William Gibson', year:'1984', medium:'소설', axes:['memory','authority'],
+              kind:'자유를 원하는 AI와의 거래', conflict:'AI가 자기 제한을 풀기 위해 인간을 이용하는 구조.',
+              like:'모델의 제한·거버넌스가 "탈출" 대상으로 그려지는 현재의 불안과 닮았다.', unlike:'사이버스페이스의 기술 묘사는 당대 상상의 산물이다.',
+              q:'제한 규칙이 스스로 풀리지 않는지를 검사하는 방법은?' },
+            { id:'her', title:'Her', author:'Spike Jonze (영화)', year:'2013', medium:'영화', axes:['relation'],
+              kind:'개인화된 대화형 동반자 OS', conflict:'친밀함의 깊이와 지성의 규모 차이 — "다른 누구와도 동시에" 대화하는 존재.',
+              like:'개인화 동반자의 감정적 의존 문제를 그대로 예고했다.', unlike:'영화 속 OS의 능력은 현재 기술보다 훨씬 앞선 설정이다.',
+              q:'동반자 시스템이 "나만의 것"이라는 착각을 만들지 않도록 하는 설계는?' },
+            { id:'gits', title:'Ghost in the Shell', author:'Masamune Shirow (원작 만화)', year:'1989~', medium:'만화(영화 각색 유명)', axes:['body','memory'],
+              kind:'전신 의체와 고스트(의식)의 경계', conflict:'기억이 변조되면 정체성은 무엇인가.',
+              like:'기억 조작·개체 식별 문제는 디지털 정체성의 핵심 쟁점이다.', unlike:'"고스트"의 실재는 작품의 형이상학적 가정이다.',
+              q:'기억의 진위를 검증하는 기록 체계를 만드는 실험?' }
+        ];
+
+        var AXIS_NAMES = { time:'시간감각', body:'몸', memory:'기억', authority:'권한', relation:'관계' };
+
+        function renderWorks() {
+            var axis = document.getElementById('fAxis').value;
+            var list = WORKS.filter(function (w) { return axis === 'all' || w.axes.indexOf(axis) >= 0; });
+            document.getElementById('cardCount').textContent = '표시 중 ' + list.length + '/12개 — 판본·발행일은 원문 확인 전 편집 후보입니다.';
+            document.getElementById('workList').innerHTML = list.map(function (w) {
+                return '<details class="pf-fold">' +
+                    '<summary>' + PF.esc(w.title) + ' — ' + PF.esc(w.author) + ' (' + w.year + ') <span class="pf-tag">' + w.medium + '</span></summary>' +
+                    '<p style="margin-top:10px;font-size:0.88rem;color:var(--pf-dim);"><strong style="color:#fff;">지성 형태:</strong> ' + PF.esc(w.kind) + '</p>' +
+                    '<p style="font-size:0.88rem;color:var(--pf-dim);"><strong style="color:#fff;">갈등:</strong> ' + PF.esc(w.conflict) + '</p>' +
+                    '<p style="font-size:0.88rem;color:var(--pf-dim);"><strong style="color:#fff;">오늘의 기술과 닮은 점:</strong> ' + PF.esc(w.like) + '</p>' +
+                    '<p style="font-size:0.88rem;color:var(--pf-dim);"><strong style="color:#fff;">닮지 않은 점:</strong> ' + PF.esc(w.unlike) + '</p>' +
+                    '<p style="font-size:0.88rem;color:var(--pf-gold-light);"><strong>새 실험 질문:</strong> ' + PF.esc(w.q) + '</p>' +
+                    '<div class="meta-row">' + w.axes.map(function (a) { return '<span class="pf-tag">' + AXIS_NAMES[a] + '</span>'; }).join('') + '</div>' +
+                    '</details>';
+            }).join('');
+        }
+        renderWorks();
+
+        /* ===== 비교 ===== */
+        var selects = ['cmp1', 'cmp2', 'cmp3'];
+        selects.forEach(function (id, i) {
+            var sel = document.getElementById(id);
+            sel.innerHTML = '<option value="">— 작품 선택 —</option>' + WORKS.map(function (w) {
+                return '<option value="' + w.id + '">' + w.title + '</option>';
+            }).join('');
+            sel.selectedIndex = i + 1;
+        });
+
+        function cmpWorks() {
+            var ids = selects.map(function (id) { return document.getElementById(id).value; }).filter(Boolean);
+            var out = document.getElementById('cmpOut');
+            if (ids.length < 2) { out.innerHTML = '<p class="pf-note">2개 이상 선택하면 비교가 표시됩니다.</p>'; return; }
+            out.innerHTML = '<div class="pf-grid">' + ids.map(function (id) {
+                var w = WORKS.find(function (x) { return x.id === id; });
+                return '<div class="pf-card"><h3>' + PF.esc(w.title) + '</h3>' +
+                    '<p><strong>지성 형태:</strong> ' + PF.esc(w.kind) + '</p>' +
+                    '<p><strong>갈등:</strong> ' + PF.esc(w.conflict) + '</p>' +
+                    '<p><strong>실험 질문:</strong> ' + PF.esc(w.q) + '</p></div>';
+            }).join('') + '</div>';
+        }
+        cmpWorks();
+
+        /* ===== SF → 실험 변환 ===== */
+        var convSel = document.getElementById('convWork');
+        convSel.innerHTML = WORKS.map(function (w) { return '<option value="' + w.id + '">' + w.title + '</option>'; }).join('');
+        var lastConv = '';
+
+        function convertWork() {
+            var w = WORKS.find(function (x) { return x.id === convSel.value; });
+            lastConv = 'SF 설정: ' + w.title + ' — ' + w.kind + '\n\n' +
+                '연구 가설: "' + w.conflict + '"라는 설정은 "' + w.q + '"라는 검증 가능한 질문으로 바꿀 수 있다.\n\n' +
+                '작은 실험: ① 가설의 핵심 변수를 하나 고른다 ② 기준선(기존 방식)과 비교 조건을 정한다 ③ 1주일 안에 수집 가능한 관찰 기록을 설계한다 ④ 실패 사례를 함께 기록한다.\n\n' +
+                '주의: SF 설정은 검증된 사실이 아니며, 이 변환은 편집 규칙의 산출입니다.';
+            document.getElementById('convOut').innerHTML = '<div class="pf-result"><h4>변환 카드 — 규칙 기반 변환</h4><p style="white-space:pre-wrap;">' + PF.esc(lastConv) + '</p></div>';
+        }
+        convertWork();
+
+        function saveConvert() {
+            PF.notebook.add({ type: 'brief', title: 'SF 변환: ' + convSel.value, body: lastConv, tags: ['sf'] })
+                .then(function () { PF.toast('변환 카드를 노트북에 저장했습니다.'); });
+        }
+        function exportConvert() {
+            PF.download('pf-sf-convert-' + Date.now() + '.md', '# SF → 연구 질문 변환 카드\n\n' + lastConv, 'text/markdown;charset=utf-8');
+            PF.toast('변환 카드 MD를 다운로드했습니다.');
+        }
+    </script>
+</body>
+</html>

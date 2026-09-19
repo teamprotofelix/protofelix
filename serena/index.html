@@ -269,6 +269,10 @@
             padding: 100px 24px;
             position: relative;
         }
+        /* 고정 내비게이션 높이만큼 앵커 스크롤 목표를 보정 */
+        section[id] {
+            scroll-margin-top: 76px;
+        }
         .section-inner {
             max-width: 1100px;
             margin: 0 auto;
@@ -1035,7 +1039,8 @@
                 <div class="reveal">
                     <h2 class="section-title">Co-Creation Works</h2>
                     <p class="section-subtitle">
-                        이 서재에서 함께 만든 작품들입니다. 작품마다 인간과 AI의 기여를 투명하게 기록합니다.
+                        이 서재에서 함께 만든 작품들입니다. 작품마다 인간과 AI의 기여를 투명하게 기록합니다.<br>
+                        <span style="font-size:0.85rem;opacity:0.75;">새 아이디어의 제작 과정은 <a href="../forge/" style="color:var(--gold-light);">공동창작 공방(/forge/)</a>에서 규칙 기반 조합으로 실험합니다.</span>
                     </p>
                     <div class="section-banner">
                         <img src="../images/serena-library.webp" width="1600" height="900" loading="lazy" decoding="async"
