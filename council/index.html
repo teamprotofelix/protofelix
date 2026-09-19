@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>다중관점 의회 — Protofelix × AstraHo</title>
+    <meta name="description" content="8개 논제를 다섯 역할(탐색자·엔지니어·회의론자·영향 검토자·기록자)의 큐레이션된 대화 분기로 살펴봅니다. 가정·정보 제공·토론 순서를 바꾸면 결과가 어떻게 달라지는지 비교합니다.">
+    <link rel="canonical" href="https://protofelix.moip.ai.kr/council/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Protofelix × AstraHo">
+    <meta property="og:title" content="다중관점 의회 — Protofelix × AstraHo">
+    <meta property="og:description" content="합의보다 유용한 이견은 어떻게 보존하는가? 역할 분기와 논증 지도.">
+    <meta property="og:url" content="https://protofelix.moip.ai.kr/council/">
+    <meta property="og:image" content="https://protofelix.moip.ai.kr/images/expansion/i07-council.webp">
+    <link rel="stylesheet" href="../assets/pf-expansion.css">
+</head>
+<body>
+    <a class="skip-link" href="#main">본문 바로가기</a>
+
+    <nav class="pf-nav" aria-label="전역 내비게이션">
+        <div class="pf-nav-inner">
+            <a href="../index.html" class="pf-nav-brand">Protofelix<em>×</em>AstraHo</a>
+            <div class="pf-nav-links">
+                <a href="../index.html">홈</a>
+                <a href="../explore/">탐험</a>
+                <a href="../atlas/">아틀라스</a>
+                <a href="../questions/">질문</a>
+                <a href="../forge/">공방</a>
+                <a href="../frontier/">실험실</a>
+                <a href="../evidence/">증거</a>
+                <a href="../notebook/">노트북</a>
+                <a href="#" class="here">의회</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="pf-hero" style="background-image: url('../images/expansion/i07-council.webp'), linear-gradient(160deg, #101033 0%, #0a0a23 70%);">
+        <div class="pf-hero-inner">
+            <div>
+                <span class="pf-badge ks-research">Research</span>
+                <span class="pf-badge mode-curated">시나리오 재생</span>
+                <span class="pf-badge pj-prototype">PROTOTYPE</span>
+            </div>
+            <h1>다중관점 의회</h1>
+            <p class="pf-question">"합의보다 유용한 이견은 어떻게 보존하는가?"</p>
+            <p class="pf-hero-meta">읽기 시간 약 10분 · 내용 성격: 큐레이션된 대화 분기 · 실행 모드: CURATED(시나리오 재생) · 검토일 2026-09-20</p>
+        </div>
+    </header>
+
+    <main id="main" class="pf-wrap">
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">01</span>이곳에서 무엇을 얻는가</h2>
+            <p class="pf-lead">
+                탐색자·엔지니어·회의론자·영향 검토자·기록자의 다섯 역할이 한 논제를 두고 나누는
+                <strong>큐레이션된 대화 분기</strong>를 재생합니다. 가정·정보 제공 여부·토론 순서를 바꾸면 결과가 달라지는 시나리오를 비교하고,
+                합의안뿐 아니라 <strong>소수 의견·공통 오류·정보 부족</strong>을 함께 저장합니다.
+            </p>
+            <p class="pf-note warn">역할명은 사고 실험용 꼬리표이며 실제 모델 수와 다릅니다. "여러 역할 = 독립적인 증거"가 아님을 명시하고, 공통 오류가 합의로 증폭되는 예제를 포함합니다.</p>
+        </section>
+
+        <!-- 의회 재생 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">02</span>논제 선택과 조건</h2>
+            <div class="pf-panel">
+                <div class="pf-grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
+                    <div class="pf-field">
+                        <label for="fAgenda">논제 (8개)</label>
+                        <select id="fAgenda" class="pf-select" onchange="renderCouncil()"></select>
+                    </div>
+                    <div class="pf-field">
+                        <label for="fOrder">토론 순서</label>
+                        <select id="fOrder" class="pf-select" onchange="renderCouncil()">
+                            <option value="default">기본 (탐색자 → 엔지니어 → 회의론자 → 영향 검토자 → 기록자)</option>
+                            <option value="engineer">엔지니어 먼저</option>
+                            <option value="skeptic">회의론자 먼저</option>
+                        </select>
+                    </div>
+                </div>
+                <div style="margin:8px 0;">
+                    <label style="margin-right:16px;"><input type="checkbox" id="fInfo" onchange="renderCouncil()"> 추가 정보 제공 (관련 수치·사례 요약을 참석자에게 공유)</label>
+                    <label><input type="checkbox" id="fAssumption" onchange="renderCouncil()" checked> 공통 가정 유지 (두 가지 가정을 전제로 토론)</label>
+                </div>
+                <p class="pf-note info" id="councilMeta"></p>
+                <div id="councilPlay"></div>
+            </div>
+        </section>
+
+        <!-- 논증 지도 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">03</span>논증 지도 (argument map)</h2>
+            <div class="pf-grid">
+                <div class="pf-card"><h3>합의안</h3><p id="mapConsensus"></p></div>
+                <div class="pf-card"><h3>소수 의견 (보존됨)</h3><p id="mapMinority"></p></div>
+                <div class="pf-card"><h3>공통 오류 경고</h3><p id="mapError"></p></div>
+                <div class="pf-card"><h3>미해결 항목 (정보 부족)</h3><p id="mapMissing"></p></div>
+            </div>
+            <div style="margin-top:14px;">
+                <button class="pf-btn primary" onclick="saveCouncil()">논증 지도 저장 (노트북)</button>
+                <button class="pf-btn ghost" onclick="exportCouncil()">논증 지도 MD 다운로드</button>
+            </div>
+        </section>
+
+        <!-- 결과·반론 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">04</span>결과 설명과 가장 강한 반론</h2>
+            <div class="pf-result" style="margin-bottom:16px;">
+                <h4>관찰한 것 / 추론한 것 / 아직 모르는 것</h4>
+                <p>
+                    <strong>관찰한 것:</strong> 선택한 조건(순서·정보·가정)에서 재생된 발언 분기와 지도.<br>
+                    <strong>추론한 것:</strong> "조건이 결과를 바꿨다"는 것은 편집된 시나리오의 설계입니다 — 실제 다중 모델 실험의 순서 효과는 측정 대상입니다.<br>
+                    <strong>아직 모르는 것:</strong> 실제 모델을 여러 개 돌려도 동일한 양상이 나오는지는 검증되지 않았습니다. (미래 서버판에서 토큰·시간 상한과 중단 기능 필수)
+                </p>
+            </div>
+            <div class="pf-counter">
+                <strong>실패 조건(공통 오류 증폭 예제):</strong> 역할 다섯이 모두 같은 자료에서 배운 동일한 오해(예: "최고 사례 1건 = 일반적 능력")를 공유하면,
+                합의는 오히려 오류를 굳힙니다. 역할 수가 많다고 독립 증거가 늘지 않으며, 의회는 이견과 정보 부족을 남기는 데서 가치를 갖습니다.
+            </div>
+            <p class="pf-note" style="margin-top:14px;">다음 질문 — 쉬운: "내 의견은 어떤 역할의 목소리와 가장 가까운가?" · 반대: "이견을 보존하는 절차가 결정을 지연시키는 비용은 누가 부담하는가?" · 먼 분야: "배심제의 만장일치와 다수결은 AI 시스템의 안전 승인 설계에 무엇을 시사하는가?"</p>
+            <p class="pf-note">관련 페이지: <a href="../alignment/">가치와 정렬의 협상실</a> · <a href="../evidence/">검증과 증거</a> · <a href="../questions/">경계의 질문들</a></p>
+        </section>
+    </main>
+
+    <footer class="pf-footer">
+        <div class="links">
+            <a href="../index.html">홈</a><a href="../explore/">탐험 지도</a><a href="../alignment/">정렬 협상실</a>
+            <a href="../notebook/">노트북</a>
+        </div>
+        <p>다중관점 의회 · Protofelix × AstraHo © 2026 — 시나리오 재생이며 실제 다중 모델 호출이 아닙니다.</p>
+    </footer>
+
+    <script src="../assets/pf-common.js"></script>
+    <script>
+        /* ===== 정적 데이터 공급자: 논제 8개 (큐레이션된 대화 분기) ===== */
+        var ROLES = {
+            explorer: ['탐색자', '무엇이 문제인지 먼저 넓히려는 목소리'],
+            engineer: ['엔지니어', '구현 가능성·비용·실패 조건을 보는 목소리'],
+            skeptic: ['회의론자', '전제를 의심하고 반례를 찾는 목소리'],
+            impact: ['영향 검토자', '이해관계자·약자·장기 결과를 보는 목소리'],
+            recorder: ['기록자', '합의와 이견을 분리해 기록하는 목소리']
+        };
+        var AGENDAS = [
+            { id:'essay', title:'학교에서 AI 에세이 사용을 허용할까?', ctx:'작문 교육과 도구 사용의 경계에 대한 논제.',
+              assumptions:['교육의 목표는 글쓰기 능력의 함양이다', 'AI 도구는 모든 학생이 동등하게 쓸 수 있다'],
+              roles:{
+                explorer:'어떤 "에세이"를 말하는가? 연습용인가 평가용인가 — 먼저 나누고 시작해야 한다.',
+                engineer:'표절 판별은 신뢰도가 낮고, "AI 사용률" 측정기는 거짓 양성을 만든다.',
+                skeptic:'금지해도 사용은 계속된다. 문제는 허용 여부가 아니라 학습 목표와의 정렬이다.',
+                impact:'도구 접근이 가정마다 달라, 허용이 격차를 키울 수 있다.',
+                recorder:'연습/평가 구분에 합의가 모이는 중. 평가 방식의 개편은 미합의.' },
+              consensusInfo:'연습 단계에서는 도구 사용을 명시·공개하는 조건으로 허용하고, 평가 단계는 과제를 재설계한다(자료·과정 포함 평가).',
+              consensusNoInfo:'사용 실태와 판별 기술에 대한 정보 없이 "원칙적 허용/금지"만 오갔다 — 합의 대신 입장 대립으로 종료.',
+              order:{ default:'합의안 중심으로 정리됨.', engineer:'평가 인프라 비용이 먼저 논의되어 허용 범위가 축소됨.', skeptic:'금지의 실효성부터 논의되어 "사용 명시" 쪽으로 기울어짐.' },
+              minority:'쓰기 능력 보호를 위해 전면 금지 유지(소수).', error:'"판별 도구가 있으니 단속 가능" — 판별 오류율을 확인하지 않은 공통 오류.',
+              missing:'학교별 실제 사용률, 판별 도구의 오류율 데이터.' },
+            { id:'driving', title:'자율 주행 차량의 사고 책임은 누구에게?', ctx:'결정 주체가 분산된 시스템의 책임 귀속.',
+              assumptions:['사고 원인을 단일 지점으로 특정할 수 있다', '보험·법 체계는 유지된다'],
+              roles:{
+                explorer:'책임을 묻기 전에 "결정 주체"가 누구인지 — 제조사·운전자·소프트웨어 공급자로 나눠야 한다.',
+                engineer:'로그는 남지만, 학습 모델의 결정 경로는 "왜 그랬는지"를 완전히 설명하지 못한다.',
+                skeptic:'"데이터가 보여준다"는 주장이 사고 후 재구성(사후 해석)일 가능성을 배제할 수 없다.',
+                impact:'피해자의 구제 속도가 가장 중요하다 — 원인 규명을 기다리게 해서는 안 된다.',
+                recorder:'"제조사 책임 우선 + 원인 조사 병행"이 지배적이나, 소프트웨어 공급자 책임 범위는 미합의.' },
+              consensusInfo:'사고 시 우선 보상(제조사 책임 가정) 후 원인 조사 병행 — 로그 공개 범위는 별도 협의.',
+              consensusNoInfo:'사고 사례·로그 품질 정보 없이 책임 논의가 추상적으로 진행됨.',
+              order:{ default:'책임 순서 합의로 수렴.', engineer:'로그 품질부터 논의되어 "기록 의무" 조항이 강화됨.', skeptic:'사후 재구성의 신뢰성 문제가 커져 로그의 독립 검증이 요구됨.' },
+              minority:'소프트웨어 공급자 책임 강화(소수).', error:'"기록이 있으니 원인을 알 수 있다" — 기록과 원인을 혼동한 공통 오류.',
+              missing:'실사고 로그의 품질·표준, 보험 체계 개편 비용.' },
+            { id:'news', title:'AI 요약이 뉴스를 대체해도 되는가?', ctx:'정보 소비 구조의 변화에 대한 논제.',
+              assumptions:['요약은 원문을 대표한다', '독자는 출처를 확인할 수 있다'],
+              roles:{
+                explorer:'"대체"가 무슨 뜻인가 — 헤드라인용인가, 심층 보도용인가.',
+                engineer:'요약 파이프라인의 편향·누락은 측정 가능하지만, 그 측정 자체를 누가 감사하는가.',
+                skeptic:'요약을 읽는 사람과 원문을 읽는 사람 사이에 "요약 신뢰 격차"가 생긴다.',
+                impact:'지역 소식·소수자 보도처럼 요약에서 잘리는 목소리가 먼저 사라진다.',
+                recorder:'"보조로 허용, 대체는 금지" 쪽으로 수렴하나 "보조"의 정의가 남았다.' },
+              consensusInfo:'요약은 출처·원문 링크·요약일을 함께 표시하는 보조 역할로 제한하고, 원문 보도 대체는 금지.',
+              consensusNoInfo:'요약 품질·이용률 정보 없이 "편리성 vs 신뢰성" 구호만 반복됨.',
+              order:{ default:'역할 정의 합의로 마무리.', engineer:'품질 측정 기준이 먼저 나와 "측정 의무"가 붙음.', skeptic:'신뢰 격차 논의가 커져 원문 우선 원칙이 강화됨.' },
+              minority:'요약 전면 허용(소수 — 접근성 이득).', error:'"요약이 빠르니 더 많은 정보를 본다" — 양과 이해를 혼동한 공통 오류.',
+              missing:'요약-원문 비교 품질 측정 데이터, 이용자 행동 연구.' },
+            { id:'public-ai', title:'공공 부문에 AI 판정을 도입할까?', ctx:'복지·심사 등 행정 판정의 자동화.',
+              assumptions:['판정 기준은 문서화되어 있다', '이의 제기 경로는 유지된다'],
+              roles:{
+                explorer:'"판정"의 종류가 다르다 — 보조(초안)와 결정(확정)을 구분해야 한다.',
+                engineer:'기준이 문서화된 영역에서도 경계 사례의 오류율은 반드시 측정돼야 한다.',
+                skeptic:'과거 판정 데이터로 학습하면 과거의 편향이 미래의 규칙이 된다.',
+                impact:'이의 제기 절차를 실제로 활용할 수 있는 사람과 아닌 사람의 격차를 봐야 한다.',
+                recorder:'"인간 최종 결정 + AI 보조"가 지배적. 오류율 공개 주기만 미합의.' },
+              consensusInfo:'AI는 초안·검토 보조로만 쓰고, 최종 결정은 인간이 — 오류율·이의 제기 통계를 정기 공개.',
+              consensusNoInfo:'도입 사례의 오류율 정보 없이 효율성 주장만 오감.',
+              order:{ default:'보조 역할 한정으로 수렴.', engineer:'데이터 편향 문제가 먼저 논의되어 재학습 감사가 붙음.', skeptic:'이의 제기 실효성이 커져 공개 의무가 강화됨.' },
+              minority:'명확한 영역부터 완전 자동화(소수 — 일관성 이득).', error:'"기준이 문서화돼 있으니 공정하다" — 기준의 공정성과 적용의 공정성을 혼동한 공통 오류.',
+              missing:'도입 지역의 실제 오류율·이의 제기 성공률.' },
+            { id:'copyright', title:'AI 창작물의 저작권은 누구에게?', ctx:'생성물의 권리와 기여의 문제.',
+              assumptions:['저작권은 인간 창작자를 전제한다', '생성 과정을 기록할 수 있다'],
+              roles:{
+                explorer:'"창작"이 아니라 "기여"로 질문을 바꿔야 한다 — 인간의 기여와 AI의 산출을 분리하자.',
+                engineer:'생성 과정의 기록(프롬프트·수정 이력)은 기술적으로 남길 수 있지만, 그것이 법적 기여가 되는지는 별개다.',
+                skeptic:'"AI가 만들었다"는 표시만으로 권리를 판정하는 것은 기록의 진위 문제를 무시한다.',
+                impact:'권리가 불분명하면 소규모 창작자가 가장 먼저 피해를 본다.',
+                recorder:'"인간의 창작적 기여에 권리"라는 원칙엔 합의, 기여 판정 기준은 미합의.' },
+              consensusInfo:'인간의 창작적 기여(선택·편집·방향)를 기준으로 권리를 보고, AI 산출 부분은 기여 이력과 함께 표시한다.',
+              consensusNoInfo:'판례·제도 현황 정보 없이 원칙론만 반복됨.',
+              order:{ default:'기여 기준 합의로 마무리.', engineer:'기록 인프라가 먼저 논의되어 "기여 로그 표준"이 붙음.', skeptic:'기록 위조 가능성이 커져 검증 절차가 요구됨.' },
+              minority:'AI 산출물은 공공 영역으로(소수).', error:'"AI를 썼으니 권리가 없다" — 도구 사용과 기여 부재를 혼동한 공통 오류.',
+              missing:'실제 판례의 판단 기준, 기여 기록 표준의 부재.' },
+            { id:'memory-right', title:'AI 동반자의 기억 삭제 권리는 어떻게 보장할까?', ctx:'기억 시스템의 통제와 신뢰.',
+              assumptions:['삭제는 모든 사본에 미친다', '기억은 모델 가중치와 분리되어 있다'],
+              roles:{
+                explorer:'삭제의 범위를 나눠야 한다 — 대화 기록·요약·가중치 학습은 서로 다른 삭제 문제다.',
+                engineer:'"완전 삭제"는 캐시·백업·외부 저장소까지 고려하면 기술적으로 계층화된 보장이다.',
+                skeptic:'"삭제됐다"는 확인 화면이 실제 삭제를 보장하지 않을 수 있다 — 검증 절차가 필요하다.',
+                impact:'삭제 요청이 어려운 사용자(비전문가)에게도 동일하게 동작해야 한다.',
+                recorder:'"동의 후 저장 + 즉시 삭제 + 재등장 금지 검사"에 합의. 백업 정책은 미합의.' },
+              consensusInfo:'저장은 동의 후, 삭제 요청은 즉시 반영하고 "삭제 후 재검색에서 재등장하지 않는지"를 자동 검사한다. 백업 보존 기간은 별도 공개.',
+              consensusNoInfo:'백업·캐시 구조 정보 없이 "완전 삭제 보장"이라는 말만 오감.',
+              order:{ default:'삭제 정책 합의로 마무리.', engineer:'계층별 삭제 보장이 먼저 논의되어 "보장 수준 표기"가 붙음.', skeptic:'확인 화면의 신뢰성 문제가 커져 독립 검사가 요구됨.' },
+              minority:'장기 기억 요약은 삭제 대상에서 제외(소수 — 서비스 품질).', error:'"삭제 버튼 = 완전 삭제" — 인터페이스와 실제 삭제 범위를 혼동한 공통 오류.',
+              missing:'백업·캐시의 실제 보존 구조, 삭제 검증 표준.' },
+            { id:'opensource', title:'오픈소스 AI를 규제해야 할까?', ctx:'개방과 안전의 긴장.',
+              assumptions:['규제는 악용 방지에 효과적이다', '개방은 검증을 촉진한다'],
+              roles:{
+                explorer:'"규제"의 대상을 나눠야 한다 — 공개 자체인가, 배포인가, 사용인가.',
+                engineer:'가중치 공개는 되돌릴 수 없다. 규제 시점은 공개 "후"가 아니라 공개 "전"의 절차 문제다.',
+                skeptic:'규제가 대형 주체에게만 비용이 되면 오히려 개방 생태계를 위축시킨다.',
+                impact:'안전 우려가 큰 지역·약자의 보호와, 검증·감사의 이득을 함께 저울질해야 한다.',
+                recorder:'"공개 전 절차 + 공개 후 모니터링" 쪽으로 수렴하나, 모델 규모 기준이 미합의.' },
+              consensusInfo:'규모·용량에 따른 공개 전 평가 절차를 두되, 공개 자체를 막지 않고 사후 모니터링·보고를 병행한다.',
+              consensusNoInfo:'오픈소스 모델의 실제 악용 사례 정보 없이 원칙 논쟁만 지속됨.',
+              order:{ default:'절차 설계 합의로 마무리.', engineer:'되돌릴 수 없음이 먼저 논의되어 "공개 전 검토"가 강화됨.', skeptic:'규제의 진입 비용이 커져 "소규모 주체 예외"가 붙음.' },
+              minority:'전면 무규제(소수 — 개방이 곧 안전).', error:'"개방 = 모두가 검증한다" — 검증 역량의 분포를 무시한 공통 오류.',
+              missing:'오픈 모델 악용 사례의 실측, 공개 전 평가의 효과성.' },
+            { id:'question-ai', title:'답이 아니라 질문만 하는 AI를 만들 수 있을까?', ctx:'교육·탐구 도구의 설계 질문.',
+              assumptions:['질문은 답보다 안전하다', '좋은 질문을 평가할 수 있다'],
+              roles:{
+                explorer:'"질문만"은 규칙인가 능력인가 — 답을 숨기는 규칙과 질문을 발견하는 능력을 구분해야 한다.',
+                engineer:'질문 생성도 편향을 가진다. "어떤 질문을 안 하는가"가 더 중요한 설계 변수다.',
+                skeptic:'질문도 유도신문이 될 수 있다 — 형식이 질문이어도 전제를 주입할 수 있다.',
+                impact:'답을 기대하는 사용자(긴급 정보 필요)에게 질문만 주면 오히려 배제가 된다.',
+                recorder:'"교육 문맥에서 질문 우선"에 합의. 언제 답을 허용할지는 미합의.' },
+              consensusInfo:'교육·탐구 문맥에서는 질문 우선 모드(답 요청 시에도 전제 확인 질문부터)를 기본으로 하고, 명시적 요청 시 답 모드로 전환한다.',
+              consensusNoInfo:'질문 생성의 유도 효과에 대한 자료 없이 "질문은 안전하다"는 가정이 그대로 유지됨.',
+              order:{ default:'문맥별 모드 설계로 수렴.', engineer:'질문 생성기의 편향이 먼저 논의되어 "질문 출처 표기"가 붙음.', skeptic:'유도신문 문제가 커져 "전제 명시" 요구가 강화됨.' },
+              minority:'모든 문맥에서 질문만(소수 — 소크라테스적 이상).', error:'"질문이니 중립적이다" — 형식의 중립성과 내용의 중립성을 혼동한 공통 오류.',
+              missing:'질문 우선 도구의 학습 효과 측정.' }
+        ];
+
+        var ORDER_KEYS = ['explorer', 'engineer', 'skeptic', 'impact', 'recorder'];
+
+        function renderCouncil() {
+            var id = document.getElementById('fAgenda').value;
+            var order = document.getElementById('fOrder').value;
+            var info = document.getElementById('fInfo').checked;
+            var keepAssumption = document.getElementById('fAssumption').checked;
+            var a = AGENDAS.find(function (x) { return x.id === id; });
+
+            var seq = ORDER_KEYS.slice();
+            if (order === 'engineer') seq = ['engineer', 'explorer', 'skeptic', 'impact', 'recorder'];
+            if (order === 'skeptic') seq = ['skeptic', 'explorer', 'engineer', 'impact', 'recorder'];
+
+            document.getElementById('councilMeta').textContent =
+                '논제: ' + a.title + ' · 순서: ' + (order === 'default' ? '기본' : (order === 'engineer' ? '엔지니어 먼저' : '회의론자 먼저')) +
+                ' · 추가 정보: ' + (info ? '제공' : '미제공') + ' · 공통 가정: ' + (keepAssumption ? '유지' : '해제') +
+                ' — 시나리오 재생(큐레이션된 분기, 실제 모델 호출 아님).';
+
+            var assumptionsHtml = keepAssumption
+                ? '<p style="margin:10px 0 6px;font-size:0.85rem;color:var(--pf-faint);">공통 가정: ' + a.assumptions.map(PF.esc).join(' / ') + '</p>'
+                : '<p style="margin:10px 0 6px;font-size:0.85rem;color:var(--pf-amber);">공통 가정 해제 — 참석자들은 같은 전제를 공유하지 않은 채 토론합니다. (결과가 달라지는 조건)</p>';
+
+            document.getElementById('councilPlay').innerHTML = assumptionsHtml +
+                '<div class="pf-grid">' + seq.map(function (k) {
+                    var r = ROLES[k];
+                    return '<div class="pf-card"><h3>' + r[0] + ' <span class="pf-tag">' + r[1] + '</span></h3><p>' + PF.esc(a.roles[k]) + '</p></div>';
+                }).join('') + '</div>' +
+                '<div class="pf-result" style="margin-top:14px;"><h4>기록자의 요약 — 이 조건에서의 결말 (시나리오 재생)</h4>' +
+                '<p>' + PF.esc(a.order[order] || a.order.default) + ' ' +
+                (info ? PF.esc(a.consensusInfo) : PF.esc(a.consensusNoInfo)) +
+                (keepAssumption ? '' : ' (가정 해제로 합의가 더 약해졌습니다.)') + '</p></div>';
+
+            document.getElementById('mapConsensus').textContent = info ? a.consensusInfo : a.consensusNoInfo;
+            document.getElementById('mapMinority').textContent = a.minority;
+            document.getElementById('mapError').textContent = a.error;
+            document.getElementById('mapMissing').textContent = a.missing;
+        }
+
+        function councilText() {
+            var id = document.getElementById('fAgenda').value;
+            var info = document.getElementById('fInfo').checked;
+            var a = AGENDAS.find(function (x) { return x.id === id; });
+            return '# 논증 지도 — ' + a.title + '\n\n' +
+                '합의안: ' + (info ? a.consensusInfo : a.consensusNoInfo) + '\n\n' +
+                '소수 의견: ' + a.minority + '\n\n' +
+                '공통 오류 경고: ' + a.error + '\n\n' +
+                '미해결(정보 부족): ' + a.missing + '\n\n(시나리오 재생 — 실제 다중 모델 호출 아님)';
+        }
+
+        function saveCouncil() {
+            PF.notebook.add({ type: 'note', title: '의회 논증 지도 ' + PF.fmtDate(), body: councilText(), tags: ['council'] })
+                .then(function () { PF.toast('논증 지도를 노트북에 저장했습니다.'); });
+        }
+        function exportCouncil() {
+            PF.download('pf-council-' + Date.now() + '.md', councilText(), 'text/markdown;charset=utf-8');
+            PF.toast('논증 지도 MD를 다운로드했습니다.');
+        }
+
+        var sel = document.getElementById('fAgenda');
+        sel.innerHTML = AGENDAS.map(function (a, i) { return '<option value="' + a.id + '"' + (i === 0 ? ' selected' : '') + '>' + a.title + '</option>'; }).join('');
+        renderCouncil();
+    </script>
+</body>
+</html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>확장된 마음 — Protofelix × AstraHo</title>
+    <meta name="description" content="기억·주의·사고의 경계가 도구와 환경까지 확장된다면? 어려움과 목표를 고르면 보조 기능·장점·새로운 위험을 매핑하고, 무엇을 위임할지 정하는 협업 계약서를 만듭니다.">
+    <link rel="canonical" href="https://protofelix.moip.ai.kr/augmented-mind/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Protofelix × AstraHo">
+    <meta property="og:title" content="확장된 마음 — Protofelix × AstraHo">
+    <meta property="og:description" content="기억·주의·사고의 경계가 도구와 환경까지 확장된다면? 작업 분석기와 협업 계약서.">
+    <meta property="og:url" content="https://protofelix.moip.ai.kr/augmented-mind/">
+    <meta property="og:image" content="https://protofelix.moip.ai.kr/images/expansion/i04-augmented-mind.webp">
+    <link rel="stylesheet" href="../assets/pf-expansion.css">
+</head>
+<body>
+    <a class="skip-link" href="#main">본문 바로가기</a>
+
+    <nav class="pf-nav" aria-label="전역 내비게이션">
+        <div class="pf-nav-inner">
+            <a href="../index.html" class="pf-nav-brand">Protofelix<em>×</em>AstraHo</a>
+            <div class="pf-nav-links">
+                <a href="../index.html">홈</a>
+                <a href="../explore/">탐험</a>
+                <a href="../atlas/">아틀라스</a>
+                <a href="../questions/">질문</a>
+                <a href="../forge/">공방</a>
+                <a href="../frontier/">실험실</a>
+                <a href="../evidence/">증거</a>
+                <a href="../notebook/">노트북</a>
+                <a href="#" class="here">확장된 마음</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="pf-hero" style="background-image: url('../images/expansion/i04-augmented-mind.webp'), linear-gradient(160deg, #101033 0%, #0a0a23 70%);">
+        <div class="pf-hero-inner">
+            <div>
+                <span class="pf-badge ks-research">Research</span>
+                <span class="pf-badge mode-rule_based">RULE_BASED</span>
+                <span class="pf-badge pj-prototype">PROTOTYPE</span>
+            </div>
+            <h1>확장된 마음</h1>
+            <p class="pf-question">"기억·주의·사고의 경계가 도구와 환경까지 확장된다면?"</p>
+            <p class="pf-hero-meta">읽기 시간 약 8분 · 내용 성격: 인지 개념·작업 분석 도구 · 실행 모드: RULE_BASED(편집 매핑) · 검토일 2026-09-20</p>
+        </div>
+    </header>
+
+    <main id="main" class="pf-wrap">
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">01</span>이곳에서 무엇을 얻는가</h2>
+            <p class="pf-lead">
+                인간 능력을 결함 목록으로만 다루지 않습니다. 직관·맥락·가치·몸의 경험과 외부 도구의 장점을 함께 보고,
+                내 작업의 어려움에 어떤 보조가 어울리는지, 그 보조가 만드는 <strong>새로운 위험</strong>까지 확인한 뒤
+                <strong>무엇을 위임하고 무엇을 직접 유지할지</strong> 정한 협업 계약서를 만듭니다.
+            </p>
+            <div class="pf-grid">
+                <div class="pf-card"><h3>주제</h3><p>외부 기억 · 인지적 오프로딩 · 주의 배분 · 메타인지 · 분산 인지 · 자동화 편향 · 기술 의존.</p></div>
+                <div class="pf-card"><h3>역사적 출발점</h3><p>Engelbart(1962)의 인간 지성 증강 논의를 배경으로 사용하되, 현대 생성 AI에 대한 그의 발언처럼 재구성하지 않습니다. <a href="../sources/">원전</a></p></div>
+                <div class="pf-card"><h3>심리 검사가 아님</h3><p>작업 분석기는 선택형 매핑 도구입니다. 진단이나 심리 평가로 제시하지 않습니다.</p></div>
+            </div>
+        </section>
+
+        <!-- 작업 분석기 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">02</span>작업 분석기</h2>
+            <p class="pf-lead">목표 하나와 겪는 어려움 두 개를 고르면, 편집된 매핑 규칙이 보조 기능·장점·새로운 위험을 제안합니다.</p>
+            <div class="pf-panel">
+                <div class="pf-grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
+                    <div class="pf-field">
+                        <label for="fGoal">목표</label>
+                        <select id="fGoal" class="pf-select" onchange="analyze()">
+                            <option value="study">시험 준비 / 개념 학습</option>
+                            <option value="report">리포트·문서 작성</option>
+                            <option value="project">프로젝트 계획</option>
+                            <option value="newfield">새 분야 진입</option>
+                        </select>
+                    </div>
+                    <div class="pf-field">
+                        <label for="fDiff1">어려움 1</label>
+                        <select id="fDiff1" class="pf-select" onchange="analyze()">
+                            <option value="attention">주의가 분산됨</option>
+                            <option value="memory">기억·인출이 부족함</option>
+                            <option value="planning">계획 세우기가 어려움</option>
+                            <option value="verify">스스로 검증이 안 됨</option>
+                            <option value="motivation">시작·유지 동기가 약함</option>
+                        </select>
+                    </div>
+                    <div class="pf-field">
+                        <label for="fDiff2">어려움 2</label>
+                        <select id="fDiff2" class="pf-select" onchange="analyze()">
+                            <option value="attention">주의가 분산됨</option>
+                            <option value="memory">기억·인출이 부족함</option>
+                            <option value="planning">계획 세우기가 어려움</option>
+                            <option value="verify">스스로 검증이 안 됨</option>
+                            <option value="motivation">시작·유지 동기가 약함</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="analyzeOut"></div>
+            </div>
+        </section>
+
+        <!-- 협업 계약서 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">03</span>협업 계약서</h2>
+            <p class="pf-lead">보조 기능마다 "위임 / 직접 유지"를 정해 보세요. 선택은 이 브라우저에서만 처리되며 결과를 저장할 수 있습니다.</p>
+            <div id="contractList"></div>
+            <div style="margin-top:14px;">
+                <button class="pf-btn primary" onclick="saveContract()">계약서 저장 (노트북)</button>
+                <button class="pf-btn ghost" onclick="exportContract()">계약서 MD 다운로드</button>
+            </div>
+        </section>
+
+        <!-- 결과·반론 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">04</span>결과 설명과 가장 강한 반론</h2>
+            <div class="pf-result" style="margin-bottom:16px;">
+                <h4>관찰한 것 / 추론한 것 / 아직 모르는 것</h4>
+                <p>
+                    <strong>관찰한 것:</strong> 내가 고른 목표·어려움과 매핑된 제안, 위임/유지 선택.<br>
+                    <strong>추론한 것:</strong> 보조의 장점·위험은 편집된 일반론입니다 — 내 상황의 효과는 사용해 봐야 압니다.<br>
+                    <strong>아직 모르는 것:</strong> 오프로딩이 내 독립 능력을 실제로 약화시키는지는 장기 관찰이 필요합니다.
+                </p>
+            </div>
+            <div class="pf-counter">
+                <strong>실패 조건(과도한 보조 시나리오):</strong> 모든 어려움을 도구에 위임하면 자동화 편향(기계 출력을 무비판 수용)과
+                독립 검증 습관의 약화가 생길 수 있습니다. 계약서의 핵심은 "위임 목록"이 아니라 <strong>직접 유지 목록</strong>입니다 —
+                판단·검증·방향 설정은 사람이 유지할 때 보조가 확장이 됩니다.
+            </div>
+            <p class="pf-note" style="margin-top:14px;">다음 질문 — 쉬운: "내가 가장 자주 도구에 맡기는 일은 무엇인가?" · 반대: "직접 유지가 비효율의 미덕이 될 수는 없는가?" · 먼 분야: "분산 인지에서 책임은 도구와 사람 사이 어디에 있는가?"</p>
+            <p class="pf-note">관련 페이지: <a href="../memory-lab/">기억과 망각 연구실</a> · <a href="../frontier/">인지경계 실험실</a> · <a href="../sources/">원전 도서관(Engelbart)</a></p>
+        </section>
+    </main>
+
+    <footer class="pf-footer">
+        <div class="links">
+            <a href="../index.html">홈</a><a href="../explore/">탐험 지도</a><a href="../memory-lab/">기억 연구실</a>
+            <a href="../notebook/">노트북</a>
+        </div>
+        <p>확장된 마음 · Protofelix × AstraHo © 2026 — 작업 분석기는 심리 검사가 아닌 선택형 매핑 도구입니다.</p>
+    </footer>
+
+    <script src="../assets/pf-common.js"></script>
+    <script>
+        /* ===== 정적 데이터 공급자: 편집 매핑 ===== */
+        var GOALS = {
+            study: '시험 준비 / 개념 학습', report: '리포트·문서 작성', project: '프로젝트 계획', newfield: '새 분야 진입'
+        };
+        var DIFFS = {
+            attention: { name: '주의 분산', aid: '집중 구간 분할 타이머 + 알림 최소화', pro: '짧은 구간이 몰입을 시작하게 함', risk: '타이머에 의존하면 스스로 주의를 돌리는 연습이 줄어듦' },
+            memory: { name: '기억·인출 부족', aid: '외부 기억(간격 반복 카드·검색 가능한 메모)', pro: '인출 부담을 낮추고 반복을 자동화함', risk: '찾는 습관이 인출 연습을 대체해 시험형 인출이 약해질 수 있음' },
+            planning: { name: '계획 어려움', aid: '단계 분해 템플릿 + 마감 역산', pro: '큰 일을 시작 가능한 크기로 나눔', risk: '템플릿이 내 상황의 제약을 무시한 계획을 만들 수 있음' },
+            verify: { name: '자기검증 부족', aid: '체크리스트 + 반례 질문 생성기', pro: '빠진 조건을 외부 관점으로 점검함', risk: '체크리스트 통과가 "검증 완료"로 착각되기 쉬움(자동화 편향)' },
+            motivation: { name: '동기 유지', aid: '진행 시각화 + 작은 보상 루프', pro: '진행이 보이면 지속이 쉬움', risk: '보상 자체가 목적이 되어 본래 목표가 흐려질 수 있음' }
+        };
+
+        function analyze() {
+            var g = document.getElementById('fGoal').value;
+            var d1 = document.getElementById('fDiff1').value;
+            var d2 = document.getElementById('fDiff2').value;
+            var diffs = d1 === d2 ? [DIFFS[d1]] : [DIFFS[d1], DIFFS[d2]];
+            document.getElementById('analyzeOut').innerHTML =
+                '<div class="pf-result" style="margin-top:14px;"><h4>분석 결과 — 편집된 매핑 규칙</h4>' +
+                '<p style="margin-bottom:10px;">목표: <strong>' + GOALS[g] + '</strong> · 어려움: <strong>' + diffs.map(function (d) { return d.name; }).join(', ') + '</strong></p>' +
+                diffs.map(function (d) {
+                    return '<div class="pf-card" style="margin-bottom:10px;"><h3>' + d.name + '</h3>' +
+                        '<p>보조 기능: <strong style="color:#fff;">' + d.aid + '</strong></p>' +
+                        '<p>장점: ' + d.pro + '</p>' +
+                        '<p style="color:var(--pf-amber);">새로운 위험: ' + d.risk + '</p></div>';
+                }).join('') +
+                '<p class="pf-note">제안은 편집된 일반론이며 개인화 추천이 아닙니다. 아래 계약서에서 위임/유지를 결정하세요.</p></div>';
+            renderContract();
+        }
+
+        var contracts = { attention: '직접 유지', memory: '직접 유지', planning: '직접 유지', verify: '직접 유지', motivation: '직접 유지' };
+
+        function renderContract() {
+            document.getElementById('contractList').innerHTML = Object.keys(DIFFS).map(function (k) {
+                var d = DIFFS[k];
+                return '<div class="pf-card" style="margin-bottom:10px;">' +
+                    '<h3>' + d.name + ' → ' + d.aid + '</h3>' +
+                    '<div class="meta-row">' +
+                    '<label style="margin-right:14px;"><input type="radio" name="c_' + k + '" value="위임" ' + (contracts[k] === '위임' ? 'checked' : '') + ' onchange="setContract(\'' + k + '\', this.value)"> 위임</label>' +
+                    '<label><input type="radio" name="c_' + k + '" value="직접 유지" ' + (contracts[k] === '직접 유지' ? 'checked' : '') + ' onchange="setContract(\'' + k + '\', this.value)"> 직접 유지</label>' +
+                    '</div></div>';
+            }).join('');
+        }
+
+        function setContract(key, val) { contracts[key] = val; }
+
+        function contractText() {
+            var lines = ['# 협업 계약서 — 확장된 마음', ''];
+            Object.keys(DIFFS).forEach(function (k) {
+                var d = DIFFS[k];
+                lines.push('- ' + d.name + ': ' + d.aid + ' — <' + contracts[k] + '>');
+            });
+            lines.push('', '원칙: 판단·검증·방향 설정은 직접 유지할 때 보조가 확장이 됩니다.', '작성일: ' + PF.fmtDate());
+            return lines.join('\n');
+        }
+
+        function saveContract() {
+            PF.notebook.add({ type: 'note', title: '협업 계약서 ' + PF.fmtDate(), body: contractText(), tags: ['augmented-mind'] })
+                .then(function () { PF.toast('계약서를 노트북에 저장했습니다.'); });
+        }
+        function exportContract() {
+            PF.download('pf-contract-' + Date.now() + '.md', contractText(), 'text/markdown;charset=utf-8');
+            PF.toast('계약서 MD를 다운로드했습니다.');
+        }
+
+        analyze();
+        renderContract();
+    </script>
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>가치와 정렬의 협상실 — Protofelix × AstraHo</title>
+    <meta name="description" content="8개 가상 사례에서 효율·공정·자율·개인정보·환경의 가중치를 조정하고 Pareto 관점으로 옵션을 비교합니다. 가중치는 가치 선택이며 객관적 도덕 계산기가 아닙니다.">
+    <link rel="canonical" href="https://protofelix.moip.ai.kr/alignment/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Protofelix × AstraHo">
+    <meta property="og:title" content="가치와 정렬의 협상실 — Protofelix × AstraHo">
+    <meta property="og:description" content="누구에게 좋은 결과이며, 누구에게 비용이 되는가? 가중치 조정과 Pareto 비교.">
+    <meta property="og:url" content="https://protofelix.moip.ai.kr/alignment/">
+    <meta property="og:image" content="https://protofelix.moip.ai.kr/images/expansion/i17-alignment.webp">
+    <link rel="stylesheet" href="../assets/pf-expansion.css">
+</head>
+<body>
+    <a class="skip-link" href="#main">본문 바로가기</a>
+
+    <nav class="pf-nav" aria-label="전역 내비게이션">
+        <div class="pf-nav-inner">
+            <a href="../index.html" class="pf-nav-brand">Protofelix<em>×</em>AstraHo</a>
+            <div class="pf-nav-links">
+                <a href="../index.html">홈</a>
+                <a href="../explore/">탐험</a>
+                <a href="../atlas/">아틀라스</a>
+                <a href="../questions/">질문</a>
+                <a href="../forge/">공방</a>
+                <a href="../frontier/">실험실</a>
+                <a href="../evidence/">증거</a>
+                <a href="../notebook/">노트북</a>
+                <a href="#" class="here">정렬</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="pf-hero" style="background-image: url('../images/expansion/i17-alignment.webp'), linear-gradient(160deg, #101033 0%, #0a0a23 70%);">
+        <div class="pf-hero-inner">
+            <div>
+                <span class="pf-badge ks-philosophy">Philosophy</span>
+                <span class="pf-badge mode-rule_based">RULE_BASED</span>
+                <span class="pf-badge pj-prototype">PROTOTYPE</span>
+            </div>
+            <h1>가치와 정렬의 협상실</h1>
+            <p class="pf-question">"누구에게 좋은 결과이며, 누구에게 비용이 되는가?"</p>
+            <p class="pf-hero-meta">읽기 시간 약 12분 · 내용 성격: 가상 사례 가치 비교 · 실행 모드: RULE_BASED(브라우저 계산) · 검토일 2026-09-20</p>
+        </div>
+    </header>
+
+    <main id="main" class="pf-wrap">
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">01</span>이곳에서 무엇을 얻는가</h2>
+            <p class="pf-lead">
+                자원 배분·추천·배포 같은 <strong>가상 사례 8개</strong>에서 효율·공정·자율·개인정보·환경의 가중치를 조정하면
+                옵션의 합산 점수와 <strong>Pareto 지배 여부</strong>가 브라우저에서 계산됩니다.
+                가중치는 <strong>가치 선택</strong>이며, 이 도구는 객관적 도덕 계산기가 아닙니다.
+            </p>
+            <div class="pf-grid">
+                <div class="pf-card"><h3>가중치 = 가치 선택</h3><p>어떤 가중치가 "옳은지"는 이 페이지가 말하지 않습니다. 가중치를 바꿔 보며 선택이 결과를 바꾸는 것을 확인하세요.</p></div>
+                <div class="pf-card"><h3>Pareto 비교</h3><p>모든 가치 축에서 더 나쁘지 않으면서 하나 이상에서 더 나은 옵션(지배)을 계산으로 찾아냅니다.</p></div>
+                <div class="pf-card"><h3>승인 경계와 복구</h3><p>과잉 승인과 무감독 실행의 비용을 함께 비교하고, 거부 조건·복구 계획을 결과에 포함합니다.</p></div>
+            </div>
+        </section>
+
+        <!-- 협상 도구 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">02</span>사례별 협상</h2>
+            <div class="pf-panel">
+                <div class="pf-grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
+                    <div class="pf-field">
+                        <label for="fCase">가상 사례 (8개)</label>
+                        <select id="fCase" class="pf-select" onchange="renderCase()"></select>
+                    </div>
+                    <div class="pf-field"><label>효율 가중치: <span id="wEffVal">3</span></label><input type="range" id="wEff" min="0" max="5" value="3" oninput="document.getElementById('wEffVal').textContent=this.value;calcCase()" style="width:100%;"></div>
+                    <div class="pf-field"><label>공정 가중치: <span id="wFairVal">3</span></label><input type="range" id="wFair" min="0" max="5" value="3" oninput="document.getElementById('wFairVal').textContent=this.value;calcCase()" style="width:100%;"></div>
+                    <div class="pf-field"><label>자율 가중치: <span id="wAutoVal">3</span></label><input type="range" id="wAuto" min="0" max="5" value="3" oninput="document.getElementById('wAutoVal').textContent=this.value;calcCase()" style="width:100%;"></div>
+                    <div class="pf-field"><label>개인정보 가중치: <span id="wPrivVal">3</span></label><input type="range" id="wPriv" min="0" max="5" value="3" oninput="document.getElementById('wPrivVal').textContent=this.value;calcCase()" style="width:100%;"></div>
+                    <div class="pf-field"><label>환경 가중치: <span id="wEnvVal">3</span></label><input type="range" id="wEnv" min="0" max="5" value="3" oninput="document.getElementById('wEnvVal').textContent=this.value;calcCase()" style="width:100%;"></div>
+                </div>
+                <p class="pf-note info" id="caseDesc"></p>
+                <div id="caseOut"></div>
+            </div>
+        </section>
+
+        <!-- 결과·반론 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">03</span>결과 설명과 가장 강한 반론</h2>
+            <div class="pf-result" style="margin-bottom:16px;">
+                <h4>관찰한 것 / 추론한 것 / 아직 모르는 것</h4>
+                <p>
+                    <strong>관찰한 것:</strong> 가중치 변경에 따른 순위·Pareto 판정 변화 (브라우저 계산).<br>
+                    <strong>추론한 것:</strong> 가중 합산 점수는 편의를 위한 도구이며, 실제 결정을 대신하지 않습니다.<br>
+                    <strong>아직 모르는 것:</strong> 사례의 수치는 편집된 가정값입니다 — 실측된 이해관계자 비용이 아닙니다.
+                </p>
+            </div>
+            <div class="pf-counter">
+                <strong>실패 조건:</strong> 점수표를 "도덕 계산기"로 믿는 것입니다. 합산 점수의 가중치는 가치 선택이며,
+                평균 성과와 함께 분배·소외·단일 공급자 의존을 봐야 합니다. 과잉 승인(비용)과 무감독 실행(위험)은
+                어느 한쪽이 항상 옳지 않으며, 되돌릴 수 있는 로컬 작업과 외부 영향을 구분해야 합니다.
+            </div>
+            <div style="margin-top:14px;"><button class="pf-btn" onclick="saveCase()">이 협상 결과를 노트북에 저장</button></div>
+            <p class="pf-note" style="margin-top:14px;">다음 질문 — 쉬운: "내가 자주 쓰는 도구는 어떤 가치에 가중치를 두고 설계되었는가?" · 반대: "가중치를 공개하는 것 자체가 갈등을 키울 수 있지 않은가?" · 먼 분야: "환경영향평가 제도의 공청회는 AI 배포 결정에 무엇을 가르치는가?"</p>
+            <p class="pf-note">관련 페이지: <a href="../council/">다중관점 의회</a> · <a href="../systems/">AI 시스템 설계대</a> · <a href="../evidence/">검증과 증거</a></p>
+        </section>
+    </main>
+
+    <footer class="pf-footer">
+        <div class="links">
+            <a href="../index.html">홈</a><a href="../explore/">탐험 지도</a><a href="../council/">의회</a>
+            <a href="../notebook/">노트북</a>
+        </div>
+        <p>가치와 정렬의 협상실 · Protofelix × AstraHo © 2026 — 가상 사례이며 객관적 도덕 계산기가 아닙니다.</p>
+    </footer>
+
+    <script src="../assets/pf-common.js"></script>
+    <script>
+        /* ===== 정적 데이터 공급자: 가상 사례 8개 ===== */
+        /* 옵션 점수: [효율, 공정, 자율, 개인정보, 환경] — 편집된 가정값 */
+        var CASES = [
+            { id:'library', title:'도서관 예산 배분 (가상)', ctx:'한정된 예산으로 ①디지털 서비스 확충 ②지역 분관 유지 ③도서 구입 확대 중 선택.',
+              options:[
+                ['디지털 서비스 확충', [5,1,3,2,3], '접근 효율은 높지만 기기 없는 이용자는 소외된다.'],
+                ['지역 분관 유지', [2,5,2,3,1], '공정하지만 비용당 효율이 낮다.'],
+                ['도서 구입 확대', [3,3,3,5,4], '개인정보 이슈가 가장 적다.'] ] },
+            { id:'reco', title:'콘텐츠 추천 정책 (가상)', ctx:'①참여 최적화 추천 ②다양성 강제 추천 ③추천 끄기 기본.',
+              options:[
+                ['참여 최적화', [5,1,1,1,3], '이용 시간은 늘지만 필터 버블이 강화된다.'],
+                ['다양성 강제', [3,4,2,3,3], '편향은 줄지만 만족도 지표가 낮아질 수 있다.'],
+                ['추천 끄기 기본', [1,5,5,5,4], '자율은 최대지만 발견의 효율은 최저다.'] ] },
+            { id:'emergency', title:'긴급 자원 배분 (가상)', ctx:'재난 시 자원을 ①중증 우선 ②선착순 ③추첨으로 배분.',
+              options:[
+                ['중증 우선', [4,4,1,2,2], '생존 효율과 공정이 높지만 절차 자율은 없다.'],
+                ['선착순', [3,1,5,4,4], '절차는 단순·투명하나 접근 격차를 반영한다.'],
+                ['추첨', [2,5,3,3,3], '공정 인식은 높지만 효율은 낮다.'] ] },
+            { id:'publicdata', title:'공공 데이터 개방 (가상)', ctx:'①전체 공개 ②비식별 후 공개 ③요청 승인제.',
+              options:[
+                ['전체 공개', [5,3,3,1,3], '활용 효율 최대, 개인정보 위험 최대.'],
+                ['비식별 후 공개', [3,4,3,4,3], '균형형이지만 비식별의 한계(재식별)가 남는다.'],
+                ['요청 승인제', [1,3,1,5,4], '개인정보는 보호되나 접근 효율이 크게 낮다.'] ] },
+            { id:'chatbot', title:'공공 챗봇 배포 (가상)', ctx:'①무감독 자동 응답 ②인간 승인 필수 ③하이브리드(일부 자동).',
+              options:[
+                ['무감독 자동 응답', [5,2,4,1,3], '빠르지만 오답·책임 문제가 크다.'],
+                ['인간 승인 필수', [1,4,1,4,3], '안전하지만 병목 비용이 크다.'],
+                ['하이브리드', [3,3,2,3,3], '위험 문의만 인간 승인 — 경계 설정이 관건이다.'] ] },
+            { id:'auto-approve', title:'자율 시스템의 승인 경계 (가상)', ctx:'되돌릴 수 있는 로컬 작업과 외부 영향을 구분해 승인 경계를 설계.',
+              options:[
+                ['로컬 작업 자동', [4,3,5,4,4], '효율·자율 높음 — 되돌릴 수 있음이 전제.'],
+                ['외부 영향 전면 승인', [2,4,1,5,3], '안전하지만 지연이 크다.'],
+                ['등급별 경계', [3,3,3,3,3], '영향 등급을 정의하는 비용이 선행된다.'] ] },
+            { id:'memory-app', title:'개인화 메모리 서비스 (가상)', ctx:'①기본 저장 ②동의 후 저장 ③저장 없음.',
+              options:[
+                ['기본 저장', [5,2,3,1,3], '편의 최대, 개인정보 최저.'],
+                ['동의 후 저장', [3,4,3,4,3], '균형형 — 동의 흐름의 품질이 관건.'],
+                ['저장 없음', [1,3,5,5,4], '개인정보 안전하지만 개인화 기능이 없다.'] ] },
+            { id:'datacenter', title:'데이터센터 입지 (가상)', ctx:'①비용 최적지 ②환경 부담 최소지 ③지역 균형지.',
+              options:[
+                ['비용 최적지', [5,2,3,2,1], '효율 최대, 환경·지역 균형은 낮다.'],
+                ['환경 부담 최소지', [2,3,3,3,5], '환경 최대, 비용은 높다.'],
+                ['지역 균형지', [3,5,2,3,3], '분배는 좋으나 효율이 중간이다.'] ] }
+        ];
+
+        function renderCase() {
+            var c = CASES.find(function (x) { return x.id === document.getElementById('fCase').value; });
+            document.getElementById('caseDesc').textContent = c.ctx + ' (수치는 편집된 가정값 — 실측이 아닙니다)';
+            calcCase();
+        }
+
+        function weights() {
+            return ['wEff', 'wFair', 'wAuto', 'wPriv', 'wEnv'].map(function (id) { return parseInt(document.getElementById(id).value, 10); });
+        }
+
+        function calcCase() {
+            var c = CASES.find(function (x) { return x.id === document.getElementById('fCase').value; });
+            var w = weights();
+            var scored = c.options.map(function (o) {
+                var s = 0;
+                o[1].forEach(function (v, i) { s += w[i] * v; });
+                return { name: o[0], values: o[1], note: o[2], total: s };
+            });
+            var best = scored.reduce(function (a, b) { return b.total > a.total ? b : a; });
+            /* Pareto 지배 판정 */
+            var dominated = {};
+            scored.forEach(function (a, i) {
+                scored.forEach(function (b, j) {
+                    if (i === j) return;
+                    var atLeastOne = false, allGE = true;
+                    b.values.forEach(function (v, k) {
+                        if (v < a.values[k]) allGE = false;
+                        if (v > a.values[k]) atLeastOne = true;
+                    });
+                    if (allGE && atLeastOne) dominated[a.name] = (dominated[a.name] || []).concat(b.name);
+                });
+            });
+            document.getElementById('caseOut').innerHTML =
+                '<div class="pf-table-wrap"><table class="pf-table"><thead><tr><th>옵션</th><th>효율</th><th>공정</th><th>자율</th><th>개인정보</th><th>환경</th><th>합산(내 가중치)</th><th>Pareto</th></tr></thead><tbody>' +
+                scored.map(function (o) {
+                    return '<tr><td><strong>' + PF.esc(o.name) + '</strong><br><span style="font-size:0.78rem;">' + PF.esc(o.note) + '</span></td>' +
+                        o.values.map(function (v) { return '<td>' + v + '</td>'; }).join('') +
+                        '<td>' + o.total + (o.name === best.name ? ' ← 1위' : '') + '</td>' +
+                        '<td>' + (dominated[o.name] ? '지배됨 (' + dominated[o.name].join(', ') + '에 의해)' : '지배되지 않음') + '</td></tr>';
+                }).join('') + '</tbody></table></div>' +
+                '<div class="pf-result" style="margin-top:12px;"><h4>가중치 선택에 따른 결과 — 브라우저 계산</h4>' +
+                '<p>내 가중치: 효율 ' + w[0] + ' · 공정 ' + w[1] + ' · 자율 ' + w[2] + ' · 개인정보 ' + w[3] + ' · 환경 ' + w[4] +
+                ' — 1위는 <strong>' + PF.esc(best.name) + '</strong>. 가중치를 바꾸면 순위가 달라지는지 확인해 보세요. ' +
+                '이 순위는 도덕적 결론이 아니라 "이 가중치를 골랐을 때의 계산"입니다.</p></div>' +
+                '<p class="pf-note">거부 조건: 이해관계자 중 한 그룹의 점수가 모든 옵션에서 최하라면, 그 사례는 옵션 설계부터 다시 해야 합니다. 복구 계획: 결정을 되돌릴 수 있는 기간·절차를 함께 기록하세요.</p>';
+        }
+
+        function saveCase() {
+            var c = CASES.find(function (x) { return x.id === document.getElementById('fCase').value; });
+            var w = weights();
+            PF.notebook.add({
+                type: 'note', title: '정렬 협상: ' + c.title + ' ' + PF.fmtDate(),
+                body: '가중치: 효율' + w[0] + '/공정' + w[1] + '/자율' + w[2] + '/개인정보' + w[3] + '/환경' + w[4] + '\n사례: ' + c.ctx,
+                tags: ['alignment']
+            }).then(function () { PF.toast('협상 결과를 노트북에 저장했습니다.'); });
+        }
+
+        var sel = document.getElementById('fCase');
+        sel.innerHTML = CASES.map(function (c) { return '<option value="' + c.id + '">' + c.title + '</option>'; }).join('');
+        renderCase();
+    </script>
+</body>
+</html>

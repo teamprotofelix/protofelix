@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>검증과 증거 — Protofelix × AstraHo</title>
+    <meta name="description" content="놀라운 결과가 정말 새로운 능력을 보여주는가? 실험 카드의 조건(주장·기준선·표본·평가 방식·한계)을 점검하고, 내 CSV/JSON 데이터를 브라우저에서만 분석합니다.">
+    <link rel="canonical" href="https://protofelix.moip.ai.kr/evidence/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Protofelix × AstraHo">
+    <meta property="og:title" content="검증과 증거 — Protofelix × AstraHo">
+    <meta property="og:description" content="놀라운 결과가 정말 새로운 능력을 보여주는가? 재현 조건과 평가 카드.">
+    <meta property="og:url" content="https://protofelix.moip.ai.kr/evidence/">
+    <meta property="og:image" content="https://protofelix.moip.ai.kr/images/expansion/i09-evidence.webp">
+    <link rel="stylesheet" href="../assets/pf-expansion.css">
+</head>
+<body>
+    <a class="skip-link" href="#main">본문 바로가기</a>
+
+    <nav class="pf-nav" aria-label="전역 내비게이션">
+        <div class="pf-nav-inner">
+            <a href="../index.html" class="pf-nav-brand">Protofelix<em>×</em>AstraHo</a>
+            <div class="pf-nav-links">
+                <a href="../index.html">홈</a>
+                <a href="../explore/">탐험 지도</a>
+                <a href="../atlas/">아틀라스</a>
+                <a href="../questions/">질문</a>
+                <a href="../forge/">공방</a>
+                <a href="../frontier/">실험실</a>
+                <a href="#" class="here">증거</a>
+                <a href="../notebook/">노트북</a>
+                <a href="../sources/">원전</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="pf-hero" style="background-image: url('../images/expansion/i09-evidence.webp'), linear-gradient(160deg, #101033 0%, #0a0a23 70%);">
+        <div class="pf-hero-inner">
+            <div>
+                <span class="pf-badge ks-research">Research</span>
+                <span class="pf-badge mode-curated">CURATED</span>
+                <span class="pf-badge pj-prototype">PROTOTYPE</span>
+            </div>
+            <h1>검증과 증거</h1>
+            <p class="pf-question">"놀라운 결과가 정말 새로운 능력을 보여주는가?"</p>
+            <p class="pf-hero-meta">읽기 시간 약 10분 · 내용 성격: 평가 카드·로컬 데이터 분석 · 실행 모드: CURATED(+브라우저 파일 읽기) · 검토일 2026-09-20</p>
+        </div>
+    </header>
+
+    <main id="main" class="pf-wrap">
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">01</span>이곳에서 무엇을 얻는가</h2>
+            <p class="pf-lead">
+                기술 주장을 믿기 전에 확인해야 할 <strong>실험 카드의 조건</strong>(주장·task·기준선·조건·모델·표본·평가 방식·변동성·비용·한계·출처·검토자)을 배우고,
+                내가 가진 CSV/JSON 데이터를 <strong>브라우저에서만</strong> 읽어 스키마 검증 후 표로 확인합니다.
+                현재 프로젝트의 정직한 상태는 "<strong>검증된 결과 없음</strong>"이며, 빈 차트를 임의 수치로 채우지 않습니다.
+            </p>
+            <div class="pf-grid">
+                <div class="pf-card"><h3>결과 유형 구분</h3><p>검토된 실측 / 재현 대기 / 교육용 합성 예시 / 철회 / 반례 — 유형을 라벨로 표시합니다.</p></div>
+                <div class="pf-card"><h3>업로드는 서버 전송 아님</h3><p>파일은 브라우저의 FileReader로만 읽히며 어디에도 업로드되지 않습니다.</p></div>
+                <div class="pf-card"><h3>실패 데이터도 보인다</h3><p>성공 사례만 필터로 숨기지 않습니다. 실패도 동일 검색 조건에서 발견되어야 합니다.</p></div>
+            </div>
+        </section>
+
+        <!-- 현재 상태 + 카드 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">02</span>현재 공개 카드</h2>
+            <div class="pf-grid">
+                <div class="pf-card">
+                    <h3>프로젝트 상태 — 검증된 결과 없음 <span class="pf-badge ks-unknown">Unknown</span></h3>
+                    <p>Protofelix는 아직 MEASURED 라벨 조건(평가 환경·데이터셋·표본·날짜·재현 자료)을 갖춘 측정을 공개하지 않았습니다. 이것이 정상 상태이며, 조건이 갖춰지면 이 페이지에 먼저 공개합니다.</p>
+                </div>
+                <div class="pf-card">
+                    <h3>교육용 합성 데이터 예시 <span class="pf-badge mode-curated">교육용 합성</span></h3>
+                    <p>실험 카드 형식을 보여주기 위한 <strong>가상의</strong> 예시입니다. 수치·결과 모두 실제 측정이 아니며, 카드·차트·내보내기에 "교육용 합성 데이터"를 표시합니다.</p>
+                </div>
+                <div class="pf-card">
+                    <h3>철회 기록 <span class="pf-badge ks-established">Established</span></h3>
+                    <p>2026년 개편에서 근거 미공개 수치(추론 정확도 99.2%, 2M 토큰/초, 다운타임 0% 등)를 철회했습니다. 전체 목록은 <a href="../lulu/">Lulu의 What Failed</a>에 있습니다. 철회는 사건으로 기록되고 삭제되지 않습니다.</p>
+                </div>
+                <div class="pf-card">
+                    <h3>반례 — 단일 최고 사례 일반화 <span class="pf-badge ks-research">Research</span></h3>
+                    <p>"최고 성능 1건"으로 능력을 일반화하는 오류의 교육용 반례: 같은 모델이 가장 좋은 예시 1개와 평균 성능 사이에서 큰 차이를 보일 수 있습니다. 분포·변동성을 함께 보지 않으면 최고 사례만 남습니다.</p>
+                </div>
+            </div>
+            <details class="pf-fold" style="margin-top:16px;">
+                <summary>실험 카드 템플릿 — 12개 필드</summary>
+                <div class="pf-table-wrap" style="margin-top:10px;">
+                    <table class="pf-table">
+                        <thead><tr><th>필드</th><th>내용</th></tr></thead>
+                        <tbody>
+                            <tr><td>주장</td><td>이 실험이 보여준다고 주장하는 것 (정확히)</td></tr>
+                            <tr><td>task</td><td>어떤 과제에서 측정했는가</td></tr>
+                            <tr><td>기준선</td><td>무엇과 비교했는가 — 단독 수치 금지</td></tr>
+                            <tr><td>조건</td><td>환경·프롬프트·데이터 버전</td></tr>
+                            <tr><td>모델·버전</td><td>어떤 모델의 어떤 버전인가</td></tr>
+                            <tr><td>표본</td><td>표본 수와 선정 방식</td></tr>
+                            <tr><td>평가 방식</td><td>지표 정의와 계산 방법</td></tr>
+                            <tr><td>변동성</td><td>여러 번 돌렸을 때의 편차</td></tr>
+                            <tr><td>비용</td><td>계산·시간·금전 비용</td></tr>
+                            <tr><td>한계</td><td>일반화할 수 없는 범위</td></tr>
+                            <tr><td>출처</td><td>논문·리포트·재현 링크</td></tr>
+                            <tr><td>검토자</td><td>누가 확인했는가 (없으면 "미검토")</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="pf-note">교육용 합성 데이터 예시 카드 (가상): 주장 "요약 품질 향상" · task "뉴스 요약" · 기준선 "단순 추출 요약" · 조건 "합성 뉴스 100건" · 표본 100 · 평가 "자동 지표 1종" · 변동성 "미기재" · 한계 "합성 데이터이므로 실사용 일반화 불가". — 이 카드는 교육용 합성 데이터입니다.</p>
+            </details>
+        </section>
+
+        <!-- 로컬 데이터 분석 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">03</span>내 데이터 분석 (브라우저에서만 읽음)</h2>
+            <p class="pf-lead">
+                CSV 또는 JSON을 선택하면 스키마를 검증하고 표로 보여줍니다. <strong>서버로 전송되지 않습니다.</strong>
+                필요 열: <code>model, task, metric, value, condition, date</code> (선택: <code>status, notes</code>).
+            </p>
+            <div class="pf-panel">
+                <div class="pf-grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
+                    <div class="pf-field">
+                        <label for="dataFile">CSV / JSON 파일 (최대 5MB)</label>
+                        <input type="file" id="dataFile" accept=".csv,.json,text/csv,application/json" class="pf-input">
+                    </div>
+                    <div class="pf-field">
+                        <label for="fStatus">상태 필터</label>
+                        <select id="fStatus" class="pf-select" onchange="renderTable()">
+                            <option value="all">전체 (성공+실패 함께)</option>
+                            <option value="pass">pass / 성공만</option>
+                            <option value="fail">fail / 실패만</option>
+                        </select>
+                    </div>
+                </div>
+                <p class="pf-note info" id="dataStatus">파일을 선택하면 이곳에 검증 결과가 표시됩니다.</p>
+                <div class="pf-table-wrap"><table class="pf-table" id="dataTable"></table></div>
+                <div style="margin-top:12px;">
+                    <button class="pf-btn small" onclick="exportCSV()">필터된 CSV 내보내기 (수식 주입 방어 적용)</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 반론 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">04</span>가장 강한 반론 — "없음"을 채우는 유혹</h2>
+            <div class="pf-counter">
+                <strong>실패 조건:</strong> 검증된 결과가 없을 때 빈 표를 임의 수치나 그럴듯한 예시로 채우면, 이 페이지가 오히려 거짓의 원천이 됩니다.
+                "검증된 결과 없음"이 정상 상태이며, AI 판정 점수와 인간 평가는 별도 열로 두고, 단일 최고 사례를 일반화하지 않습니다.
+            </div>
+            <p class="pf-note" style="margin-top:14px;">관련 페이지: <a href="../lulu/">Lulu 개발 로그(What Failed)</a> · <a href="../sources/">원전 도서관</a> · <a href="../frontier/">인지경계 실험실</a> · <a href="../observatory/">전망대(휴식 — 검증 역할 아님)</a></p>
+        </section>
+    </main>
+
+    <footer class="pf-footer">
+        <div class="links">
+            <a href="../index.html">홈</a><a href="../explore/">탐험 지도</a><a href="../atlas/">아틀라스</a>
+            <a href="../notebook/">노트북</a><a href="../sources/">원전</a>
+        </div>
+        <p>검증과 증거 · Protofelix × AstraHo © 2026 — 파일은 브라우저에서만 읽히며 외부로 전송되지 않습니다.</p>
+    </footer>
+
+    <script src="../assets/pf-common.js"></script>
+    <script>
+        var rows = [];
+        var REQUIRED = ['model', 'task', 'metric', 'value', 'condition', 'date'];
+
+        function parseCSV(text) {
+            /* 간단한 CSV 파서 (인용 부호 처리) */
+            var lines = text.replace(/\r/g, '').split('\n').filter(function (l) { return l.trim(); });
+            if (lines.length < 2) throw new Error('CSV에 헤더와 데이터 행이 필요합니다.');
+            function splitLine(line) {
+                var out = [], cur = '', inQ = false;
+                for (var i = 0; i < line.length; i++) {
+                    var ch = line[i];
+                    if (inQ) {
+                        if (ch === '"') { if (line[i + 1] === '"') { cur += '"'; i++; } else inQ = false; }
+                        else cur += ch;
+                    } else if (ch === '"') inQ = true;
+                    else if (ch === ',') { out.push(cur); cur = ''; }
+                    else cur += ch;
+                }
+                out.push(cur);
+                return out;
+            }
+            var header = splitLine(lines[0]).map(function (h) { return h.trim().toLowerCase(); });
+            return lines.slice(1).map(function (l) {
+                var cells = splitLine(l);
+                var obj = {};
+                header.forEach(function (h, i) { obj[h] = (cells[i] || '').trim(); });
+                return obj;
+            });
+        }
+
+        function validate(objs) {
+            var missing = REQUIRED.filter(function (r) {
+                return !objs.every(function (o) { return o[r] !== undefined && o[r] !== ''; });
+            });
+            if (missing.length) throw new Error('필요 열 누락: ' + missing.join(', '));
+            if (objs.length > 500) throw new Error('행 수가 너무 많습니다(최대 500).');
+            return objs.map(function (o) {
+                var v = parseFloat(o.value);
+                if (isNaN(v)) throw new Error('value가 숫자가 아닙니다: ' + o.value);
+                return {
+                    model: String(o.model).slice(0, 100),
+                    task: String(o.task).slice(0, 100),
+                    metric: String(o.metric).slice(0, 100),
+                    value: v,
+                    condition: String(o.condition).slice(0, 300),
+                    date: String(o.date).slice(0, 20),
+                    status: ['pass', 'fail', '성공', '실패'].indexOf(String(o.status || 'pass')) >= 0 ? String(o.status || 'pass') : 'pass',
+                    notes: String(o.notes || '').slice(0, 500)
+                };
+            });
+        }
+
+        function handleFile(file) {
+            var status = document.getElementById('dataStatus');
+            if (!file) return;
+            if (file.size > 5 * 1024 * 1024) { status.textContent = '5MB 이하의 파일만 가능합니다.'; return; }
+            var reader = new FileReader();
+            reader.onload = function () {
+                try {
+                    var objs;
+                    if (file.name.toLowerCase().endsWith('.json')) {
+                        var data = JSON.parse(reader.result);
+                        objs = Array.isArray(data) ? data : (Array.isArray(data.rows) ? data.rows : null);
+                        if (!objs) throw new Error('JSON은 배열 또는 {rows: []} 형식이어야 합니다.');
+                    } else {
+                        objs = parseCSV(reader.result);
+                    }
+                    rows = validate(objs);
+                    status.textContent = '검증 통과: ' + rows.length + '행 — 로컬 파일 분석(브라우저에서만 읽음, 서버 전송 없음). 실패 데이터도 필터에서 함께 확인됩니다.';
+                    renderTable();
+                } catch (e) {
+                    rows = [];
+                    status.textContent = '검증 거절: ' + e.message;
+                    renderTable();
+                }
+            };
+            reader.onerror = function () { status.textContent = '파일을 읽지 못했습니다.'; };
+            reader.readAsText(file, 'utf-8');
+        }
+        document.getElementById('dataFile').addEventListener('change', function () { handleFile(this.files[0]); });
+
+        function renderTable() {
+            var f = document.getElementById('fStatus').value;
+            var list = rows.filter(function (r) {
+                if (f === 'all') return true;
+                return (f === 'pass' && (r.status === 'pass' || r.status === '성공')) || (f === 'fail' && (r.status === 'fail' || r.status === '실패'));
+            });
+            var table = document.getElementById('dataTable');
+            if (!rows.length) { table.innerHTML = ''; return; }
+            table.innerHTML = '<thead><tr><th>model</th><th>task</th><th>metric</th><th>value</th><th>condition</th><th>date</th><th>status</th></tr></thead><tbody>' +
+                list.map(function (r) {
+                    return '<tr><td>' + PF.esc(r.model) + '</td><td>' + PF.esc(r.task) + '</td><td>' + PF.esc(r.metric) + '</td><td>' + r.value + '</td><td>' + PF.esc(r.condition) + '</td><td>' + PF.esc(r.date) + '</td><td>' + PF.esc(r.status) + '</td></tr>';
+                }).join('') + '</tbody>';
+        }
+
+        function exportCSV() {
+            if (!rows.length) { PF.toast('먼저 파일을 불러와 주세요.'); return; }
+            var f = document.getElementById('fStatus').value;
+            var list = rows.filter(function (r) {
+                if (f === 'all') return true;
+                return (f === 'pass' && (r.status === 'pass' || r.status === '성공')) || (f === 'fail' && (r.status === 'fail' || r.status === '실패'));
+            });
+            var head = ['model', 'task', 'metric', 'value', 'condition', 'date', 'status'];
+            var csv = [head.join(',')].concat(list.map(function (r) {
+                return head.map(function (h) { return PF.csvSafe(r[h]); }).join(',');
+            })).join('\n');
+            PF.download('pf-evidence-filtered.csv', '﻿' + csv, 'text/csv;charset=utf-8');
+            PF.toast('필터된 CSV를 내보냈습니다. (= + - @로 시작하는 셀은 수식 주입 방어가 적용되었습니다.)');
+        }
+    </script>
+</body>
+</html>

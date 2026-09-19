@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>아직 없는 생각의 방 — Protofelix × AstraHo</title>
+    <meta name="description" content="여섯 문(언어·개인·몸·현재·목표·인간형 지성 너머)의 관점 전환 과제를 지나, 고른 개념 3개·버린 가정 1개·검증할 질문 1개로 나만의 탐구 선언서를 만듭니다. 선언서는 템플릿 편집 문서입니다.">
+    <link rel="canonical" href="https://protofelix.moip.ai.kr/horizon/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Protofelix × AstraHo">
+    <meta property="og:title" content="아직 없는 생각의 방 — Protofelix × AstraHo">
+    <meta property="og:description" content="우리가 생각하는 방식 자체를 바꿔야 보이는 것은 무엇인가? 여섯 문과 탐구 선언서.">
+    <meta property="og:url" content="https://protofelix.moip.ai.kr/horizon/">
+    <meta property="og:image" content="https://protofelix.moip.ai.kr/images/expansion/i30-horizon.webp">
+    <link rel="stylesheet" href="../assets/pf-expansion.css">
+</head>
+<body>
+    <a class="skip-link" href="#main">본문 바로가기</a>
+
+    <nav class="pf-nav" aria-label="전역 내비게이션">
+        <div class="pf-nav-inner">
+            <a href="../index.html" class="pf-nav-brand">Protofelix<em>×</em>AstraHo</a>
+            <div class="pf-nav-links">
+                <a href="../index.html">홈</a>
+                <a href="../explore/">탐험</a>
+                <a href="../atlas/">아틀라스</a>
+                <a href="../questions/">질문</a>
+                <a href="../forge/">공방</a>
+                <a href="../frontier/">실험실</a>
+                <a href="../evidence/">증거</a>
+                <a href="../notebook/">노트북</a>
+                <a href="#" class="here">수평선</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="pf-hero" style="background-image: url('../images/expansion/i30-horizon.webp'), linear-gradient(160deg, #101033 0%, #0a0a23 70%);">
+        <div class="pf-hero-inner">
+            <div>
+                <span class="pf-badge ks-philosophy">Philosophy</span>
+                <span class="pf-badge mode-user_authored">USER_AUTHORED</span>
+                <span class="pf-badge pj-prototype">PROTOTYPE</span>
+            </div>
+            <h1>아직 없는 생각의 방</h1>
+            <p class="pf-question">"우리가 생각하는 방식 자체를 바꿔야 보이는 것은 무엇인가?"</p>
+            <p class="pf-hero-meta">읽기 시간 약 12분 · 내용 성격: 사유형 인터랙션 · 실행 모드: USER_AUTHORED(템플릿 선언서) · 검토일 2026-09-20</p>
+        </div>
+    </header>
+
+    <main id="main" class="pf-wrap">
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">01</span>이곳에서 무엇을 얻는가</h2>
+            <p class="pf-lead">
+                전체 탐험의 결실을 모으는 사유형 인터랙션입니다. <strong>여섯 문</strong>(언어·개인·몸·현재·목표·인간형 지성 너머)의
+                관점 전환 과제를 지나, <strong>고른 개념 3개 + 버린 가정 1개 + 검증할 질문 1개</strong>로
+                나만의 탐구 선언서를 만듭니다. 선언서는 템플릿 기반 편집 문서이며,
+                "AI가 당신을 꿰뚫어 봤다"는 식의 문구를 쓰지 않습니다.
+            </p>
+            <p class="pf-note warn">"인간 너머"는 인간 권리의 폐기가 아닙니다. 이 방의 모든 과제는 인간의 판단권을 전제로 합니다.</p>
+        </section>
+
+        <!-- 여섯 문 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">02</span>여섯 문</h2>
+            <div id="doorList"></div>
+        </section>
+
+        <!-- 선언서 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">03</span>탐구 선언서</h2>
+            <div class="pf-panel">
+                <div class="pf-field">
+                    <label>고를 개념 3개 (사이트 곳곳에서 만난 것들)</label>
+                    <div id="conceptPick" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
+                    <p class="pf-note" id="pickCount">선택: 0/3</p>
+                </div>
+                <div class="pf-field">
+                    <label for="fDrop">버린 가정 1개</label>
+                    <textarea id="fDrop" class="pf-textarea" maxlength="2000" placeholder="이번 탐험에서 더 이상 당연하게 여기지 않기로 한 것 — 예: '좋은 질문에는 좋은 답이 있어야 한다'"></textarea>
+                </div>
+                <div class="pf-field">
+                    <label for="fVerify">검증할 질문 1개</label>
+                    <textarea id="fVerify" class="pf-textarea" maxlength="2000" placeholder="앞으로 6개월 안에 조건을 정해 확인할 수 있는 형태로"></textarea>
+                </div>
+                <button class="pf-btn primary" onclick="makeManifest()">선언서 만들기</button>
+                <div id="manifestOut" style="margin-top:14px;"></div>
+                <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">
+                    <button class="pf-btn" onclick="saveManifest()">선언서 저장 (노트북)</button>
+                    <button class="pf-btn ghost" onclick="exportManifest()">선언서 MD 다운로드</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 결과·반론 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">04</span>결과 설명과 가장 강한 반론</h2>
+            <div class="pf-result" style="margin-bottom:16px;">
+                <h4>관찰한 것 / 추론한 것 / 아직 모르는 것</h4>
+                <p>
+                    <strong>관찰한 것:</strong> 여섯 문의 과제와 내가 쓴 선택들.<br>
+                    <strong>추론한 것:</strong> 선언서의 힘은 문장의 완성도가 아니라, 내가 무엇을 버리고 무엇을 검증하기로 했는지에 있습니다.<br>
+                    <strong>아직 모르는 것:</strong> 이 선언서가 6개월 뒤에도 나를 붙들고 있을지는 알 수 없습니다 — 그래서 재방문 링크가 있습니다.
+                </p>
+            </div>
+            <div class="pf-counter">
+                <strong>실패 조건:</strong> 선언서를 "완성"으로 여기는 것입니다. 선언은 출발이지 도착이 아니며,
+                버린 가정이 실제로 버려졌는지는 행동으로만 확인됩니다. 검증할 질문에 조건(기간·자료·기준)이 없으면
+                그것은 질문이 아니라 소원입니다.
+            </div>
+            <p class="pf-note" style="margin-top:14px;">재방문 링크 3개: <a href="../explore/">탐험 지도</a> · <a href="../notebook/">나의 탐구 노트북</a> · <a href="../astra/">AstraHo — 다음 항해</a></p>
+            <p class="pf-note">다음 질문 — 쉬운: "오늘 나는 어떤 문 앞에 서 있었나?" · 반대: "문이 없다면, 나는 어디로 갔을까?" · 먼 분야: "항해사가 새 항로를 기록하는 방식은 탐구 선언서에 무엇을 가르치는가?"</p>
+            <p class="pf-note">관련 페이지: <a href="../questions/">경계의 질문들</a> · <a href="../philosophy/">지혜와 AI의 대화</a> · <a href="../astra/">AstraHo</a></p>
+        </section>
+    </main>
+
+    <footer class="pf-footer">
+        <div class="links">
+            <a href="../index.html">홈</a><a href="../explore/">탐험 지도</a><a href="../astra/">AstraHo</a>
+            <a href="../notebook/">노트북</a>
+        </div>
+        <p>아직 없는 생각의 방 · Protofelix × AstraHo © 2026 — 선언서는 템플릿 기반 편집 문서입니다.</p>
+    </footer>
+
+    <script src="../assets/pf-common.js"></script>
+    <script>
+        /* ===== 정적 데이터 공급자: 여섯 문 ===== */
+        var DOORS = [
+            { n:'언어 너머', task:'말 없이 전달하고 싶은 것을 리듬·그림·동작으로 스케치해 보세요.',
+              counter:'언어 없이는 복잡한 의미가 무너진다는 반론 — 정말 그럴까?',
+              next:'비언어 인터페이스 도전: <a href="../challenges/">열린 창의성 도전</a>' },
+            { n:'개인 너머', task:'"내 생각"이 끝나는 지점을 글로 그려 보세요 — 도구·사람·환경이 섞이는 경계에서.',
+              counter:'경계를 지우면 책임도 지워진다는 반론 — 경계를 "새로 긋는다"면 어디에?',
+              next:'분산 인지 실험: <a href="../augmented-mind/">확장된 마음</a>' },
+            { n:'몸 너머', task:'몸을 하나의 센서 구성으로 두고, 시야·지연·비용을 바꾼 "다른 나"의 하루를 서술해 보세요.',
+              counter:'몸 없이는 생각이 불가능하다는 반론 — 이 방은 그 반론을 시험하는 곳입니다.',
+              next:'감각 조건 실험: <a href="../embodied/">몸을 가진 지성</a>' },
+            { n:'현재 너머', task:'오늘의 판단 중 "천 년 뒤에도 유지될 것 같은 것" 하나와 "지금만 유효한 것" 하나를 나눠 보세요.',
+              counter:'먼 미래를 고려한 판단이 지금의 고통을 외면한다는 반론 — 균형은 어디에?',
+              next:'시간축 체험: <a href="../time-minds/">서로 다른 시간의 지성</a>' },
+            { n:'목표 너머', task:'목표를 하나 지운 뒤에도 가치 있는 행동이 남는지 확인해 보세요.',
+              counter:'목표 없는 행동은 표류라는 반론 — 표류와 탐색의 차이는 무엇인가?',
+              next:'선택 모드 비교: <a href="../evolution/">열린 진화의 정원</a>' },
+            { n:'인간형 지성 너머', task:'얼굴·언어·개체성 없이 "지성"을 알아보는 기준 세 개를 써 보세요.',
+              counter:'기준을 넓히면 모든 것이 지성이 된다는 반론 — 그 반론의 기준은 무엇인가?',
+              next:'전시와 설계 카드: <a href="../alien-minds/">낯선 지성의 박물관</a>' }
+        ];
+        document.getElementById('doorList').innerHTML = DOORS.map(function (d) {
+            return '<details class="pf-fold"><summary>' + PF.esc(d.n) + '</summary>' +
+                '<p style="margin-top:10px;font-size:0.9rem;color:var(--pf-dim);"><strong style="color:#fff;">관점 전환 과제:</strong> ' + PF.esc(d.task) + '</p>' +
+                '<p style="font-size:0.88rem;color:var(--pf-amber);"><strong>반론:</strong> ' + PF.esc(d.counter) + '</p>' +
+                '<p style="font-size:0.88rem;"><strong>다음 실험:</strong> ' + d.next + '</p></details>';
+        }).join('');
+
+        var CONCEPTS = ['기억과 망각', '반례 찾기', '질문 변형', '제약 기반 조합', '오프로딩', '어텐션', '테스트 시점 계산',
+            '세계모델', '인간 승인 지점', 'MEASURED 라벨', '기여 표기', '확장된 마음', '연기(관계)', '소크라테스의 질문',
+            '느린 지성', '분산 인격', '관측 주기', 'Pareto 지배'];
+        var picked = [];
+        function renderPick() {
+            document.getElementById('conceptPick').innerHTML = CONCEPTS.map(function (c) {
+                var on = picked.indexOf(c) >= 0;
+                return '<button class="pf-btn small' + (on ? ' primary' : ' ghost') + '" onclick="togglePick(\'' + PF.esc(c) + '\')">' + PF.esc(c) + '</button>';
+            }).join('');
+            document.getElementById('pickCount').textContent = '선택: ' + picked.length + '/3';
+        }
+        function togglePick(c) {
+            var i = picked.indexOf(c);
+            if (i >= 0) picked.splice(i, 1);
+            else if (picked.length < 3) picked.push(c);
+            else { PF.toast('개념은 3개까지입니다. 하나를 해제하세요.'); return; }
+            renderPick();
+        }
+
+        var lastManifest = '';
+        function makeManifest() {
+            var drop = document.getElementById('fDrop').value.trim();
+            var verify = document.getElementById('fVerify').value.trim();
+            if (picked.length !== 3 || !drop || !verify) {
+                PF.toast('개념 3개, 버린 가정 1개, 검증할 질문 1개를 모두 채워 주세요.');
+                return;
+            }
+            lastManifest =
+                '# 나의 탐구 선언서\n\n' +
+                '## 이어갈 개념 3개\n- ' + picked.join('\n- ') + '\n\n' +
+                '## 버린 가정\n' + drop + '\n\n' +
+                '## 검증할 질문 (6개월)\n' + verify +
+                '\n\n## 조건 점검\n- [ ] 기간(6개월)을 명시했다\n- [ ] 확인할 자료·기준을 쓸 수 있다\n- [ ] 실패해도 기록할 수 있다\n\n' +
+                '작성일: ' + PF.fmtDate() +
+                '\n\n> 이 선언서는 템플릿 기반 편집 문서입니다. AI가 사용자를 분석해 만든 결과가 아니며, 문장의 힘은 작성자의 행동에서 나옵니다.';
+            document.getElementById('manifestOut').innerHTML = '<div class="pf-result"><h4>탐구 선언서</h4><p style="white-space:pre-wrap;">' + PF.esc(lastManifest) + '</p></div>';
+            PF.toast('선언서를 만들었습니다.');
+        }
+        function saveManifest() {
+            if (!lastManifest) { PF.toast('먼저 선언서를 만들어 주세요.'); return; }
+            PF.notebook.add({ type: 'note', title: '탐구 선언서 ' + PF.fmtDate(), body: lastManifest, tags: ['horizon'] })
+                .then(function () { PF.toast('선언서를 노트북에 저장했습니다.'); });
+        }
+        function exportManifest() {
+            if (!lastManifest) { PF.toast('먼저 선언서를 만들어 주세요.'); return; }
+            PF.download('pf-manifest-' + Date.now() + '.md', lastManifest, 'text/markdown;charset=utf-8');
+            PF.toast('선언서 MD를 다운로드했습니다.');
+        }
+
+        renderPick();
+    </script>
+</body>
+</html>

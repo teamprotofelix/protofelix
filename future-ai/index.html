@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>미래 지성 시나리오 — Protofelix × AstraHo</title>
+    <meta name="description" content="기억 지속성·환경 상호작용·계획·학습·자원·사회 제도 여섯 축의 슬라이더로 전제 조합을 만들면, 조건이 맞는 편집된 시나리오를 제시합니다. 확률 수치를 만들지 않습니다.">
+    <link rel="canonical" href="https://protofelix.moip.ai.kr/future-ai/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Protofelix × AstraHo">
+    <meta property="og:title" content="미래 지성 시나리오 — Protofelix × AstraHo">
+    <meta property="og:description" content="어떤 조건이 달라져야 다음 지성이 가능한가? 조건부 시나리오 12개.">
+    <meta property="og:url" content="https://protofelix.moip.ai.kr/future-ai/">
+    <meta property="og:image" content="https://protofelix.moip.ai.kr/images/expansion/i19-future-ai.webp">
+    <link rel="stylesheet" href="../assets/pf-expansion.css">
+</head>
+<body>
+    <a class="skip-link" href="#main">본문 바로가기</a>
+
+    <nav class="pf-nav" aria-label="전역 내비게이션">
+        <div class="pf-nav-inner">
+            <a href="../index.html" class="pf-nav-brand">Protofelix<em>×</em>AstraHo</a>
+            <div class="pf-nav-links">
+                <a href="../index.html">홈</a>
+                <a href="../explore/">탐험</a>
+                <a href="../atlas/">아틀라스</a>
+                <a href="../questions/">질문</a>
+                <a href="../forge/">공방</a>
+                <a href="../frontier/">실험실</a>
+                <a href="../evidence/">증거</a>
+                <a href="../notebook/">노트북</a>
+                <a href="#" class="here">미래 시나리오</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="pf-hero" style="background-image: url('../images/expansion/i19-future-ai.webp'), linear-gradient(160deg, #101033 0%, #0a0a23 70%);">
+        <div class="pf-hero-inner">
+            <div>
+                <span class="pf-badge ks-hypothesis">Hypothesis</span>
+                <span class="pf-badge mode-rule_based">RULE_BASED</span>
+                <span class="pf-badge pj-prototype">PROTOTYPE</span>
+            </div>
+            <h1>미래 지성 시나리오</h1>
+            <p class="pf-question">"어떤 조건이 달라져야 다음 지성이 가능한가?"</p>
+            <p class="pf-hero-meta">읽기 시간 약 10분 · 내용 성격: 조건부 시나리오 · 실행 모드: RULE_BASED(조건 매칭) · 검토일 2026-09-20</p>
+        </div>
+    </header>
+
+    <main id="main" class="pf-wrap">
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">01</span>이곳에서 무엇을 얻는가</h2>
+            <p class="pf-lead">
+                연도별 확정 예언 대신 <strong>조건 축 여섯 개</strong>(기억 지속성·환경 상호작용·계획·학습·자원·사회 제도)를
+                슬라이더로 조합하면, 조건이 맞는 <strong>편집된 시나리오</strong>가 제시됩니다.
+                시나리오마다 필요한 돌파구·병목·관찰 신호·실패 경로·대안 설명을 담고,
+                "실현 확률 87%" 같은 임의 수치는 만들지 않습니다.
+            </p>
+            <p class="pf-note info">재귀적 자기개선은 가설로 다루며 자원·검증·퇴행·통제 문제를 함께 소개합니다.</p>
+        </section>
+
+        <!-- 조건 슬라이더 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">02</span>조건 조합</h2>
+            <div class="pf-panel">
+                <div class="pf-grid" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr));" id="sliders"></div>
+                <div id="scenarioOut" style="margin-top:16px;"></div>
+            </div>
+        </section>
+
+        <!-- 결과·반론 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">03</span>결과 설명과 가장 강한 반론</h2>
+            <div class="pf-result" style="margin-bottom:16px;">
+                <h4>관찰한 것 / 추론한 것 / 아직 모르는 것</h4>
+                <p>
+                    <strong>관찰한 것:</strong> 내가 고른 조건과 그 조건을 만족하는 시나리오 (규칙 매칭).<br>
+                    <strong>추론한 것:</strong> 시나리오는 "이 조건이면 이런 미래가 가능하다"는 편집된 상상입니다.<br>
+                    <strong>아직 모르는 것:</strong> 어떤 돌파구가 실제로 오는지는 누구도 알 수 없으며, 이 페이지는 확률을 만들지 않습니다.
+                </p>
+            </div>
+            <div class="pf-counter">
+                <strong>실패 조건:</strong> 조건부 시나리오를 확정 예측으로 바꾸는 것입니다. "지속 학습이 해결되면 모든 것이 따라온다"식의
+                단선적 미래는 병목·실패 경로를 숨깁니다. 미래의 조건은 서로를 얽어매며, 관찰 신호를 먼저 정의해야
+                시나리오가 검증 가능한 가설이 됩니다.
+            </div>
+            <div style="margin-top:14px;"><button class="pf-btn" onclick="saveScenario()">이 조합의 결과를 노트북에 저장</button></div>
+            <p class="pf-note" style="margin-top:14px;">다음 질문 — 쉬운: "내가 당연하다고 생각한 조건 중 하나가 무너진다면?" · 반대: "시나리오 사고가 현실의 급한 문제를 외면하게 하지는 않는가?" · 먼 분야: "기후 모델의 시나리오(RCP/SSP) 관행은 AI 미래 논의에 무엇을 가르치는가?"</p>
+            <p class="pf-note">관련 페이지: <a href="../atlas/">AI 기술 아틀라스</a> · <a href="../alignment/">가치와 정렬의 협상실</a> · <a href="../questions/">경계의 질문들</a> · <a href="../sf-archive/">SF 지성 아카이브</a></p>
+        </section>
+    </main>
+
+    <footer class="pf-footer">
+        <div class="links">
+            <a href="../index.html">홈</a><a href="../explore/">탐험 지도</a><a href="../sf-archive/">SF 아카이브</a>
+            <a href="../notebook/">노트북</a>
+        </div>
+        <p>미래 지성 시나리오 · Protofelix × AstraHo © 2026 — 조건부 시나리오이며 확률 예측이 아닙니다.</p>
+    </footer>
+
+    <script src="../assets/pf-common.js"></script>
+    <script>
+        /* ===== 정적 데이터 공급자: 조건 축 6 · 시나리오 12 ===== */
+        var AXES = [
+            { id: 'memory', name: '기억 지속성', lo: '휘발적', hi: '영속적' },
+            { id: 'env', name: '환경 상호작용', lo: '분리됨', hi: '능동적' },
+            { id: 'planning', name: '계획 능력', lo: '반응적', hi: '장기 계획' },
+            { id: 'learning', name: '지속 학습', lo: '고정됨', hi: '지속 학습' },
+            { id: 'resource', name: '자원 접근', lo: '제한적', hi: '풍부함' },
+            { id: 'institution', name: '사회 제도', lo: '미정비', hi: '정비됨' }
+        ];
+        var SCENARIOS = [
+            { id: 'continual', title: '지속학습 에이전트', req: { learning: 'hi', memory: 'hi' },
+              breakthrough: '재앙적 망각 없이 새 지식을 누적하는 학습 절차',
+              bottleneck: '오래된 지식의 수정·삭제가 새 학습과 충돌',
+              signal: '장기간 학습 후에도 이전 능력의 퇴행이 측정되지 않는가',
+              fail: '오류가 조용히 누적되어 "오래된 자신감"이 되는 경로',
+              alt: '학습 대신 외부 기억(RAG·메모리)으로 해결되는 범위일 수 있다' },
+            { id: 'planner', title: '세계모델 기반 계획자', req: { planning: 'hi', env: 'hi' },
+              breakthrough: '환경 예측이 실제와 정합하는 학습형 세계모델',
+              bottleneck: '모델과 세계의 어긋남이 계획 비용으로 누적',
+              signal: '예측 경로와 실제 경로의 편차가 개입마다 줄어드는가',
+              fail: '상상 속 계획이 현실 검증을 대체하는 경로',
+              alt: '규칙 기반 시뮬레이터로 충분한 도메인이 먼저일 수 있다' },
+            { id: 'discovery', title: '과학 발견 보조', req: { resource: 'hi', learning: 'hi', institution: 'hi' },
+              breakthrough: '가설 생성과 실험 설계를 연결하는 검증 루프',
+              bottleneck: '데이터·검증 비용과 재현 문화',
+              signal: '보조로 나온 가설의 재현 성공률이 기준선보다 높은가',
+              fail: '그럴듯한 가설의 홍수가 검증을 밀어내는 경로',
+              alt: '인간 과학자의 판단을 보조하는 좁은 도메인부터' },
+            { id: 'collective', title: '집단 지성 네트워크', req: { env: 'hi', institution: 'hi' },
+              breakthrough: '독립성이 유지된 다수 에이전트의 합의 절차',
+              bottleneck: '공통 오류가 합의로 증폭되는 문제',
+              signal: '구성원 독립성을 낮춰도 판단 정확도가 유지되는가',
+              fail: '군집이 서로를 강화해 확증 편향이 커지는 경로',
+              alt: '소수의 독립 검토자 구조가 먼저일 수 있다' },
+            { id: 'neurosym', title: '신경기호 통합 추론기', req: { planning: 'hi' },
+              breakthrough: '규칙 검증과 생성의 결합이 안정적으로 동작',
+              bottleneck: '자연어의 모호함을 규칙으로 옮기는 비용',
+              signal: '규칙 검사를 붙였을 때 오류율이 실제로 낮아지는가',
+              fail: '규칙이 형식에만 붙어 내용 오류를 놓치는 경로',
+              alt: '전체 통합보다 검증이 쉬운 하위 도메인부터' },
+            { id: 'robot', title: '로봇 지성', req: { env: 'hi', learning: 'hi' },
+              breakthrough: '감각운동 루프에서 배우는 저표본 적응',
+              bottleneck: '물리 세계의 비용·안전·재시도 한계',
+              signal: '새 환경에서의 적응 시간이 짧아지는가',
+              fail: '시뮬레이션 성능이 실제로 전이되지 않는 경로',
+              alt: '특정 작업에 특화된 자동화가 먼저일 수 있다' },
+            { id: 'digital-inst', title: '디지털 제도', req: { institution: 'hi', memory: 'hi' },
+              breakthrough: '검증 가능한 기록 위에서 동작하는 기관 절차',
+              bottleneck: '기록의 진위·삭제·이의 제기 제도',
+              signal: '분쟁 해결 시간·비용이 줄어드는가',
+              fail: '기록의 신뢰가 특정 공급자에 묶이는 경로',
+              alt: '기존 제도의 기록 방식 개선이 먼저일 수 있다' },
+            { id: 'self-improve', title: '재귀적 자기개선 (가설)', req: { learning: 'hi', resource: 'hi', planning: 'hi' },
+              breakthrough: '개선 시도가 검증을 통과하는 루프',
+              bottleneck: '검증 비용·퇴행 감지·통제 권한',
+              signal: '개선 전후 비교가 독립 검증으로 재현되는가',
+              fail: '검증을 우회하는 개선이 누적되는 경로 — 가장 신중해야 할 가설',
+              alt: '인간이 설계한 개선 절차가 먼저다' },
+            { id: 'lowresource', title: '저자원 경량 지능', req: { resource: 'lo' },
+              breakthrough: '작은 연산으로 유용한 능력을 내는 압축·증류',
+              bottleneck: '품질 하한과 에너지',
+              signal: '동일 과제에서 자원당 성능이 개선되는가',
+              fail: '성능 표기를 낙관적으로 바꿔치기하는 경로',
+              alt: '클라우드 의존을 줄이는 오프라인 도구부터' },
+            { id: 'memory-companion', title: '기억 영속 개인비서', req: { memory: 'hi' },
+              breakthrough: '삭제·수정이 보장되는 장기 기억 구조',
+              bottleneck: '개인정보·동의·백업 정책',
+              signal: '기억의 재등장·오기억이 사용자 검사로 줄어드는가',
+              fail: '기억의 과신이 판단을 대체하는 경로',
+              alt: '기간이 짧은 요약 기억이 먼저일 수 있다' },
+            { id: 'open-garden', title: '개방 지식 정원', req: { institution: 'hi', resource: 'lo' },
+              breakthrough: '저비용으로 검증·기여가 가능한 개방 규약',
+              bottleneck: '기여 품질·스팸·지속 운영',
+              signal: '공개 지식의 오류 수정 시간이 짧아지는가',
+              fail: '기여가 특정 주체에 집중되는 경로',
+              alt: '기존 공개 저장소의 개선이 먼저일 수 있다' },
+            { id: 'explorer', title: '환경 적응 탐사자', req: { env: 'hi' },
+              breakthrough: '미지 환경에서 안전하게 시도하는 행동 정책',
+              bottleneck: '실패 비용과 관측 한계',
+              signal: '탐사 중 안전 제약 위반이 줄어드는가',
+              fail: '탐사 자체가 목적이 되는 경로',
+              alt: '제한된 환경의 탐사 벤치마크부터' }
+        ];
+
+        var values = {};
+        AXES.forEach(function (a) { values[a.id] = 1; });
+
+        function renderSliders() {
+            document.getElementById('sliders').innerHTML = AXES.map(function (a) {
+                return '<div class="pf-field"><label>' + a.name + ': <span id="v_' + a.id + '">중간</span></label>' +
+                    '<input type="range" min="0" max="2" step="1" value="1" oninput="values[\'' + a.id + '\']=parseInt(this.value,10);document.getElementById(\'v_' + a.id + '\').textContent=axisLabel(\'' + a.id + '\');matchScenarios()" style="width:100%;">' +
+                    '<span style="font-size:0.72rem;color:var(--pf-faint);">' + a.lo + ' ← 0 · 1 · 2 → ' + a.hi + '</span></div>';
+            }).join('');
+        }
+
+        function axisLabel(id) {
+            var a = AXES.find(function (x) { return x.id === id; });
+            return values[id] === 0 ? a.lo : (values[id] === 2 ? a.hi : '중간');
+        }
+
+        function matchScenarios() {
+            var scored = SCENARIOS.map(function (s) {
+                var score = 0, sat = [];
+                Object.keys(s.req).forEach(function (axis) {
+                    var want = s.req[axis];
+                    var ok = (want === 'hi' && values[axis] >= 2) || (want === 'lo' && values[axis] === 0);
+                    if (ok) { score++; sat.push(axis); }
+                });
+                return { s: s, score: score, sat: sat, total: Object.keys(s.req).length };
+            }).sort(function (a, b) { return b.score - a.score; });
+            var top = scored.slice(0, 3).filter(function (x) { return x.score > 0; });
+            var lastText = '';
+            document.getElementById('scenarioOut').innerHTML =
+                '<p style="font-size:0.85rem;color:var(--pf-faint);margin-bottom:10px;">내 조건: ' + AXES.map(function (a) { return a.name + '=' + axisLabel(a.id); }).join(' · ') + '</p>' +
+                (top.length ? top.map(function (x) {
+                    var s = x.s;
+                    lastText += s.title + '\n';
+                    return '<div class="pf-card" style="margin-bottom:12px;">' +
+                        '<h3>' + PF.esc(s.title) + ' <span class="pf-tag">조건 일치 ' + x.score + '/' + x.total + '</span></h3>' +
+                        '<p><strong>필요한 돌파구:</strong> ' + PF.esc(s.breakthrough) + '</p>' +
+                        '<p><strong>병목:</strong> ' + PF.esc(s.bottleneck) + '</p>' +
+                        '<p><strong>관찰 신호:</strong> ' + PF.esc(s.signal) + '</p>' +
+                        '<p style="color:var(--pf-amber);"><strong>실패 경로:</strong> ' + PF.esc(s.fail) + '</p>' +
+                        '<p><strong>대안 설명:</strong> ' + PF.esc(s.alt) + '</p></div>';
+                }).join('') : '<p class="pf-note">조건과 일치하는 시나리오가 없습니다. 슬라이더를 바꿔 보세요 — "확률"은 어디에도 없습니다.</p>');
+            lastScenarioText = lastText;
+        }
+
+        var lastScenarioText = '';
+        function saveScenario() {
+            PF.notebook.add({
+                type: 'note', title: '미래 시나리오 조합 ' + PF.fmtDate(),
+                body: '조건: ' + AXES.map(function (a) { return a.name + '=' + axisLabel(a.id); }).join(', ') + '\n일치 시나리오: ' + (lastScenarioText || '(없음)'),
+                tags: ['future-ai']
+            }).then(function () { PF.toast('조합 결과를 노트북에 저장했습니다.'); });
+        }
+
+        renderSliders();
+        matchScenarios();
+    </script>
+</body>
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>열린 진화의 정원 — Protofelix × AstraHo</title>
+    <meta name="description" content="셀룰러 오토마타 규칙 후보를 목표 적합도·행동 다양성·무작위 탐색 세 가지 선택 모드로 진화시켜 결과를 비교합니다. 새로움은 아카이브 내 거리로 정의된 교육용 지표입니다.">
+    <link rel="canonical" href="https://protofelix.moip.ai.kr/evolution/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Protofelix × AstraHo">
+    <meta property="og:title" content="열린 진화의 정원 — Protofelix × AstraHo">
+    <meta property="og:description" content="한 가지 점수를 잘 받는 것과 새로운 가능성을 발견하는 것은 같은가? 선택 모드 비교.">
+    <meta property="og:url" content="https://protofelix.moip.ai.kr/evolution/">
+    <meta property="og:image" content="https://protofelix.moip.ai.kr/images/expansion/i15-evolution.webp">
+    <link rel="stylesheet" href="../assets/pf-expansion.css">
+</head>
+<body>
+    <a class="skip-link" href="#main">본문 바로가기</a>
+
+    <nav class="pf-nav" aria-label="전역 내비게이션">
+        <div class="pf-nav-inner">
+            <a href="../index.html" class="pf-nav-brand">Protofelix<em>×</em>AstraHo</a>
+            <div class="pf-nav-links">
+                <a href="../index.html">홈</a>
+                <a href="../explore/">탐험</a>
+                <a href="../atlas/">아틀라스</a>
+                <a href="../questions/">질문</a>
+                <a href="../forge/">공방</a>
+                <a href="../frontier/">실험실</a>
+                <a href="../evidence/">증거</a>
+                <a href="../notebook/">노트북</a>
+                <a href="#" class="here">진화</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="pf-hero" style="background-image: url('../images/expansion/i15-evolution.webp'), linear-gradient(160deg, #101033 0%, #0a0a23 70%);">
+        <div class="pf-hero-inner">
+            <div>
+                <span class="pf-badge ks-research">Research</span>
+                <span class="pf-badge mode-rule_based">RULE_BASED</span>
+                <span class="pf-badge pj-prototype">PROTOTYPE</span>
+            </div>
+            <h1>열린 진화의 정원</h1>
+            <p class="pf-question">"한 가지 점수를 잘 받는 것과 새로운 가능성을 발견하는 것은 같은가?"</p>
+            <p class="pf-hero-meta">읽기 시간 약 10분 · 내용 성격: 진화 탐색 실험 · 실행 모드: RULE_BASED(셀룰러 오토마타) · 검토일 2026-09-20</p>
+        </div>
+    </header>
+
+    <main id="main" class="pf-wrap">
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">01</span>이곳에서 무엇을 얻는가</h2>
+            <p class="pf-lead">
+                셀룰러 오토마타 규칙 후보 8개가 세대를 거듭하며, <strong>목표 적합도 / 행동 다양성 / 무작위 탐색</strong>
+                세 가지 선택 모드 아래 어떻게 달라지는지 비교합니다.
+                규칙 공간·개체 수·세대 수에 상한을 두고, 평가 횟수가 다른 실험은 나란히 표시하되 조건 차이를 밝힙니다.
+            </p>
+            <p class="pf-note warn">"새로움"은 현재 아카이브 내 거리(Hamming)로 정의된 교육용 지표입니다. 인간 창의성·생명·의식을 측정하지 않습니다.</p>
+        </section>
+
+        <!-- 실험 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">02</span>진화 실험</h2>
+            <div class="pf-panel">
+                <div class="pf-grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
+                    <div class="pf-field">
+                        <label for="fMode">선택 모드</label>
+                        <select id="fMode" class="pf-select">
+                            <option value="fitness">목표 적합도 (목표 패턴과 일치 선택)</option>
+                            <option value="diversity">행동 다양성 (아카이브와의 거리 선택)</option>
+                            <option value="random">무작위 탐색 (균등 선택)</option>
+                        </select>
+                    </div>
+                    <div class="pf-field">
+                        <label for="fSeed">시드</label>
+                        <input id="fSeed" class="pf-input" type="number" min="1" max="999999" value="42">
+                    </div>
+                    <div class="pf-field">
+                        <label for="fGen">세대 수 (상한 10)</label>
+                        <input id="fGen" class="pf-input" type="number" min="1" max="10" value="6">
+                    </div>
+                </div>
+                <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                    <button class="pf-btn primary" onclick="runAll()">전체 실행</button>
+                    <button class="pf-btn" onclick="stepOne()">한 세대씩</button>
+                    <button class="pf-btn ghost" onclick="resetEvo()">리셋</button>
+                </div>
+                <p class="pf-note info" id="evoOut">모드와 조건을 고르고 실행하세요. 세대당 규칙 8개 — 평가 횟수는 모드 간 동일합니다.</p>
+                <div id="evoView" style="margin-top:12px;"></div>
+            </div>
+        </section>
+
+        <!-- 결과·반론 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">03</span>결과 설명과 가장 강한 반론</h2>
+            <div class="pf-result" style="margin-bottom:16px;">
+                <h4>관찰한 것 / 추론한 것 / 아직 모르는 것</h4>
+                <p>
+                    <strong>관찰한 것:</strong> 선택 모드별 세대 우승 규칙과 점수 변화 (브라우저 계산).<br>
+                    <strong>추론한 것:</strong> "하나의 점수만 쫓으면 다양성이 사라진다"는 직관이 이 작은 세계에서도 드러나는지.<br>
+                    <strong>아직 모르는 것:</strong> 실제 생물 진화·창의성 과정은 이 모형과 겹치지 않는 부분이 훨씬 큽니다.
+                </p>
+            </div>
+            <div class="pf-counter">
+                <strong>실패 조건:</strong> 다양성 점수가 높다고 "더 창의적"이라고 말하는 것입니다. 이 정원의 새로움은
+                아카이브 내 거리라는 좁은 정의이며, 목표 적합도 모드가 나쁘고 다양성 모드가 좋다는 결론도
+                목표가 무엇인지에 따라 달라집니다 — 정원은 가능성의 아카이브이지 우열의 사다리가 아닙니다.
+            </div>
+            <div style="margin-top:14px;"><button class="pf-btn" onclick="saveEvo()">실험 상태를 노트북에 저장</button></div>
+            <p class="pf-note" style="margin-top:14px;">다음 질문 — 쉬운: "내가 '성과'로 추적하는 지표는 무엇을 선택에서 배제하는가?" · 반대: "다양성만 추구하면 아무것도 완성되지 않지 않는가?" · 먼 분야: "미술관 큐레이션의 '소장 다양성' 기준은 탐색 알고리즘의 아카이브 설계에 무엇을 주는가?"</p>
+            <p class="pf-note">관련 페이지: <a href="../world-models/">세계모델 시뮬레이터</a> · <a href="../atlas/">AI 기술 아틀라스</a> · <a href="../interpretability/">모델 내부 관측실</a></p>
+        </section>
+    </main>
+
+    <footer class="pf-footer">
+        <div class="links">
+            <a href="../index.html">홈</a><a href="../explore/">탐험 지도</a><a href="../interpretability/">관측실</a>
+            <a href="../notebook/">노트북</a>
+        </div>
+        <p>열린 진화의 정원 · Protofelix × AstraHo © 2026 — 교육용 지표이며 인간 창의성을 측정하지 않습니다.</p>
+    </footer>
+
+    <script src="../assets/pf-common.js"></script>
+    <script>
+        var W = 31, H = 15;
+        var TARGET_RULE = 110; /* 목표 패턴 생성 규칙 (교육용) */
+
+        function caStep(rule, prev) {
+            var out = new Array(W).fill(0);
+            for (var i = 0; i < W; i++) {
+                var l = prev[(i - 1 + W) % W], m = prev[i], r = prev[(i + 1) % W];
+                var idx = l * 4 + m * 2 + r;
+                out[i] = (rule >> idx) & 1;
+            }
+            return out;
+        }
+        function patternOf(rule) {
+            var row = new Array(W).fill(0);
+            row[Math.floor(W / 2)] = 1;
+            var rows = [row];
+            for (var g = 1; g < H; g++) { row = caStep(rule, row); rows.push(row); }
+            return rows;
+        }
+        function hamming(a, b) {
+            var d = 0;
+            for (var i = 0; i < a.length; i++) if (a[i] !== b[i]) d++;
+            return d;
+        }
+        var TARGET_FINAL = patternOf(TARGET_RULE)[H - 1];
+
+        var state = { gen: 0, pop: [], archive: [], history: [], seed: 42, rnd: null };
+
+        function resetEvo() {
+            var seed = parseInt(document.getElementById('fSeed').value, 10) || 42;
+            state = { gen: 0, pop: [], archive: [], history: [], seed: seed, rnd: PF.mulberry32(seed) };
+            var pop = [];
+            while (pop.length < 8) {
+                var r = Math.floor(state.rnd() * 256);
+                if (pop.indexOf(r) < 0) pop.push(r);
+            }
+            state.pop = pop;
+            document.getElementById('evoOut').textContent = '초기화됨 — 시드 ' + seed + ', 세대 0, 규칙 8개.';
+            renderEvo();
+        }
+
+        function score(rule, mode) {
+            if (mode === 'fitness') {
+                var fin = patternOf(rule)[H - 1];
+                return W - hamming(fin, TARGET_FINAL); /* 일치 셀 수 */
+            }
+            if (mode === 'diversity') {
+                var fin2 = patternOf(rule)[H - 1];
+                if (!state.archive.length) return W;
+                var minD = Math.min.apply(null, state.archive.map(function (p) { return hamming(fin2, p); }));
+                return minD;
+            }
+            return state.rnd();
+        }
+
+        function stepOne() {
+            var mode = document.getElementById('fMode').value;
+            var maxGen = Math.min(10, parseInt(document.getElementById('fGen').value, 10) || 6);
+            if (state.gen >= maxGen) { PF.toast('세대 상한(' + maxGen + ')에 도달했습니다. 리셋 후 다시 실행하세요.'); return; }
+            var scored = state.pop.map(function (r) { return { rule: r, s: score(r, mode), fin: patternOf(r)[H - 1] }; });
+            scored.sort(function (a, b) { return b.s - a.s; });
+            state.archive.push(scored[0].fin.slice());
+            state.history.push({ gen: state.gen + 1, mode: mode, winner: scored[0].rule, score: Math.round(scored[0].s * 10) / 10, fin: scored[0].fin });
+            /* 다음 세대: 상위 2개 부모 + 1비트 돌연변이 */
+            var parents = [scored[0].rule, scored[1].rule];
+            var next = parents.slice();
+            while (next.length < 8) {
+                var p = parents[Math.floor(state.rnd() * 2)];
+                var bit = 1 << Math.floor(state.rnd() * 8);
+                var child = p ^ bit;
+                if (next.indexOf(child) < 0) next.push(child);
+                else next.push((p ^ (bit << 1)) & 255);
+            }
+            state.pop = next.slice(0, 8);
+            state.gen++;
+            document.getElementById('evoOut').textContent = '세대 ' + state.gen + '/' + maxGen + ' — 우승 규칙 ' + state.history[state.history.length - 1].winner + ' (점수 ' + state.history[state.history.length - 1].score + '). ' + (mode === 'fitness' ? '점수=목표와 일치 셀 수' : (mode === 'diversity' ? '점수=아카이브와의 최소 Hamming 거리' : '점수=난수'));
+            renderEvo();
+        }
+
+        function runAll() {
+            resetEvo();
+            var maxGen = Math.min(10, parseInt(document.getElementById('fGen').value, 10) || 6);
+            for (var i = 0; i < maxGen; i++) stepOne();
+        }
+
+        function renderEvo() {
+            var html = '<div class="pf-table-wrap"><table class="pf-table"><thead><tr><th>세대</th><th>선택 모드</th><th>우승 규칙</th><th>점수</th><th>마지막 행 패턴</th></tr></thead><tbody>';
+            state.history.forEach(function (h) {
+                html += '<tr><td>' + h.gen + '</td><td>' + h.mode + '</td><td>' + h.winner + '</td><td>' + h.score + '</td><td style="font-family:monospace;font-size:0.72rem;">' +
+                    h.fin.map(function (c) { return c ? '■' : '·'; }).join('') + '</td></tr>';
+            });
+            html += '</tbody></table></div>';
+            if (!state.history.length) html += '<p class="pf-note">아직 세대가 없습니다. 실행해 주세요.</p>';
+            html += '<p class="pf-note">조건: 폭 ' + W + ' · 깊이 ' + H + ' · 세대당 규칙 8개 · 목표 규칙 ' + TARGET_RULE + ' · 시드 ' + state.seed + ' — 평가 횟수는 모드 간 동일하며, 목표 적합도 점수와 다양성 점수는 서로 다른 척도입니다.</p>';
+            document.getElementById('evoView').innerHTML = html;
+        }
+
+        function saveEvo() {
+            PF.notebook.add({ type: 'experiment', title: '진화 정원 ' + PF.fmtDate(), body: JSON.stringify({ seed: state.seed, history: state.history }, null, 2), tags: ['evolution'] })
+                .then(function () { PF.toast('실험 상태를 노트북에 저장했습니다.'); });
+        }
+
+        resetEvo();
+    </script>
+</body>
+</html>

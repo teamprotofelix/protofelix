@@ -186,7 +186,7 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            perspective: 1000px;
+            overflow: hidden;
             padding: 110px 24px 90px;
         }
         .hero-bg {
@@ -209,14 +209,12 @@
         }
         .hero-content {
             z-index: 2;
-            transform-style: preserve-3d;
-            animation: heroFloat 6s ease-in-out infinite;
             padding: 0 24px;
             max-width: 760px;
         }
         @keyframes heroFloat {
-            0%, 100% { transform: translateZ(0) translateY(0); }
-            50% { transform: translateZ(20px) translateY(-8px); }
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
         }
         .hero-badge {
             display: inline-block;
@@ -231,6 +229,7 @@
             backdrop-filter: blur(10px);
             background: rgba(0,229,255,0.06);
             text-transform: uppercase;
+            animation: heroFloat 6s ease-in-out infinite;
         }
         .hero-title {
             font-family: 'Orbitron', monospace;
@@ -324,6 +323,10 @@
             max-width: 1100px;
             margin: 0 auto;
             position: relative;
+        }
+        /* 고정 내비게이션 높이만큼 앵커 스크롤 목표를 보정 */
+        section[id] {
+            scroll-margin-top: 76px;
         }
         .section-label {
             font-family: 'Orbitron', monospace;
@@ -1029,6 +1032,38 @@
                     </div>
                 </div>
             </div>
+        </section>
+
+        <!-- ===== EXPANSION LINKS ===== -->
+        <section>
+            <div class="reveal">
+                <div class="section-label">// Explore Further</div>
+                <h2>🗺️ 이어지는 탐험</h2>
+                <p class="section-desc">
+                    Layer 개념은 이곳에서 끝나지 않습니다. 기능적 설계와 의식 논쟁의 차이를 구분하며 이어가세요.
+                </p>
+            </div>
+            <div class="grid-2">
+                <div class="card-3d-wrap reveal">
+                    <div class="card-3d" data-tilt>
+                        <span class="card-icon" aria-hidden="true">📘</span>
+                        <h3>AI 기술 아틀라스</h3>
+                        <p>메모리·해석가능성·에이전트 워크플로 개념을 카드와 교육용 예제로 배웁니다.</p>
+                        <p style="margin-top:12px;"><a href="../atlas/" style="color:var(--cyan);">→ /atlas/</a></p>
+                    </div>
+                </div>
+                <div class="card-3d-wrap reveal">
+                    <div class="card-3d" data-tilt>
+                        <span class="card-icon" aria-hidden="true">❓</span>
+                        <h3>경계의 질문들 · 검증과 증거</h3>
+                        <p>"의식은 언제 필요한가"를 질문으로 변형하고, 주장을 평가하는 12개 조건을 확인합니다.</p>
+                        <p style="margin-top:12px;"><a href="../questions/" style="color:var(--cyan);">→ /questions/</a> · <a href="../evidence/" style="color:var(--cyan);">→ /evidence/</a></p>
+                    </div>
+                </div>
+            </div>
+            <p class="reveal" style="text-align:center; font-size:0.82rem; color:rgba(255,255,255,0.45); margin-top:24px;">
+                <a href="../memory-lab/" style="color:var(--cyan);">기억과 망각 연구실</a> · <a href="../systems/" style="color:var(--cyan);">AI 시스템 설계대</a>가 열렸습니다. 의식과 정체성 페이지는 R3에서 <a href="../explore/" style="color:var(--cyan);">탐험 지도</a>에 연결됩니다.
+            </p>
         </section>
 
         <!-- ===== BACK TO HOME ===== -->

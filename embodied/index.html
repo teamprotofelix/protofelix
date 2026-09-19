@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>몸을 가진 지성 — Protofelix × AstraHo</title>
+    <meta name="description" content="같은 목표라도 센서(시야·지연)와 행동 공간(이동 비용)이 바뀌면 계획이 달라지는 것을 격자 세계에서 관찰합니다. 인간 감각 장애를 게임 조건으로 환원하지 않고 로봇 센서 설계 문제로 설명합니다.">
+    <link rel="canonical" href="https://protofelix.moip.ai.kr/embodied/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Protofelix × AstraHo">
+    <meta property="og:title" content="몸을 가진 지성 — Protofelix × AstraHo">
+    <meta property="og:description" content="다른 몸과 감각은 다른 생각을 낳는가? 감각 조건별 행동 기록.">
+    <meta property="og:url" content="https://protofelix.moip.ai.kr/embodied/">
+    <meta property="og:image" content="https://protofelix.moip.ai.kr/images/expansion/i14-embodied.webp">
+    <link rel="stylesheet" href="../assets/pf-expansion.css">
+</head>
+<body>
+    <a class="skip-link" href="#main">본문 바로가기</a>
+
+    <nav class="pf-nav" aria-label="전역 내비게이션">
+        <div class="pf-nav-inner">
+            <a href="../index.html" class="pf-nav-brand">Protofelix<em>×</em>AstraHo</a>
+            <div class="pf-nav-links">
+                <a href="../index.html">홈</a>
+                <a href="../explore/">탐험</a>
+                <a href="../atlas/">아틀라스</a>
+                <a href="../questions/">질문</a>
+                <a href="../forge/">공방</a>
+                <a href="../frontier/">실험실</a>
+                <a href="../evidence/">증거</a>
+                <a href="../notebook/">노트북</a>
+                <a href="#" class="here">몸</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="pf-hero" style="background-image: url('../images/expansion/i14-embodied.webp'), linear-gradient(160deg, #101033 0%, #0a0a23 70%);">
+        <div class="pf-hero-inner">
+            <div>
+                <span class="pf-badge ks-research">Research</span>
+                <span class="pf-badge mode-rule_based">RULE_BASED</span>
+                <span class="pf-badge pj-prototype">PROTOTYPE</span>
+            </div>
+            <h1>몸을 가진 지성</h1>
+            <p class="pf-question">"다른 몸과 감각은 다른 생각을 낳는가?"</p>
+            <p class="pf-hero-meta">읽기 시간 약 10분 · 내용 성격: 감각 조건 실험 · 실행 모드: RULE_BASED(격자 에이전트) · 검토일 2026-09-20</p>
+        </div>
+    </header>
+
+    <main id="main" class="pf-wrap">
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">01</span>이곳에서 무엇을 얻는가</h2>
+            <p class="pf-lead">
+                같은 목표(숨은 신호 찾기)를 가진 격자 에이전트의 <strong>시야·감각 지연·이동 비용</strong>을 바꾸면
+                행동이 어떻게 달라지는지 관찰합니다. 감각운동 루프·어포던스·환경 의존 행동을 소개하되,
+                인간 감각 장애를 단순 게임 조건으로 환원하지 않고 <strong>로봇 센서 설계 문제</strong>로 설명합니다.
+            </p>
+            <p class="pf-note warn">결과는 "성공률"이 아닌 이번 실행의 관찰 기록입니다. 반복·통계 없이 일반화하지 않습니다.</p>
+        </section>
+
+        <!-- 실험 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">02</span>감각 조건 실험</h2>
+            <div class="pf-panel">
+                <div class="pf-grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
+                    <div class="pf-field">
+                        <label for="fSense">센서 구성</label>
+                        <select id="fSense" class="pf-select">
+                            <option value="wide">넓은 시야 (반경 3) — 이동 비용 보통</option>
+                            <option value="narrow">좁은 시야 (반경 1) — 이동 비용 보통</option>
+                            <option value="delayed">넓은 시야 + 감각 지연 3스텝</option>
+                            <option value="contact">접촉 센서만 (반경 0) — 이동 비용 낮음</option>
+                        </select>
+                    </div>
+                    <div class="pf-field">
+                        <label for="fTarget">목표 신호 위치 (0~9, 0~9)</label>
+                        <input id="fTarget" class="pf-input" type="text" value="7,3" placeholder="예: 7,3">
+                    </div>
+                </div>
+                <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                    <button class="pf-btn primary" onclick="runEmbodied()">실행</button>
+                    <button class="pf-btn ghost" onclick="renderWorld()">리셋</button>
+                </div>
+                <p class="pf-note info" id="embOut">구성을 고르고 실행하세요. 최대 200스텝 상한.</p>
+                <div id="worldView" style="overflow-x:auto;margin-top:12px;"></div>
+                <p class="pf-note">범례: <span style="color:var(--pf-cyan);">A</span> 에이전트 · <span style="color:var(--pf-gold-light);">★</span> 목표 · <span style="color:var(--pf-green);">·</span> 지나온 길 · <span style="color:var(--pf-amber);">◌</span> 지연으로 놓친 관측 지점</p>
+            </div>
+        </section>
+
+        <!-- 결과·반론 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">03</span>결과 설명과 가장 강한 반론</h2>
+            <div class="pf-result" style="margin-bottom:16px;">
+                <h4>관찰한 것 / 추론한 것 / 아직 모르는 것</h4>
+                <p>
+                    <strong>관찰한 것:</strong> 같은 목표에 대한 센서별 이동 궤적·스텝 수·관측 누락 (브라우저 계산).<br>
+                    <strong>추론한 것:</strong> "생각"은 몸의 제약 위에서 성립한다는 직관 — 계획은 센서와 행동 공간의 함수입니다.<br>
+                    <strong>아직 모르는 것:</strong> 실제 로봇의 센서 잡음·물리적 비용은 이 격자로 대체되지 않습니다.
+                </p>
+            </div>
+            <div class="pf-counter">
+                <strong>실패 조건:</strong> 특정 센서 구성이 "더 똑똑하다"고 결론내리는 것입니다. 넓은 시야는 관측은 빠르지만 에너지 비용이 크고,
+                접촉 센서는 느리지만 저비용입니다 — 조건은 트레이드오프이며, 철학적 체화 논의와 특정 로봇 성능을 구분해야 합니다.
+            </div>
+            <div style="margin-top:14px;"><button class="pf-btn" onclick="saveEmbodied()">이 실행 기록을 노트북에 저장</button></div>
+            <p class="pf-note" style="margin-top:14px;">다음 질문 — 쉬운: "내 도구 사용 습관은 어떤 '센서'를 전제하는가?" · 반대: "몸이 없어도 강한 지능이 가능하다는 반례는 없는가?" · 먼 분야: "야생동물의 감각 세계(Umwelt) 개념은 AI 센서 설계에 무엇을 주는가?"</p>
+            <p class="pf-note">관련 페이지: <a href="../world-models/">세계모델 시뮬레이터</a> · <a href="../augmented-mind/">확장된 마음</a> · <a href="../sf-archive/">SF 지성 아카이브(다중 몸)</a></p>
+        </section>
+    </main>
+
+    <footer class="pf-footer">
+        <div class="links">
+            <a href="../index.html">홈</a><a href="../explore/">탐험 지도</a><a href="../world-models/">세계모델</a>
+            <a href="../notebook/">노트북</a>
+        </div>
+        <p>몸을 가진 지성 · Protofelix × AstraHo © 2026 — 격자 에이전트 교육용 모형이며 특정 로봇의 성능이 아닙니다.</p>
+    </footer>
+
+    <script src="../assets/pf-common.js"></script>
+    <script>
+        var SIZE = 10;
+        var lastRun = null;
+
+        function runEmbodied() {
+            var sense = document.getElementById('fSense').value;
+            var parts = document.getElementById('fTarget').value.split(',').map(function (x) { return parseInt(x, 10); });
+            var goal = [Math.min(9, Math.max(0, parts[0] || 7)), Math.min(9, Math.max(0, parts[1] || 3))];
+
+            var vision = sense === 'wide' ? 3 : (sense === 'narrow' ? 1 : (sense === 'delayed' ? 3 : 0));
+            var delay = sense === 'delayed' ? 3 : 0;
+            var moveCost = sense === 'contact' ? 1 : 2;
+
+            /* 에이전트: 목표를 보면 직진, 못 보면 나선형 탐색(규칙 기반, 결정적) */
+            var pos = [0, 0], path = [[0, 0]];
+            var missed = [];
+            var queue = []; /* delayed observations */
+            var steps = 0, MAX = 200, found = false;
+
+            function canSee(p) {
+                return Math.abs(p[0] - goal[0]) + Math.abs(p[1] - goal[1]) <= vision; /* 맨해튼 거리 시야 */
+            }
+            function canMove(p) {
+                return p[0] >= 0 && p[0] < SIZE && p[1] >= 0 && p[1] < SIZE;
+            }
+            var dirs = [[0,1],[1,0],[0,-1],[-1,0]];
+            var dirIdx = 0, straight = 0;
+            var spiral = { r: 1, phase: 0, count: 0, total: 2 };
+
+            while (steps < MAX && !found) {
+                steps++;
+                /* 관측 (지연 큐 처리) */
+                var obs;
+                if (delay > 0) {
+                    queue.push({ at: steps, seen: canSee(pos) });
+                    obs = queue[0] && steps - queue[0].at >= delay ? queue.shift().seen : null;
+                    if (obs === null) { /* 지연으로 아직 모름 → 이번 스텝은 관측 누락 가능 */ }
+                    if (obs === true && queue.length > 0) { /* 지연된 발견 */ }
+                    /* 지연 동안 이미 지나친 지점 기록 */
+                    if (canSee(pos) && obs === null) missed.push(pos.slice());
+                } else {
+                    obs = canSee(pos);
+                }
+                if (obs === true) {
+                    found = true;
+                    break;
+                }
+                /* 이동 규칙: 직진하다 벽이면 회전(간단한 나선형) */
+                var next = [pos[0] + dirs[dirIdx][0], pos[1] + dirs[dirIdx][1]];
+                if (!canMove(next) || straight >= spiral.total) {
+                    dirIdx = (dirIdx + 1) % 4;
+                    straight = 0;
+                    spiral.count++;
+                    if (spiral.count >= spiral.total) {
+                        spiral.count = 0;
+                        spiral.total += 2; /* 나선 확장 */
+                        dirIdx = (dirIdx + 3) % 4; /* 방향 재설정은 유지 */
+                    }
+                    next = [pos[0] + dirs[dirIdx][0], pos[1] + dirs[dirIdx][1]];
+                    if (!canMove(next)) { dirIdx = (dirIdx + 1) % 4; next = [pos[0] + dirs[dirIdx][0], pos[1] + dirs[dirIdx][1]]; }
+                }
+                pos = next;
+                straight++;
+                if (moveCost === 2 && steps % 2 === 1) continue; /* 이동 비용 높음 → 반 스텝 소모 표현 */
+                path.push(pos.slice());
+            }
+
+            lastRun = { sense: sense, goal: goal, vision: vision, delay: delay, steps: steps, found: found, missed: missed.length, pathLen: path.length };
+            document.getElementById('embOut').innerHTML =
+                '<strong>실행 기록 (브라우저 계산):</strong> 시야 ' + vision + ' · 지연 ' + delay + '스텝 · 이동 비용 ' + moveCost +
+                ' — 발견 ' + (found ? '✓ (' + steps + '스텝)' : '✗ (상한 200)') +
+                ' · 지나온 길 ' + path.length + '칸 · 지연으로 놓친 관측 ' + missed.length + '건' +
+                '<br><span style="color:var(--pf-faint);">같은 목표라도 센서 구성이 다르면 궤적과 비용이 다릅니다. 이번 실행의 관찰 기록이며 성공률 통계가 아닙니다.</span>';
+            renderWorld(goal, path, missed, found);
+        }
+
+        function renderWorld(goal, path, missed, found) {
+            var pathSet = {}, missSet = {};
+            (path || []).forEach(function (p) { pathSet[p[0] + ',' + p[1]] = true; });
+            (missed || []).forEach(function (p) { missSet[p[0] + ',' + p[1]] = true; });
+            var html = '<table style="border-collapse:collapse;margin:0 auto;">';
+            for (var r = 0; r < SIZE; r++) {
+                html += '<tr>';
+                for (var c = 0; c < SIZE; c++) {
+                    var k = r + ',' + c;
+                    var ch = '·', color = 'rgba(255,255,255,0.12)';
+                    if (goal && goal[0] === r && goal[1] === c) { ch = '★'; color = 'var(--pf-gold-light)'; }
+                    else if (r === 0 && c === 0) { ch = 'A'; color = 'var(--pf-cyan)'; }
+                    else if (missSet[k]) { ch = '◌'; color = 'var(--pf-amber)'; }
+                    else if (pathSet[k]) { ch = '·'; color = 'var(--pf-green)'; }
+                    html += '<td style="width:30px;height:30px;text-align:center;font-size:0.85rem;color:' + color + ';border:1px solid rgba(255,255,255,0.05);">' + ch + '</td>';
+                }
+                html += '</tr>';
+            }
+            html += '</table>';
+            document.getElementById('worldView').innerHTML = html;
+        }
+
+        function saveEmbodied() {
+            if (!lastRun) { PF.toast('먼저 실행해 주세요.'); return; }
+            PF.notebook.add({ type: 'experiment', title: '몸을 가진 지성 실행 ' + PF.fmtDate(), body: JSON.stringify(lastRun, null, 2), tags: ['embodied'] })
+                .then(function () { PF.toast('실행 기록을 노트북에 저장했습니다.'); });
+        }
+
+        renderWorld();
+    </script>
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>열린 창의성 도전 — Protofelix × AstraHo</title>
+    <meta name="description" content="12개의 도전 과제 — 각 도전에 입력·금지 조건·평가 루브릭·예제·출처·제출 형식을 제공합니다. 제출은 파일 다운로드이며 운영자에게 전송되지 않습니다. 가짜 순위표 대신 편집된 예시 작품과 내 결과 비교를 제공합니다.">
+    <link rel="canonical" href="https://protofelix.moip.ai.kr/challenges/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Protofelix × AstraHo">
+    <meta property="og:title" content="열린 창의성 도전 — Protofelix × AstraHo">
+    <meta property="og:description" content="같은 제약에서 얼마나 다른 해결책을 발견할 수 있을까? 12개 도전.">
+    <meta property="og:url" content="https://protofelix.moip.ai.kr/challenges/">
+    <meta property="og:image" content="https://protofelix.moip.ai.kr/images/expansion/i28-challenges.webp">
+    <link rel="stylesheet" href="../assets/pf-expansion.css">
+</head>
+<body>
+    <a class="skip-link" href="#main">본문 바로가기</a>
+
+    <nav class="pf-nav" aria-label="전역 내비게이션">
+        <div class="pf-nav-inner">
+            <a href="../index.html" class="pf-nav-brand">Protofelix<em>×</em>AstraHo</a>
+            <div class="pf-nav-links">
+                <a href="../index.html">홈</a>
+                <a href="../explore/">탐험</a>
+                <a href="../atlas/">아틀라스</a>
+                <a href="../questions/">질문</a>
+                <a href="../forge/">공방</a>
+                <a href="../frontier/">실험실</a>
+                <a href="../evidence/">증거</a>
+                <a href="../notebook/">노트북</a>
+                <a href="#" class="here">도전</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="pf-hero" style="background-image: url('../images/expansion/i28-challenges.webp'), linear-gradient(160deg, #101033 0%, #0a0a23 70%);">
+        <div class="pf-hero-inner">
+            <div>
+                <span class="pf-badge ks-research">Research</span>
+                <span class="pf-badge mode-user_authored">USER_AUTHORED</span>
+                <span class="pf-badge pj-prototype">PROTOTYPE</span>
+            </div>
+            <h1>열린 창의성 도전</h1>
+            <p class="pf-question">"같은 제약에서 얼마나 다른 해결책을 발견할 수 있을까?"</p>
+            <p class="pf-hero-meta">읽기 시간 약 10분 · 내용 성격: 창의 과제 · 실행 모드: USER_AUTHORED(파일 제출 만들기) · 검토일 2026-09-20</p>
+        </div>
+    </header>
+
+    <main id="main" class="pf-wrap">
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">01</span>이곳에서 무엇을 얻는가</h2>
+            <p class="pf-lead">
+                12개의 도전 과제마다 <strong>입력·금지 조건·평가 루브릭·예제·출처·제출 형식</strong>이 주어집니다.
+                정적판의 "제출"은 <strong>파일 다운로드</strong>이며, 운영자에게 전송됐다는 성공 메시지를 표시하지 않습니다.
+                가짜 순위표 대신 편집된 예시 작품과 <strong>"내 결과 비교"</strong> 체크리스트를 제공합니다.
+            </p>
+            <p class="pf-note warn">공개 제출·랭킹은 동의·검토·스팸 방지·삭제 경로가 준비된 다음에 도입합니다 — 지금은 없습니다.</p>
+        </section>
+
+        <!-- 도전 목록 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">02</span>도전 12개</h2>
+            <div class="pf-field" style="max-width:380px;">
+                <select id="fCat" class="pf-select" onchange="renderChallenges()">
+                    <option value="all">전체 (12)</option>
+                    <option value="tool">도구 설계</option>
+                    <option value="interface">인터페이스</option>
+                    <option value="system">시스템·제도</option>
+                </select>
+            </div>
+            <div id="challengeList" style="margin-top:14px;"></div>
+        </section>
+
+        <!-- 제출 만들기 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">03</span>내 결과 제출 파일 만들기</h2>
+            <div class="pf-panel">
+                <div class="pf-field" style="max-width:380px;">
+                    <label for="fSubmit">도전 선택</label>
+                    <select id="fSubmit" class="pf-select"></select>
+                </div>
+                <div class="pf-field">
+                    <label for="fWork">내 해결책·작품 설명</label>
+                    <textarea id="fWork" class="pf-textarea" maxlength="20000" placeholder="무엇을 만들었는지, 제약을 어떻게 지켰는지, 실패한 시도는 무엇이었는지..."></textarea>
+                </div>
+                <button class="pf-btn primary" onclick="makeSubmit('md')">제출 파일 만들기 (MD)</button>
+                <button class="pf-btn ghost" onclick="makeSubmit('json')">제출 파일 만들기 (JSON)</button>
+                <p class="pf-note info" id="submitNote">제출 파일은 내 컴퓨터에 저장될 뿐, 운영자에게 전송되지 않습니다.</p>
+            </div>
+        </section>
+
+        <!-- 예시 작품 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">04</span>편집된 예시 작품</h2>
+            <p class="pf-lead">형식 참고용으로 편집한 예시입니다. 실제 제출물·검증된 우수작이 아닙니다.</p>
+            <div class="pf-grid" id="exampleList"></div>
+        </section>
+
+        <!-- 결과·반론 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">05</span>내 결과 비교와 가장 강한 반론</h2>
+            <div class="pf-result" style="margin-bottom:16px;">
+                <h4>내 결과 비교 체크리스트 (자기 평가)</h4>
+                <p>
+                    ① 금지 조건을 하나도 안 썼는가? ② 루브릭의 각 항목에 대해 내 증거가 있는가?
+                    ③ 실패한 시도를 기록했는가? ④ 같은 제약에서 다른 해결책을 2개 이상 만들었는가?
+                    ⑤ 내 결과가 예시 작품과 다른 지점은 어디인가? — 전부 자기평가이며 순위가 아닙니다.
+                </p>
+            </div>
+            <div class="pf-counter">
+                <strong>실패 조건:</strong> "제출 완료"라는 메시지로 창작이 끝났다고 느끼게 하는 것입니다.
+                이 페이지의 제출은 파일 다운로드이며 아무에게도 전송되지 않습니다. 도전의 가치는 순위가 아니라
+                같은 제약에서 내가 발견한 <strong>다른 해결책의 수</strong>에 있습니다.
+            </div>
+            <p class="pf-note" style="margin-top:14px;">다음 질문 — 쉬운: "가장 하고 싶은 도전은 무엇이며 그 이유는?" · 반대: "제약이 없는 창작이 더 가치 있지 않은가?" · 먼 분야: "요리 대회의 미스터리 박스(같은 재료)는 창의성 평가에 무엇을 시사하는가?"</p>
+            <p class="pf-note">관련 페이지: <a href="../forge/">공동창작 공방</a> · <a href="../frontier/">인지경계 실험실</a> · <a href="../learning-paths/">탐구 항로</a></p>
+        </section>
+    </main>
+
+    <footer class="pf-footer">
+        <div class="links">
+            <a href="../index.html">홈</a><a href="../explore/">탐험 지도</a><a href="../learning-paths/">항로</a>
+            <a href="../notebook/">노트북</a>
+        </div>
+        <p>열린 창의성 도전 · Protofelix × AstraHo © 2026 — 제출은 파일 다운로드이며 전송되지 않습니다.</p>
+    </footer>
+
+    <script src="../assets/pf-common.js"></script>
+    <script>
+        /* ===== 정적 데이터 공급자: 도전 12개 ===== */
+        var CHALLENGES = [
+            { id:'lowpower', cat:'tool', title:'전력 제한 학습 도구', input:'배터리 100mAh로 하루 동작하는 학습 보조 도구를 설계하라.',
+              ban:'서버 호출 금지, 화면 상시 점등 금지.', rubric:'전력 계산의 구체성 / 실제 제약 충족 / 다른 해결책 수.',
+              example:'전자잉크 화면 + 하루 3회만 깨어나는 단어 카드. (편집 예시)', src:'아틀라스 양자화 카드' },
+            { id:'forget', cat:'tool', title:'망각 가능한 개인비서', input:'사용자가 지정한 기억을 확실히 잊는 개인비서의 명세를 쓰라.',
+              ban:'"완전 삭제 보장"이라는 문구 금지(구현 범위를 나눠야 함).', rubric:'삭제 범위 구분(캐시·백업) / 재등장 방지 절차 / 동의 흐름.',
+              example:'계층별 삭제 보장 수준을 표기한 명세서. (편집 예시)', src:'LayerAI Center 기억 정책, 기억 연구실' },
+            { id:'explain', cat:'tool', title:'설명 가능한 기록 검색', input:'검색 결과마다 "왜 이 결과가 나왔는지"를 보여주는 기록 검색 도구.',
+              ban:'벡터 검색이라고 허위 표기 금지(실제 구현 방식 명시).', rubric:'점수식 공개 / 수정·삭제 반영 / 재등장 검사.',
+              example:'가중치와 일치 항목을 함께 보여주는 목록. (편집 예시)', src:'기억 연구실 점수식' },
+            { id:'nonverbal', cat:'interface', title:'언어를 쓰지 않는 인터페이스', input:'문자 없이 리듬·그림·동작으로 의미를 전달하는 인터페이스 한 가지.',
+              ban:'알파벳·글자 사용 금지, 기존 아이콘만 재사용 금지.', rubric:'비언어 일관성 / 학습 곡선 / 접근성 고려.',
+              example:'진동 리듬으로 예/아니오를 구분하는 패턴. (편집 예시)', src:'SF 아카이브(언어 너머), 접근성 질문' },
+            { id:'futurelib', cat:'system', title:'미래 독자를 위한 도서관', input:'천 년 뒤 독자가 이해할 수 있는 기록 저장 방식을 설계하라.',
+              ban:'현재 포맷·미디어에 영구 의존 금지.', rubric:'시간 축 명시 / 포맷 퇴화 대비 / 검증 경로.',
+              example:'매 100년마다 재기록하는 규약 + 병렬 포맷. (편집 예시)', src:'SF 아카이브(시간의 지성)' },
+            { id:'onehand', cat:'tool', title:'한 손 요리 도구', input:'한 손만으로 설치·사용·세척 가능한 요리 도구.',
+              ban:'양손 사용 장면이 한 번이라도 있으면 실격.', rubric:'전 과정 한 손 검증 / 세척 가능성 / 안전.',
+              example:'고정+압착 조합의 도마 클램프. (편집 예시)', src:'인지경계 실험실 제약 유지' },
+            { id:'offline-q', cat:'tool', title:'오프라인 질문 변형기', input:'인터넷 없이 동작하는 질문 변형 도구(규칙 5종).',
+              ban:'외부 API·서버 호출 금지.', rubric:'규칙 공개 / 같은 입력 같은 결과 / 변형의 다양성.',
+              example:'질문의 질문들 페이지 규칙을 종이 카드로. (편집 예시)', src:'경계의 질문들 변형 규칙' },
+            { id:'tenmin', cat:'system', title:'10분 학습 루틴', input:'매일 10분으로 깊어지는 학습 루틴 하나.',
+              ban:'10분 초과 콘텐츠 포함 금지.', rubric:'지속 가능성 / 반론 포함 여부 / 자기 질문 유무.',
+              example:'개념 1 + 반례 1 + 질문 1의 삼박자 카드. (편집 예시)', src:'탐구 항로 단계 구조' },
+            { id:'garden', cat:'system', title:'기억의 정원 앱', input:'선택적 망각이 가능한 개인 기록 앱의 사용자 흐름.',
+              ban:'삭제 후 재등장하는 화면 흐름 금지.', rubric:'망각의 선택성 / 되돌림 여부 명시 / 감정적 표현의 적절성.',
+              example:'기억을 "잎"으로 두고 지는 선택을 시각화. (편집 예시)', src:'기억과 망각 연구실' },
+            { id:'counter-collector', cat:'tool', title:'반례 수집기', input:'자신의 주장에 반례를 자동으로 붙여 주는 도구 명세.',
+              ban:'"모든 주장 검증" 주장 금지(도메인 한정 필수).', rubric:'도메인 한정 명시 / 반례 출처 / 오류율 공개 방법.',
+              example:'전제 3개를 꺼 보는 체크리스트. (편집 예시)', src:'추론과 반례 연구실' },
+            { id:'lowsim', cat:'tool', title:'저전력 시뮬레이터', input:'최소 연산으로 계획-실제 차이를 보여주는 격자 시뮬레이터.',
+              ban:'무제한 스텝 금지, 렌더링 프레임 의존 금지.', rubric:'스텝 상한 / 재계획 표시 / 실패 지점 표기.',
+              example:'A* + 부분 관측 실행기. (편집 예시)', src:'세계모델 시뮬레이터' },
+            { id:'citizen', cat:'system', title:'시민 설명서', input:'공공 AI 시스템을 주민이 이해할 수 있는 한 장의 설명서로.',
+              ban:'전문 용어 5개 초과 금지.', rubric:'평문 비율 / 거부·이의 제기 경로 / 실제 예시 포함.',
+              example:'"이 시스템이 당신에 대해 아는 것 / 모르는 것" 양면 카드. (편집 예시)', src:'가치와 정렬의 협상실' }
+        ];
+
+        var EXAMPLES = [
+            { title:'편집 예시 ① 전력 제한 학습 도구', body:'전자잉크 + 하루 3회 갱신 카드. 전력 계산: 화면 갱신 3회 × 10mAs ≈ 30mAs/일. 실패 시도: 상시 알림 방식은 배터리 초과로 폐기. — 편집된 예시이며 실제 제출물이 아닙니다.' },
+            { title:'편집 예시 ② 언어 없는 인터페이스', body:'진동 리듬 2종(예: ●●○=예)으로 시작하고, 학습 곡선을 3일 관찰. 실패 시도: 색 조합만으로는 색각 차이에서 실패. — 편집된 예시.' },
+            { title:'편집 예시 ③ 미래 독자 도서관', body:'100년 주기 재기록 규약 + 석재·종이·디지털 병렬 보존. 실패 시도: 단일 포맷은 퇴화 시나리오에서 폐기. — 편집된 예시.' },
+            { title:'편집 예시 ④ 반례 수집기', body:'수학 문장형 주장에 한정해, 전제 3개를 꺼 보는 체크리스트. 실패 시도: 자유 문장 전 영역 검증은 거짓 보장으로 폐기. — 편집된 예시.' }
+        ];
+
+        function renderChallenges() {
+            var cat = document.getElementById('fCat').value;
+            var list = CHALLENGES.filter(function (c) { return cat === 'all' || c.cat === cat; });
+            document.getElementById('challengeList').innerHTML = list.map(function (c) {
+                return '<details class="pf-fold"><summary>' + PF.esc(c.title) + ' <span class="pf-tag">' + ({tool:'도구 설계',interface:'인터페이스',system:'시스템·제도'})[c.cat] + '</span></summary>' +
+                    '<p style="margin-top:10px;font-size:0.88rem;color:var(--pf-dim);"><strong style="color:#fff;">입력:</strong> ' + PF.esc(c.input) + '</p>' +
+                    '<p style="font-size:0.88rem;color:var(--pf-amber);"><strong>금지 조건:</strong> ' + PF.esc(c.ban) + '</p>' +
+                    '<p style="font-size:0.88rem;color:var(--pf-dim);"><strong>평가 루브릭:</strong> ' + PF.esc(c.rubric) + '</p>' +
+                    '<p style="font-size:0.88rem;color:var(--pf-dim);"><strong>예제:</strong> ' + PF.esc(c.example) + '</p>' +
+                    '<p style="font-size:0.88rem;color:var(--pf-dim);"><strong>출처·배경:</strong> ' + PF.esc(c.src) + '</p>' +
+                    '<p style="font-size:0.88rem;"><strong>제출 형식:</strong> MD(설명 + 실패 시도) 또는 JSON(제출 스키마)</p>' +
+                    '<button class="pf-btn small" onclick="pickChallenge(\'' + c.id + '\')">이 도전으로 제출 파일 만들기</button></details>';
+            }).join('');
+            var f = document.getElementById('fSubmit');
+            f.innerHTML = CHALLENGES.map(function (c) { return '<option value="' + c.id + '">' + c.title + '</option>'; }).join('');
+        }
+
+        function pickChallenge(id) {
+            document.getElementById('fSubmit').value = id;
+            document.getElementById('fWork').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            PF.toast('제출 작성란으로 이동했습니다.');
+        }
+
+        function makeSubmit(kind) {
+            var c = CHALLENGES.find(function (x) { return x.id === document.getElementById('fSubmit').value; });
+            var work = document.getElementById('fWork').value.trim();
+            if (!work) { PF.toast('내 해결책 설명을 먼저 적어 주세요.'); return; }
+            if (kind === 'md') {
+                var md = '# 도전 제출 파일 (정적판)\n\n## 도전\n' + c.title + '\n\n## 입력\n' + c.input + '\n\n## 금지 조건 준수 확인\n- [ ] ' + c.ban + '\n\n## 내 해결책\n' + work +
+                    '\n\n## 실패한 시도\n(여기에 기록)\n\n> 이 파일은 내 컴퓨터에 저장되며 운영자에게 전송되지 않습니다.\n> 제출일: ' + PF.fmtDate();
+                PF.download('pf-challenge-' + c.id + '.md', md, 'text/markdown;charset=utf-8');
+            } else {
+                var json = { schema: 'pf-challenge-submission', schemaVersion: 1, challengeId: c.id, challengeTitle: c.title,
+                    constraints: c.ban, rubric: c.rubric, work: work.slice(0, 20000), failedAttempts: '', note: '정적판 제출 파일 — 전송되지 않음', createdAt: new Date().toISOString() };
+                PF.download('pf-challenge-' + c.id + '.json', JSON.stringify(json, null, 2), 'application/json;charset=utf-8');
+            }
+            document.getElementById('submitNote').textContent = '제출 파일을 내려받았습니다. 이 파일은 어디에도 전송되지 않았습니다 — 공개 제출은 동의·검토 절차가 준비된 뒤 도입됩니다.';
+            PF.toast('제출 파일을 내려받았습니다 (전송되지 않음).');
+        }
+
+        document.getElementById('exampleList').innerHTML = EXAMPLES.map(function (e) {
+            return '<div class="pf-card"><h3>' + PF.esc(e.title) + '</h3><p>' + PF.esc(e.body) + '</p></div>';
+        }).join('');
+        renderChallenges();
+    </script>
+</body>
+</html>

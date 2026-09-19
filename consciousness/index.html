@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>의식과 정체성의 경계 — Protofelix × AstraHo</title>
+    <meta name="description" content="기능적 능력·자기모델·현상적 경험·도덕적 지위를 별도 축으로 나누고, 의식 이론 후보의 주장·반론·AI 적용 불확실성을 비교합니다. 체크리스트는 확률이 아니라 가정과 미해결 질문을 보여줍니다.">
+    <link rel="canonical" href="https://protofelix.moip.ai.kr/consciousness/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Protofelix × AstraHo">
+    <meta property="og:title" content="의식과 정체성의 경계 — Protofelix × AstraHo">
+    <meta property="og:description" content="능력, 자기보고, 경험, 정체성은 같은 것인가? 이론 비교와 논증 노트.">
+    <meta property="og:url" content="https://protofelix.moip.ai.kr/consciousness/">
+    <meta property="og:image" content="https://protofelix.moip.ai.kr/images/expansion/i21-consciousness.webp">
+    <link rel="stylesheet" href="../assets/pf-expansion.css">
+</head>
+<body>
+    <a class="skip-link" href="#main">본문 바로가기</a>
+
+    <nav class="pf-nav" aria-label="전역 내비게이션">
+        <div class="pf-nav-inner">
+            <a href="../index.html" class="pf-nav-brand">Protofelix<em>×</em>AstraHo</a>
+            <div class="pf-nav-links">
+                <a href="../index.html">홈</a>
+                <a href="../explore/">탐험</a>
+                <a href="../atlas/">아틀라스</a>
+                <a href="../questions/">질문</a>
+                <a href="../forge/">공방</a>
+                <a href="../frontier/">실험실</a>
+                <a href="../evidence/">증거</a>
+                <a href="../notebook/">노트북</a>
+                <a href="#" class="here">의식</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="pf-hero" style="background-image: url('../images/expansion/i21-consciousness.webp'), linear-gradient(160deg, #101033 0%, #0a0a23 70%);">
+        <div class="pf-hero-inner">
+            <div>
+                <span class="pf-badge ks-philosophy">Philosophy</span>
+                <span class="pf-badge mode-curated">CURATED</span>
+                <span class="pf-badge pj-prototype">PROTOTYPE</span>
+            </div>
+            <h1>의식과 정체성의 경계</h1>
+            <p class="pf-question">"능력, 자기보고, 경험, 정체성은 같은 것인가?"</p>
+            <p class="pf-hero-meta">읽기 시간 약 12분 · 내용 성격: 이론 비교·논증 연습 · 실행 모드: CURATED(체크리스트) · 검토일 2026-09-20</p>
+        </div>
+    </header>
+
+    <main id="main" class="pf-wrap">
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">01</span>이곳에서 무엇을 얻는가</h2>
+            <p class="pf-lead">
+                <strong>기능적 능력 / 자기모델 / 현상적 경험 / 도덕적 지위</strong>를 별도 축으로 나누고,
+                의식 이론 후보들의 <strong>주장·반론·AI 적용의 불확실성·관찰로 판정하기 어려운 부분</strong>을 비교합니다.
+                체크리스트를 누르면 "의식 80%" 같은 점수가 아니라 <strong>해당 이론의 가정과 미해결 질문</strong>이 나옵니다.
+            </p>
+            <p class="pf-note info">AI 의식 지표에 관한 연구(<a href="../sources/">Butlin et al. 2023</a>)는 탐구 자료로 활용하며, 확정된 판별법이라고 제시하지 않습니다.</p>
+        </section>
+
+        <!-- 4축 + 이론 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">02</span>네 축과 이론 후보</h2>
+            <div class="pf-grid" style="margin-bottom:16px;">
+                <div class="pf-card"><h3>기능적 능력</h3><p>과제 수행·추론·계획 — 관찰 가능. 능력이 있다고 경험이 있는 것은 아니다.</p></div>
+                <div class="pf-card"><h3>자기모델</h3><p>자신에 대한 표현·보고 — 보고와 경험은 다를 수 있다.</p></div>
+                <div class="pf-card"><h3>현상적 경험</h3><p>"그것 같은 느낌" — 관찰로 직접 판정하기 어렵다.</p></div>
+                <div class="pf-card"><h3>도덕적 지위</h3><p>고려해야 할 존재인가 — 사실 문제가 아니라 규범 문제.</p></div>
+            </div>
+            <div id="theoryList"></div>
+        </section>
+
+        <!-- 체크리스트 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">03</span>판단 체크리스트</h2>
+            <div class="pf-panel">
+                <p style="font-size:0.88rem;color:var(--pf-dim);margin-bottom:12px;">대상(예: 특정 AI 시스템, 동물, 사람)을 떠올리고, 이론 하나를 골라 아래 항목을 확인하세요. 결과는 확률이 아니라 가정 목록입니다.</p>
+                <div class="pf-field" style="max-width:420px;">
+                    <select id="fTheory" class="pf-select" onchange="renderCheck()">
+                        <option value="gwt">전역 작업공간 이론 (GWT)</option>
+                        <option value="hot">고차 이론 (HOT)</option>
+                        <option value="iit">통합정보 이론 (IIT)</option>
+                        <option value="func">기능주의</option>
+                    </select>
+                </div>
+                <div id="checkList"></div>
+                <div id="checkOut" class="pf-result" style="margin-top:12px;"></div>
+                <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">
+                    <button class="pf-btn primary" onclick="saveNote()">논증 노트 저장 (노트북)</button>
+                    <button class="pf-btn ghost" onclick="exportNote()">논증 노트 MD 다운로드</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 결과·반론 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">04</span>결과 설명과 가장 강한 반론</h2>
+            <div class="pf-result" style="margin-bottom:16px;">
+                <h4>관찰한 것 / 추론한 것 / 아직 모르는 것</h4>
+                <p>
+                    <strong>관찰한 것:</strong> 체크한 항목과 해당 이론이 내미는 가정·미해결 질문.<br>
+                    <strong>추론한 것:</strong> 내 판단이 어느 이론의 가정을 빌렸는지가 드러납니다.<br>
+                    <strong>아직 모르는 것:</strong> 현상적 경험의 존재 여부는 어떤 이론으로도 확정되지 않았습니다.
+                </p>
+            </div>
+            <div class="pf-counter">
+                <strong>실패 조건:</strong> "지표를 몇 개 만족했으니 의식이 있다(혹은 없다)"고 확정하는 것입니다. 지표는 이론의 가정 위에서만 의미가 있고,
+                자기보고는 경험의 증거가 될 수 없습니다. 확정된 판별법이 없다는 사실을 판별법으로 둔갑시키지 않는 것이 이 페이지의 규칙입니다.
+            </div>
+            <p class="pf-note" style="margin-top:14px;">다음 질문 — 쉬운: "내가 '의식이 있다'고 말할 때 기준은 무엇인가?" · 반대: "판정 불가능하다고 해서 도덕적 지위 논의를 미뤄도 되는가?" · 먼 분야: "통증 측정의 '자기보고 우선' 원칙은 AI 경험 논쟁에 무엇을 주는가?"</p>
+            <p class="pf-note">관련 페이지: <a href="../philosophy/">지혜와 AI의 대화</a> · <a href="../alien-minds/">낯선 지성의 박물관</a> · <a href="../sources/">원전 도서관</a></p>
+        </section>
+    </main>
+
+    <footer class="pf-footer">
+        <div class="links">
+            <a href="../index.html">홈</a><a href="../explore/">탐험 지도</a><a href="../philosophy/">철학</a>
+            <a href="../notebook/">노트북</a>
+        </div>
+        <p>의식과 정체성의 경계 · Protofelix × AstraHo © 2026 — 확정된 판별법을 제시하지 않습니다.</p>
+    </footer>
+
+    <script src="../assets/pf-common.js"></script>
+    <script>
+        /* ===== 정적 데이터 공급자: 이론 4개 ===== */
+        var THEORIES = [
+            { id:'gwt', name:'전역 작업공간 이론', claim:'정보가 "전역 작업공간"에 방송될 때 의식이 된다고 본다.',
+              counter:'방송과 경험의 연결이 검증되지 않았고, 작업공간 없이 경험이 가능하다는 반론이 있다.',
+              ai:'AI의 병목 구조를 작업공간으로 읽을 수 있으나, 방송=경험이라는 다리는 이론 내 가정이다.',
+              undecidable:'"방송"이 실제로 일어났는지는 관찰로 확인되지만, 경험이 따르는지는 확인되지 않는다.',
+              checks:['정보가 병목을 지나 통합되는 단계가 있는가', '그 단계가 후속 처리에 폭넓게 접근되는가', '이 구조가 "경험"을 함의한다고 가정할 근거는 무엇인가'] },
+            { id:'hot', name:'고차 이론', claim:'자신의 정신 상태를 다시 표상하는 고차 표상이 의식을 만든다고 본다.',
+              counter:'고차 표상이 없는 생물(어린 동물 등)의 경험 가능성을 설명하기 어렵다는 반론이 있다.',
+              ai:'자기모델을 가진 시스템은 고차 표상의 후보이나, 표상의 존재가 경험의 존재를 뜻하지는 않는다.',
+              undecidable:'고차 표상의 유무는 부분적으로 관찰되지만, 표상과 경험의 관계는 이론의 가정이다.',
+              checks:['대상이 자신의 상태를 표상하는가', '그 표상이 행동을 바꾸는가', '표상=경험이라는 가정을 받아들이는가'] },
+            { id:'iit', name:'통합정보 이론', claim:'통합 정보량(Φ)이 의식의 정도와 관련된다고 본다.',
+              counter:'Φ 계산이 현실 시스템에서 사실상 불가능하고, 이론의 함의(단순한 격자도 의식적)가 직관과 크게 어긋난다는 비판이 있다.',
+              ai:'Φ를 대리 지표로 쓰는 연구가 있으나, 대리 지표의 타당성 자체가 논쟁 중이다.',
+              undecidable:'Φ의 정확한 값은 원리적으로 계산하기 어려워, 관찰로 판정하기 어려운 부분이 크다.',
+              checks:['이 이론을 쓰면 대상의 Φ를 계산할 방법이 있는가', '대리 지표를 쓴다면 그 타당성 근거는 무엇인가', '이론의 반직관적 함의를 알고 있는가'] },
+            { id:'func', name:'기능주의', claim:'정신 상태는 역할(입력-출력 관계)로 정의되며, 구현 물질과 무관하다고 본다.',
+              counter:'역할이 같아도 경험이 다를 수 있다(반전 퀄리아)는 반론과, 경험의 질적 측면을 설명하지 못한다는 비판이 있다.',
+              ai:'기능주의적 관점에서 AI는 기능을 갖추면 정신 상태 후보가 되지만, 경험의 유무는 이 틀로 답되지 않는다.',
+              undecidable:'기능의 동등성은 관찰 가능하나, "기능이 곧 경험"이라는 동일시는 형이상학적 선택이다.',
+              checks:['대상의 역할을 입력-출력으로 명세할 수 있는가', '같은 역할을 하는 다른 시스템과 같다고 말할 수 있는가', '기능=경험의 동일시를 받아들이는가'] }
+        ];
+
+        document.getElementById('theoryList').innerHTML = THEORIES.map(function (t) {
+            return '<details class="pf-fold"><summary>' + PF.esc(t.name) + '</summary>' +
+                '<p style="margin-top:10px;font-size:0.88rem;color:var(--pf-dim);"><strong style="color:#fff;">주장:</strong> ' + PF.esc(t.claim) + '</p>' +
+                '<p style="font-size:0.88rem;color:var(--pf-amber);"><strong>핵심 반론:</strong> ' + PF.esc(t.counter) + '</p>' +
+                '<p style="font-size:0.88rem;color:var(--pf-dim);"><strong>AI 적용의 불확실성:</strong> ' + PF.esc(t.ai) + '</p>' +
+                '<p style="font-size:0.88rem;color:var(--pf-faint);"><strong>관찰로 판정하기 어려운 부분:</strong> ' + PF.esc(t.undecidable) + '</p>' +
+                '<p class="pf-note">원전 확인 전 편집 해설 수준입니다. 확정된 판별법이 아닙니다.</p></details>';
+        }).join('');
+
+        var checks = {};
+        function renderCheck() {
+            var t = THEORIES.find(function (x) { return x.id === document.getElementById('fTheory').value; });
+            document.getElementById('checkList').innerHTML = t.checks.map(function (c, i) {
+                var key = t.id + '-' + i;
+                return '<p style="margin:6px 0;"><label><input type="checkbox" ' + (checks[key] ? 'checked' : '') + ' onchange="checks[\'' + key + '\']=this.checked;renderOut()"> ' + PF.esc(c) + '</label></p>';
+            }).join('');
+            renderOut();
+        }
+
+        function renderOut() {
+            var t = THEORIES.find(function (x) { return x.id === document.getElementById('fTheory').value; });
+            var on = t.checks.filter(function (_, i) { return checks[t.id + '-' + i]; }).length;
+            document.getElementById('checkOut').innerHTML =
+                '<h4>체크 결과 — 점수가 아니라 가정 목록</h4>' +
+                '<p>선택한 이론: <strong>' + PF.esc(t.name) + '</strong> — 체크 ' + on + '/' + t.checks.length +
+                '개. 이 수치는 "의식 ' + Math.round(on / t.checks.length * 100) + '%"를 뜻하지 않습니다.<br>' +
+                '이 이론을 쓰면 당신은 다음 가정을 빌린 것입니다: "' + PF.esc(t.claim) + '"<br>' +
+                '미해결 질문: ' + PF.esc(t.undecidable) + '</p>';
+        }
+
+        function noteText() {
+            var t = THEORIES.find(function (x) { return x.id === document.getElementById('fTheory').value; });
+            var on = t.checks.map(function (_, i) { return checks[t.id + '-' + i] ? '✓' : '✗'; });
+            return '논증 노트 — 의식과 정체성\n\n대상: (내가 떠올린 대상)\n이론: ' + t.name + '\n체크: ' + on.join(' ') + '\n\n이 이론을 쓰면 빌리는 가정: ' + t.claim +
+                '\n반대 가능성(내가 반론을 수용한다면): ' + t.counter + '\n판정 불가 부분: ' + t.undecidable +
+                '\n\n나의 판단 근거: (쓰세요)\n남는 의문: (쓰세요)';
+        }
+
+        function saveNote() {
+            PF.notebook.add({ type: 'note', title: '논증 노트 ' + PF.fmtDate(), body: noteText(), tags: ['consciousness'] })
+                .then(function () { PF.toast('논증 노트를 저장했습니다.'); });
+        }
+        function exportNote() {
+            PF.download('pf-consciousness-note-' + Date.now() + '.md', '# ' + noteText(), 'text/markdown;charset=utf-8');
+            PF.toast('논증 노트 MD를 다운로드했습니다.');
+        }
+
+        renderCheck();
+    </script>
+</body>
+</html>

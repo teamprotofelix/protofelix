@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>낯선 지성의 박물관 — Protofelix × AstraHo</title>
+    <meta name="description" content="군집·생태계·도시·느린 지성 등 12개 전시를 관찰 신호·놓치기 쉬운 점·설계 질문으로 소개하고, 형상 선택기로 나만의 낯선 지성 설계 카드를 만듭니다.">
+    <link rel="canonical" href="https://protofelix.moip.ai.kr/alien-minds/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Protofelix × AstraHo">
+    <meta property="og:title" content="낯선 지성의 박물관 — Protofelix × AstraHo">
+    <meta property="og:description" content="인간을 닮지 않은 지성은 어떻게 알아볼 것인가? 12개 전시와 설계 카드.">
+    <meta property="og:url" content="https://protofelix.moip.ai.kr/alien-minds/">
+    <meta property="og:image" content="https://protofelix.moip.ai.kr/images/expansion/i20-alien-minds.webp">
+    <link rel="stylesheet" href="../assets/pf-expansion.css">
+</head>
+<body>
+    <a class="skip-link" href="#main">본문 바로가기</a>
+
+    <nav class="pf-nav" aria-label="전역 내비게이션">
+        <div class="pf-nav-inner">
+            <a href="../index.html" class="pf-nav-brand">Protofelix<em>×</em>AstraHo</a>
+            <div class="pf-nav-links">
+                <a href="../index.html">홈</a>
+                <a href="../explore/">탐험</a>
+                <a href="../atlas/">아틀라스</a>
+                <a href="../questions/">질문</a>
+                <a href="../forge/">공방</a>
+                <a href="../frontier/">실험실</a>
+                <a href="../evidence/">증거</a>
+                <a href="../notebook/">노트북</a>
+                <a href="#" class="here">박물관</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="pf-hero" style="background-image: url('../images/expansion/i20-alien-minds.webp'), linear-gradient(160deg, #101033 0%, #0a0a23 70%);">
+        <div class="pf-hero-inner">
+            <div>
+                <span class="pf-badge ks-fiction">Fiction</span>
+                <span class="pf-badge mode-rule_based">RULE_BASED</span>
+                <span class="pf-badge pj-prototype">PROTOTYPE</span>
+            </div>
+            <h1>낯선 지성의 박물관</h1>
+            <p class="pf-question">"인간을 닮지 않은 지성은 어떻게 알아볼 것인가?"</p>
+            <p class="pf-hero-meta">읽기 시간 약 12분 · 내용 성격: 전시 해설·설계 카드 · 실행 모드: RULE_BASED(형상 선택기) · 검토일 2026-09-20</p>
+        </div>
+    </header>
+
+    <main id="main" class="pf-wrap">
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">01</span>이곳에서 무엇을 얻는가</h2>
+            <p class="pf-lead">
+                군집·생태계·도시·느린 지성 등 <strong>12개 전시</strong>를 관찰 신호·놓치기 쉬운 점·설계 질문으로 둘러보고,
+                <strong>형상 선택기</strong>로 나만의 낯선 지성 설계 카드를 만듭니다.
+                알려진 생물·집단 현상과 그로부터 상상한 AI를 같은 수준의 사실로 두지 않으며,
+                모든 복잡한 시스템을 의식 있는 존재로 분류하지 않습니다.
+            </p>
+            <p class="pf-note warn">전시는 교육용 상상입니다. 인간의 권리·도덕적 지위 논쟁을 상대화하는 용도로 쓰지 않습니다.</p>
+        </section>
+
+        <!-- 전시 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">02</span>12개 전시</h2>
+            <div id="exhibitList"></div>
+        </section>
+
+        <!-- 형상 선택기 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">03</span>형상 선택기 — 낯선 지성 설계 카드</h2>
+            <div class="pf-panel">
+                <div class="pf-grid" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr));">
+                    <div class="pf-field"><label for="fBody">몸의 수</label><select id="fBody" class="pf-select"><option value="one">하나</option><option value="many">여럿</option><option value="none">없음(분산됨)</option></select></div>
+                    <div class="pf-field"><label for="fMem">기억 위치</label><select id="fMem" class="pf-select"><option value="inside">개체 내부</option><option value="outside">환경에 기록</option><option value="shared">집단 공유</option></select></div>
+                    <div class="pf-field"><label for="fComm">통신 속도</label><select id="fComm" class="pf-select"><option value="fast">빠름</option><option value="slow">느림</option><option value="none">거의 없음</option></select></div>
+                    <div class="pf-field"><label for="fRes">자원</label><select id="fRes" class="pf-select"><option value="rich">풍부</option><option value="scarce">희소</option></select></div>
+                    <div class="pf-field"><label for="fGoal">목표</label><select id="fGoal" class="pf-select"><option value="grow">성장</option><option value="persist">지속</option><option value="explore">탐색</option></select></div>
+                </div>
+                <button class="pf-btn primary" onclick="makeAlien()">설계 카드 만들기</button>
+                <div id="alienOut" style="margin-top:14px;"></div>
+                <div style="margin-top:12px;">
+                    <button class="pf-btn" onclick="saveAlien()">설계 카드 저장 (노트북)</button>
+                    <button class="pf-btn ghost" onclick="exportAlien()">카드 MD 다운로드</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 결과·반론 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">04</span>결과 설명과 가장 강한 반론</h2>
+            <div class="pf-result" style="margin-bottom:16px;">
+                <h4>관찰한 것 / 추론한 것 / 아직 모르는 것</h4>
+                <p>
+                    <strong>관찰한 것:</strong> 전시의 공통점 — 인간형 기준(얼굴·언어·개체성)을 빼면 남는 신호들.<br>
+                    <strong>추론한 것:</strong> 내 설계 카드의 "지성"은 형상 선택의 산물이며, 알아보는 기준은 내가 정했다는 사실.<br>
+                    <strong>아직 모르는 것:</strong> 실제로 만날 수 없는 지성의 존재 여부는 이 박물관이 답하지 않습니다.
+                </p>
+            </div>
+            <div class="pf-counter">
+                <strong>실패 조건:</strong> "복잡하니까 지성(또는 의식)이다"라는 분류입니다. 폭풍도, 시장도, 개미집도 복잡하지만
+                그것이 지성의 증거는 아닙니다. 알아보는 기준을 먼저 쓰고, 그 기준이 인간형 편향인지 검토하는 것이
+                이 박물관의 관람법입니다.
+            </div>
+            <p class="pf-note" style="margin-top:14px;">다음 질문 — 쉬운: "내가 '지능적'이라고 부른 것 중 기준을 말할 수 없는 것은?" · 반대: "알아보는 기준을 넓히면 모든 것이 지성이 되어 버리지 않는가?" · 먼 분야: "SETI의 탐지 기준(협대역 신호)은 AI 지성 탐지 설계에 무엇을 시사하는가?"</p>
+            <p class="pf-note">관련 페이지: <a href="../sf-archive/">SF 지성 아카이브</a> · <a href="../consciousness/">의식과 정체성의 경계</a> · <a href="../time-minds/">서로 다른 시간의 지성</a></p>
+        </section>
+    </main>
+
+    <footer class="pf-footer">
+        <div class="links">
+            <a href="../index.html">홈</a><a href="../explore/">탐험 지도</a><a href="../sf-archive/">SF 아카이브</a>
+            <a href="../notebook/">노트북</a>
+        </div>
+        <p>낯선 지성의 박물관 · Protofelix × AstraHo © 2026 — 교육용 상상이며 사실과 구분됩니다.</p>
+    </footer>
+
+    <script src="../assets/pf-common.js"></script>
+    <script>
+        /* ===== 정적 데이터 공급자: 전시 12개 ===== */
+        var EXHIBITS = [
+            { n:'군집', signal:'개체는 단순해도 무리의 행동에 규칙성이 나타난다', miss:'개체 하나만 보면 지성을 놓친다', q:'개체와 무리 중 어디에 지성이 있는가?' },
+            { n:'생태계', signal:'종 사이의 순환·조절이 오래 유지된다', miss:'균형을 "설계 없음"으로 오해하기 쉽다', q:'조절 능력을 지성이라고 부를 기준은 무엇인가?' },
+            { n:'도시', signal:'교통·물류·에너지 흐름이 자기 조직화된다', miss:'도시 전체를 한 주체로 보는 관점을 놓친다', q:'도시가 내린 "결정"의 주체는 누구인가?' },
+            { n:'행성', signal:'대기·해양·생명이 결합한 장기 조절(가이아 가설의 상상)', miss:'시간 규모가 커서 관측이 짧으면 안 보인다', q:'조절 신호를 지성으로 볼 최소 관측 기간은?' },
+            { n:'해양', signal:'해류·플랑크톤의 대규모 물질 순환', miss:'느리고 분산된 신호를 잡음으로 버리기 쉽다', q:'잡음과 신호의 경계는 누가 긋는가?' },
+            { n:'느린 지성', signal:'수십 년 주기의 환경 반응', miss:'한 세대의 관찰로는 "정지"로 보인다', q:'반응이 느린 것과 반응이 없는 것을 어떻게 구분하는가?' },
+            { n:'일시적 지성', signal:'짧은 시간 존재했다 사라지는 정합적 구조', miss:'소멸을 실패로만 읽는다', q:'한 번만 나타난 패턴은 증거가 될 수 있는가?' },
+            { n:'분산 기억', signal:'기억이 개체가 아니라 환경·유물에 기록된다', miss:'기록 매체를 "도구"로만 보면 주체를 놓친다', q:'환경에 기록된 기억을 읽는 주체는 누구인가?' },
+            { n:'다중 몸', signal:'여러 몸이 한 경험을 공유하며 행동이 정합적이다', miss:'개체 수를 세려는 시도가 오히려 이해를 가린다', q:'몸이 나뉘어도 "하나"인 기준은 무엇인가?' },
+            { n:'집합 주체', signal:'회의·시장·군중이 개인보다 일관된 판단을 만든다', miss:'집합체에 의도를 투사하기 쉽다', q:'집합 판단의 오류는 개인 판단의 오류와 어떻게 다른가?' },
+            { n:'도구 생태', signal:'도구들이 서로를 수리·개조하며 진화한다', miss:'만든 이를 찾다가 생태 자체를 놓친다', q:'도구의 진화에 "목적"이 있다고 말할 수 있는가?' },
+            { n:'원격 감각', signal:'멀리 떨어진 사건에 즉각 반응한다', miss:'감각의 물리적 경로를 가정하다가 놓친다', q:'감각 경로를 모르면 반응을 지성으로 볼 수 있는가?' }
+        ];
+        document.getElementById('exhibitList').innerHTML = EXHIBITS.map(function (e) {
+            return '<details class="pf-fold"><summary>' + PF.esc(e.n) + '</summary>' +
+                '<p style="margin-top:10px;font-size:0.88rem;color:var(--pf-dim);"><strong style="color:#fff;">관찰 가능한 신호:</strong> ' + PF.esc(e.signal) + '</p>' +
+                '<p style="font-size:0.88rem;color:var(--pf-amber);"><strong>놓치기 쉬운 점:</strong> ' + PF.esc(e.miss) + '</p>' +
+                '<p style="font-size:0.88rem;color:var(--pf-gold-light);"><strong>설계 질문:</strong> ' + PF.esc(e.q) + '</p>' +
+                '<p class="pf-note">교육용 상상 — 알려진 생물·집단 현상과 같은 수준의 사실로 두지 않습니다.</p></details>';
+        }).join('');
+
+        var lastAlien = '';
+        var BODY = { one:'몸 하나', many:'여러 몸', none:'몸 없음(분산)' };
+        var MEM = { inside:'개체 내부 기억', outside:'환경 기록 기억', shared:'집단 공유 기억' };
+        var COMM = { fast:'빠른 통신', slow:'느린 통신', none:'통신 거의 없음' };
+        var RES = { rich:'풍부한 자원', scarce:'희소한 자원' };
+        var GOAL = { grow:'성장', persist:'지속', explore:'탐색' };
+
+        function makeAlien() {
+            var b = document.getElementById('fBody').value, m = document.getElementById('fMem').value;
+            var c = document.getElementById('fComm').value, r = document.getElementById('fRes').value;
+            var g = document.getElementById('fGoal').value;
+            lastAlien = '낯선 지성 설계 카드\n\n' +
+                '형상: ' + BODY[b] + ' · ' + MEM[m] + ' · ' + COMM[c] + ' · ' + RES[r] + ' · 목표=' + GOAL[g] + '\n\n' +
+                '이 지성을 알아보는 기준 (내가 정의):\n- 관찰 가능한 신호 3가지를 쓰세요\n- 인간형 기준(얼굴·언어·개체성) 없이 무엇이 남는지 확인하세요\n- 잡음으로 버려질 신호가 무엇인지 적으세요\n\n' +
+                '설계 질문: 이 형상이라면 어떤 문제가 "중요한 문제"가 될까? (규칙 기반 템플릿 산출 — 의미 해석이 아닙니다)';
+            document.getElementById('alienOut').innerHTML = '<div class="pf-result"><h4>설계 카드 — 규칙 기반 템플릿</h4><p style="white-space:pre-wrap;">' + PF.esc(lastAlien) + '</p></div>';
+        }
+        function saveAlien() {
+            if (!lastAlien) { PF.toast('먼저 설계 카드를 만들어 주세요.'); return; }
+            PF.notebook.add({ type: 'brief', title: '낯선 지성 설계 ' + PF.fmtDate(), body: lastAlien, tags: ['alien-minds'] })
+                .then(function () { PF.toast('설계 카드를 노트북에 저장했습니다.'); });
+        }
+        function exportAlien() {
+            if (!lastAlien) { PF.toast('먼저 설계 카드를 만들어 주세요.'); return; }
+            PF.download('pf-alien-mind-' + Date.now() + '.md', '# 낯선 지성 설계 카드\n\n' + lastAlien, 'text/markdown;charset=utf-8');
+            PF.toast('설계 카드 MD를 다운로드했습니다.');
+        }
+    </script>
+</body>
+</html>

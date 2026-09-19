@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>모델 내부 관측실 — Protofelix × AstraHo</title>
+    <meta name="description" content="고정 가중치의 소형 신경망에서 입력·은닉 활성·출력을 관찰하고, 유닛 제거와 입력 교란이라는 인과 개입으로 출력 변화를 비교합니다. 이 시각화는 소형 모델에만 해당합니다.">
+    <link rel="canonical" href="https://protofelix.moip.ai.kr/interpretability/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Protofelix × AstraHo">
+    <meta property="og:title" content="모델 내부 관측실 — Protofelix × AstraHo">
+    <meta property="og:description" content="결과를 설명하는 것과 내부 기제를 이해하는 것은 같은가? 개입 실험.">
+    <meta property="og:url" content="https://protofelix.moip.ai.kr/interpretability/">
+    <meta property="og:image" content="https://protofelix.moip.ai.kr/images/expansion/i16-interpretability.webp">
+    <link rel="stylesheet" href="../assets/pf-expansion.css">
+</head>
+<body>
+    <a class="skip-link" href="#main">본문 바로가기</a>
+
+    <nav class="pf-nav" aria-label="전역 내비게이션">
+        <div class="pf-nav-inner">
+            <a href="../index.html" class="pf-nav-brand">Protofelix<em>×</em>AstraHo</a>
+            <div class="pf-nav-links">
+                <a href="../index.html">홈</a>
+                <a href="../explore/">탐험</a>
+                <a href="../atlas/">아틀라스</a>
+                <a href="../questions/">질문</a>
+                <a href="../forge/">공방</a>
+                <a href="../frontier/">실험실</a>
+                <a href="../evidence/">증거</a>
+                <a href="../notebook/">노트북</a>
+                <a href="#" class="here">관측실</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="pf-hero" style="background-image: url('../images/expansion/i16-interpretability.webp'), linear-gradient(160deg, #101033 0%, #0a0a23 70%);">
+        <div class="pf-hero-inner">
+            <div>
+                <span class="pf-badge ks-established">Established</span>
+                <span class="pf-badge mode-rule_based">RULE_BASED</span>
+                <span class="pf-badge pj-prototype">PROTOTYPE</span>
+            </div>
+            <h1>모델 내부 관측실</h1>
+            <p class="pf-question">"결과를 설명하는 것과 내부 기제를 이해하는 것은 같은가?"</p>
+            <p class="pf-hero-meta">읽기 시간 약 10분 · 내용 성격: 개입 실험 · 실행 모드: RULE_BASED(고정 가중치 순전파) · 검토일 2026-09-20</p>
+        </div>
+    </header>
+
+    <main id="main" class="pf-wrap">
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">01</span>이곳에서 무엇을 얻는가</h2>
+            <p class="pf-lead">
+                <strong>고정 가중치의 소형 신경망</strong>(입력 2 → 은닉 2 → 출력 1)에서 활성을 직접 관찰하고,
+                <strong>유닛 제거·입력 교란</strong>이라는 인과 개입으로 출력 변화를 비교합니다.
+                어텐션 가중치(관찰), 사후 설명(이야기), 인과 개입(검증)의 차이를 몸으로 익히는 실습실입니다.
+            </p>
+            <p class="pf-note warn">이 시각화는 <strong>이 소형 모델에만 해당</strong>하며 상용 LLM 내부를 관찰한 것이 아닙니다. 정확한 구조도는 이 페이지의 계산 자체가 곧 구조입니다.</p>
+        </section>
+
+        <!-- 관측실 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">02</span>관측과 개입</h2>
+            <div class="pf-panel">
+                <div class="pf-grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
+                    <div class="pf-field">
+                        <label>개입 선택</label>
+                        <label style="display:block;margin-top:6px;"><input type="checkbox" id="ablH1" onchange="renderObs()"> 유닛 h1 제거 (출력을 0으로 고정)</label>
+                        <label style="display:block;"><input type="checkbox" id="ablH2" onchange="renderObs()"> 유닛 h2 제거</label>
+                        <label style="display:block;"><input type="checkbox" id="flipA" onchange="renderObs()"> 입력 A 뒤집기 (교란)</label>
+                    </div>
+                    <div class="pf-field">
+                        <label>현재 입력 (A, B)</label>
+                        <div class="meta-row">
+                            <button class="pf-btn small" onclick="setInput(0)">(0,0)</button>
+                            <button class="pf-btn small" onclick="setInput(1)">(0,1)</button>
+                            <button class="pf-btn small" onclick="setInput(2)">(1,0)</button>
+                            <button class="pf-btn small" onclick="setInput(3)">(1,1)</button>
+                        </div>
+                    </div>
+                </div>
+                <p style="font-size:0.8rem;color:var(--pf-faint);margin:8px 0;">구조: A,B → [h1 = σ(2A + 2B − 1), h2 = σ(2A − 2B − 0.5)] → out = σ(3·h1 − 2·h2 − 1.5). σ는 시그모이드. 모든 값은 브라우저에서 실제로 계산됩니다.</p>
+                <div id="obsOut"></div>
+            </div>
+        </section>
+
+        <!-- 결과·반론 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">03</span>결과 설명과 가장 강한 반론</h2>
+            <div class="pf-result" style="margin-bottom:16px;">
+                <h4>관찰한 것 / 추론한 것 / 아직 모르는 것</h4>
+                <p>
+                    <strong>관찰한 것:</strong> 입력별 활성·출력과 개입(제거·교란) 전후의 차이 (브라우저 계산).<br>
+                    <strong>추론한 것:</strong> "h1은 OR을, h2는 A-and-not-B를 담당한다"는 것은 개입으로 확인된 해석입니다.<br>
+                    <strong>아직 모르는 것:</strong> 유닛이 크고 얽힌 실제 모델에서는 이런 깔끔한 해석이 성립하지 않을 수 있습니다.
+                </p>
+            </div>
+            <div class="pf-counter">
+                <strong>실패 조건:</strong> 관찰(어텐션 지도)과 설명(그럴듯한 이야기)을 개입(검증된 원인)과 혼동하는 것입니다.
+                "이 유닛이 X를 담당한다"는 말은 유닛을 제거했을 때 X 관련 출력이 실제로 바뀌어야 성립하며,
+                사후 설명은 그 검증을 대신하지 못합니다.
+            </div>
+            <div style="margin-top:14px;"><button class="pf-btn" onclick="saveObs()">관측 결과를 노트북에 저장</button></div>
+            <p class="pf-note" style="margin-top:14px;">다음 질문 — 쉬운: "내가 AI에 대해 쓴 설명 중 '이야기'와 '검증'을 구분할 수 있나?" · 반대: "개입이 항상 가능하지 않다면 해석은 포기해야 하는가?" · 먼 분야: "의학의 '병변 연구'(손상 부위와 기능 상실)는 뉴런 제거 실험과 무엇이 같은가?"</p>
+            <p class="pf-note">관련 페이지: <a href="../atlas/">AI 기술 아틀라스(해석가능성 카드)</a> · <a href="../evolution/">열린 진화의 정원</a> · <a href="../sources/">원전 도서관</a></p>
+        </section>
+    </main>
+
+    <footer class="pf-footer">
+        <div class="links">
+            <a href="../index.html">홈</a><a href="../explore/">탐험 지도</a><a href="../atlas/">아틀라스</a>
+            <a href="../notebook/">노트북</a>
+        </div>
+        <p>모델 내부 관측실 · Protofelix × AstraHo © 2026 — 소형 모델 전용 시각화이며 상용 LLM 내부가 아닙니다.</p>
+    </footer>
+
+    <script src="../assets/pf-common.js"></script>
+    <script>
+        function sig(x) { return 1 / (1 + Math.exp(-x)); }
+
+        function forward(A, B, ablateH1, ablateH2) {
+            var h1 = ablateH1 ? 0 : sig(2 * A + 2 * B - 1);
+            var h2 = ablateH2 ? 0 : sig(2 * A - 2 * B - 0.5);
+            var out = sig(3 * h1 - 2 * h2 - 1.5);
+            return { h1: h1, h2: h2, out: out };
+        }
+
+        var inputIdx = 0;
+        function setInput(i) { inputIdx = i; renderObs(); }
+        function curInputs() {
+            var A = document.getElementById('flipA').checked ? 1 : 0;
+            var base = [[0,0],[0,1],[1,0],[1,1]][inputIdx];
+            var a = base[0] ^ A, b = base[1];
+            return [a, b];
+        }
+
+        function renderObs() {
+            var abl1 = document.getElementById('ablH1').checked;
+            var abl2 = document.getElementById('ablH2').checked;
+            var combos = [[0,0],[0,1],[1,0],[1,1]];
+            var rows = combos.map(function (c) {
+                var full = forward(c[0], c[1], false, false);
+                var noH1 = forward(c[0], c[1], true, false);
+                var noH2 = forward(c[0], c[1], false, true);
+                return { c: c, full: full, noH1: noH1, noH2: noH2 };
+            });
+            var cur = curInputs();
+            var curFull = forward(cur[0], cur[1], abl1, abl2);
+            document.getElementById('obsOut').innerHTML =
+                '<div class="pf-table-wrap"><table class="pf-table"><thead><tr><th>입력 (A,B)</th><th>h1</th><th>h2</th><th>out</th><th>out (h1 제거)</th><th>out (h2 제거)</th></tr></thead><tbody>' +
+                rows.map(function (r) {
+                    return '<tr><td>(' + r.c[0] + ',' + r.c[1] + ')</td>' +
+                        '<td>' + r.full.h1.toFixed(2) + '</td><td>' + r.full.h2.toFixed(2) + '</td><td>' + r.full.out.toFixed(2) + '</td>' +
+                        '<td style="color:' + (Math.abs(r.noH1.out - r.full.out) > 0.05 ? 'var(--pf-amber)' : 'inherit') + ';">' + r.noH1.out.toFixed(2) + '</td>' +
+                        '<td style="color:' + (Math.abs(r.noH2.out - r.full.out) > 0.05 ? 'var(--pf-amber)' : 'inherit') + ';">' + r.noH2.out.toFixed(2) + '</td></tr>';
+                }).join('') + '</tbody></table></div>' +
+                '<div class="pf-result" style="margin-top:12px;"><h4>현재 입력에서의 관측 (개입 적용)</h4><p>' +
+                '입력 (' + cur[0] + ',' + cur[1] + ') → h1 ' + curFull.h1.toFixed(2) + ' · h2 ' + curFull.h2.toFixed(2) + ' · out ' + curFull.out.toFixed(2) +
+                (document.getElementById('flipA').checked ? ' <span style="color:var(--pf-amber);">(A 뒤집힘 — 교란 적용)</span>' : '') +
+                '<br>해석: h1은 OR 신호(A나 B가 켜지면 활성), h2는 A-and-not-B 신호. 개입으로 확인된 해석이며 사후 이야기가 아닙니다.</p></div>';
+        }
+
+        function saveObs() {
+            var abl1 = document.getElementById('ablH1').checked, abl2 = document.getElementById('ablH2').checked;
+            var cur = curInputs();
+            var f = forward(cur[0], cur[1], abl1, abl2);
+            PF.notebook.add({
+                type: 'experiment', title: '관측실 기록 ' + PF.fmtDate(),
+                body: '입력 (' + cur[0] + ',' + cur[1] + ') · h1제거=' + abl1 + ' · h2제거=' + abl2 + ' · h1=' + f.h1.toFixed(2) + ' h2=' + f.h2.toFixed(2) + ' out=' + f.out.toFixed(2),
+                tags: ['interpretability']
+            }).then(function () { PF.toast('관측 결과를 노트북에 저장했습니다.'); });
+        }
+
+        renderObs();
+    </script>
+</body>
+</html>

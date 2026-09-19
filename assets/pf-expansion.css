@@ -1,0 +1,282 @@
+/* ============================================================
+   Protofelix × AstraHo — 확장 탐험 페이지 공통 스타일 (pf-expansion.css)
+   외부 CDN 의존 없음. 시스템 폰트 사용.
+   ============================================================ */
+:root {
+    --pf-navy: #0a0a23;
+    --pf-navy-2: #101033;
+    --pf-cyan: #00E5FF;
+    --pf-violet: #A78BFA;
+    --pf-gold: #d4a574;
+    --pf-gold-light: #f0c27a;
+    --pf-ivory: #e9e2d2;
+    --pf-green: #81c784;
+    --pf-red: #ff6b6b;
+    --pf-amber: #ffb74d;
+    --pf-text: #dfe4ff;
+    --pf-dim: rgba(214, 224, 255, 0.72);
+    --pf-faint: rgba(214, 224, 255, 0.45);
+    --pf-panel: rgba(255, 255, 255, 0.045);
+    --pf-border: rgba(120, 160, 255, 0.16);
+    --pf-radius: 14px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: 'Segoe UI', 'Pretendard', 'Noto Sans KR', 'Malgun Gothic', system-ui, sans-serif;
+    background:
+        radial-gradient(1200px 600px at 80% -10%, rgba(124, 92, 191, 0.14), transparent 60%),
+        radial-gradient(900px 500px at 10% 110%, rgba(0, 229, 255, 0.08), transparent 60%),
+        var(--pf-navy);
+    color: var(--pf-text);
+    line-height: 1.75;
+    min-height: 100vh;
+}
+
+a { color: var(--pf-cyan); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+    outline: 2px solid var(--pf-cyan);
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    html { scroll-behavior: auto; }
+}
+
+.skip-link {
+    position: absolute; left: -9999px; top: 0; z-index: 10000;
+    padding: 12px 24px; background: var(--pf-navy);
+    color: var(--pf-cyan); border: 2px solid var(--pf-cyan); border-radius: 8px;
+}
+.skip-link:focus { left: 12px; top: 12px; }
+
+/* ===== 공통 내비게이션 ===== */
+.pf-nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(10, 10, 35, 0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--pf-border);
+}
+.pf-nav-inner {
+    max-width: 1080px; margin: 0 auto;
+    padding: 10px 20px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px; flex-wrap: wrap;
+}
+.pf-nav-brand {
+    font-weight: 700; letter-spacing: 0.04em; color: #fff; font-size: 0.95rem;
+}
+.pf-nav-brand em { color: var(--pf-cyan); font-style: normal; margin: 0 4px; }
+.pf-nav-links { display: flex; gap: 14px; flex-wrap: wrap; }
+.pf-nav-links a {
+    color: var(--pf-dim); font-size: 0.8rem; letter-spacing: 0.03em;
+    transition: color 0.25s;
+}
+.pf-nav-links a:hover { color: var(--pf-cyan); text-decoration: none; }
+.pf-nav-links a.here { color: var(--pf-gold-light); }
+
+/* ===== Hero (이미지 없으면 그라데이션 폴백) ===== */
+.pf-hero {
+    position: relative;
+    min-height: 42vh;
+    display: flex; align-items: flex-end;
+    background-size: cover, cover;
+    background-position: center 35%, center;
+    background-repeat: no-repeat;
+    background-image: linear-gradient(160deg, #101033 0%, #0a0a23 70%);
+    border-bottom: 1px solid var(--pf-border);
+}
+.pf-hero::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(10,10,35,0.92) 0%, rgba(10,10,35,0.45) 55%, rgba(10,10,35,0.3) 100%);
+    pointer-events: none;
+}
+.pf-hero-inner {
+    position: relative; z-index: 1;
+    max-width: 1080px; margin: 0 auto; padding: 90px 20px 40px; width: 100%;
+}
+.pf-hero h1 {
+    font-size: clamp(1.8rem, 4.5vw, 2.9rem);
+    font-weight: 800; color: #fff; letter-spacing: -0.01em;
+    background: linear-gradient(90deg, #fff, var(--pf-cyan));
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 10px 0 8px;
+}
+.pf-question {
+    font-size: 1.05rem; color: var(--pf-gold-light); font-style: italic; margin-bottom: 6px;
+}
+.pf-hero-meta { font-size: 0.8rem; color: var(--pf-faint); }
+
+/* ===== 레이아웃 ===== */
+.pf-wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+.pf-section { padding: 56px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.pf-section:last-of-type { border-bottom: none; }
+.pf-h2 {
+    font-size: 1.45rem; font-weight: 700; color: #fff; margin-bottom: 6px;
+}
+.pf-h2 .num { color: var(--pf-cyan); font-size: 0.85em; margin-right: 8px; }
+.pf-lead { color: var(--pf-dim); font-size: 0.95rem; max-width: 720px; margin-bottom: 22px; }
+
+/* ===== 패널·카드 ===== */
+.pf-panel {
+    background: var(--pf-panel);
+    border: 1px solid var(--pf-border);
+    border-radius: var(--pf-radius);
+    padding: 22px 24px;
+}
+.pf-grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.pf-card {
+    background: var(--pf-panel);
+    border: 1px solid var(--pf-border);
+    border-radius: var(--pf-radius);
+    padding: 18px 20px;
+    transition: border-color 0.3s, transform 0.3s;
+}
+.pf-card:hover { border-color: rgba(0, 229, 255, 0.35); transform: translateY(-3px); }
+.pf-card h3 { font-size: 1.02rem; color: #fff; margin-bottom: 6px; }
+.pf-card p { font-size: 0.88rem; color: var(--pf-dim); }
+.pf-card .meta-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+
+/* ===== 라벨(배지) ===== */
+.pf-badge {
+    display: inline-block; padding: 2px 10px; border-radius: 20px;
+    font-size: 0.66rem; letter-spacing: 0.08em; text-transform: uppercase;
+    border: 1px solid rgba(255,255,255,0.25); color: rgba(255,255,255,0.75);
+    background: rgba(255,255,255,0.05); white-space: nowrap; vertical-align: middle;
+}
+/* 지식 상태 */
+.ks-established { color: var(--pf-green); border-color: rgba(129,199,132,0.5); background: rgba(129,199,132,0.08); }
+.ks-research    { color: var(--pf-cyan); border-color: rgba(0,229,255,0.5); background: rgba(0,229,255,0.08); }
+.ks-hypothesis  { color: var(--pf-amber); border-color: rgba(255,183,77,0.5); background: rgba(255,183,77,0.08); }
+.ks-philosophy  { color: var(--pf-ivory); border-color: rgba(233,226,210,0.5); background: rgba(233,226,210,0.08); }
+.ks-fiction     { color: var(--pf-violet); border-color: rgba(167,139,250,0.5); background: rgba(167,139,250,0.08); }
+.ks-unknown     { color: #9aa5c4; border-color: rgba(154,165,196,0.5); background: rgba(154,165,196,0.08); }
+/* 실행 모드 */
+.mode-curated       { color: var(--pf-cyan); border-color: rgba(0,229,255,0.5); background: rgba(0,229,255,0.08); }
+.mode-rule_based    { color: #64B5F6; border-color: rgba(100,181,246,0.5); background: rgba(100,181,246,0.08); }
+.mode-user_authored { color: var(--pf-gold-light); border-color: rgba(212,165,116,0.5); background: rgba(212,165,116,0.08); }
+.mode-local_model   { color: var(--pf-green); border-color: rgba(129,199,132,0.5); background: rgba(129,199,132,0.08); }
+.mode-live_api      { color: var(--pf-red); border-color: rgba(255,107,107,0.5); background: rgba(255,107,107,0.08); }
+/* 프로젝트 상태(기존 라벨 유지) */
+.pj-vision    { color: var(--pf-gold-light); border-color: rgba(212,165,116,0.5); background: rgba(212,165,116,0.08); }
+.pj-concept   { color: #9aa5c4; border-color: rgba(154,165,196,0.45); background: rgba(154,165,196,0.08); }
+.pj-prototype { color: var(--pf-cyan); border-color: rgba(0,229,255,0.5); background: rgba(0,229,255,0.08); }
+.pj-measured  { color: var(--pf-amber); border-color: rgba(255,183,77,0.5); background: rgba(255,183,77,0.08); }
+.pj-narrative { color: var(--pf-violet); border-color: rgba(167,139,250,0.5); background: rgba(167,139,250,0.08); }
+
+.pf-tag {
+    display: inline-block; padding: 2px 9px; border-radius: 14px;
+    font-size: 0.72rem; color: var(--pf-dim);
+    border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.03);
+}
+
+/* ===== 버튼·입력 ===== */
+.pf-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 22px; font-size: 0.88rem; font-weight: 600;
+    border-radius: 30px; cursor: pointer; text-decoration: none;
+    border: 1px solid rgba(0, 229, 255, 0.45);
+    background: rgba(0, 229, 255, 0.07); color: var(--pf-cyan);
+    transition: all 0.25s; font-family: inherit;
+}
+.pf-btn:hover { background: rgba(0, 229, 255, 0.14); border-color: var(--pf-cyan); text-decoration: none; transform: translateY(-2px); }
+.pf-btn.primary {
+    background: linear-gradient(90deg, rgba(0,229,255,0.9), rgba(167,139,250,0.9));
+    color: #0a0a23; border: none; font-weight: 700;
+}
+.pf-btn.primary:hover { filter: brightness(1.1); }
+.pf-btn.ghost { border-color: rgba(255,255,255,0.2); color: var(--pf-dim); background: transparent; }
+.pf-btn.ghost:hover { border-color: var(--pf-cyan); color: var(--pf-cyan); background: transparent; }
+.pf-btn.danger { border-color: rgba(255,107,107,0.45); color: var(--pf-red); background: rgba(255,107,107,0.06); }
+.pf-btn.small { padding: 5px 14px; font-size: 0.78rem; }
+
+.pf-input, .pf-select, .pf-textarea {
+    width: 100%; padding: 11px 14px; font-size: 0.9rem;
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid var(--pf-border); border-radius: 10px;
+    color: var(--pf-text); font-family: inherit; outline: none;
+    transition: border-color 0.25s;
+}
+.pf-input:focus, .pf-select:focus, .pf-textarea:focus { border-color: var(--pf-cyan); }
+.pf-textarea { resize: vertical; min-height: 110px; line-height: 1.7; }
+.pf-select option { background: var(--pf-navy-2); color: var(--pf-text); }
+.pf-field { margin-bottom: 14px; }
+.pf-field label { display: block; font-size: 0.8rem; color: var(--pf-dim); margin-bottom: 6px; letter-spacing: 0.03em; }
+
+/* ===== 표 ===== */
+.pf-table-wrap { overflow-x: auto; }
+.pf-table { width: 100%; border-collapse: collapse; font-size: 0.86rem; }
+.pf-table th, .pf-table td {
+    padding: 10px 14px; text-align: left;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    color: var(--pf-dim); vertical-align: top;
+}
+.pf-table th {
+    font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--pf-cyan); background: rgba(0,229,255,0.04); white-space: nowrap;
+}
+
+/* ===== 노트·경고·토스트 ===== */
+.pf-note {
+    font-size: 0.8rem; color: var(--pf-faint);
+    border-left: 2px solid rgba(255,255,255,0.18);
+    padding: 6px 0 6px 14px; margin: 10px 0;
+}
+.pf-note.warn { border-left-color: var(--pf-amber); color: rgba(255,183,77,0.75); }
+.pf-note.info { border-left-color: var(--pf-cyan); color: rgba(0,229,255,0.7); }
+.pf-note.danger { border-left-color: var(--pf-red); color: rgba(255,107,107,0.8); }
+.pf-counter {
+    background: rgba(255,107,107,0.06);
+    border: 1px solid rgba(255,107,107,0.25);
+    border-radius: var(--pf-radius); padding: 16px 20px;
+    font-size: 0.88rem; color: var(--pf-dim);
+}
+.pf-counter strong { color: var(--pf-red); }
+
+#pf-toast {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+    background: rgba(16,16,51,0.95); color: var(--pf-text);
+    border: 1px solid var(--pf-cyan); border-radius: 30px;
+    padding: 10px 22px; font-size: 0.85rem; z-index: 2000;
+    opacity: 0; pointer-events: none; transition: opacity 0.3s;
+    max-width: 90vw;
+}
+#pf-toast.show { opacity: 1; }
+
+/* ===== 상세 패널(접기) ===== */
+details.pf-fold { background: var(--pf-panel); border: 1px solid var(--pf-border); border-radius: var(--pf-radius); padding: 14px 18px; margin-bottom: 10px; }
+details.pf-fold summary { cursor: pointer; font-weight: 600; color: #fff; font-size: 0.92rem; }
+details.pf-fold[open] summary { color: var(--pf-cyan); margin-bottom: 10px; }
+
+/* ===== 푸터 ===== */
+.pf-footer {
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 40px 20px; text-align: center; font-size: 0.8rem; color: var(--pf-faint);
+}
+.pf-footer .links { display: flex; justify-content: center; gap: 18px; flex-wrap: wrap; margin-bottom: 12px; }
+.pf-footer .links a { color: var(--pf-dim); font-size: 0.8rem; }
+
+/* ===== 결과 강조 ===== */
+.pf-result {
+    background: rgba(0, 229, 255, 0.05);
+    border: 1px solid rgba(0, 229, 255, 0.3);
+    border-radius: var(--pf-radius); padding: 16px 20px;
+}
+.pf-result h4 { color: var(--pf-cyan); font-size: 0.9rem; margin-bottom: 6px; letter-spacing: 0.05em; }
+.pf-result p { font-size: 0.88rem; color: var(--pf-dim); }
+
+@media (max-width: 640px) {
+    .pf-hero { min-height: 36vh; }
+    .pf-hero-inner { padding-top: 70px; }
+    .pf-section { padding: 40px 0; }
+}

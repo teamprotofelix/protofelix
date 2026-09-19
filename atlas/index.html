@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 기술 아틀라스 — Protofelix × AstraHo</title>
+    <meta name="description" content="토큰화부터 해석가능성까지 AI의 부품과 학습 방식 24개를 카드로 정리한 기술 아틀라스. 교육용 인터랙티브 예제와 원전을 함께 제공합니다.">
+    <link rel="canonical" href="https://protofelix.moip.ai.kr/atlas/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Protofelix × AstraHo">
+    <meta property="og:title" content="AI 기술 아틀라스 — Protofelix × AstraHo">
+    <meta property="og:description" content="AI의 능력은 어떤 부품과 학습 방식에서 나오는가? 24개 기술 개념 카드와 교육용 계산 예제.">
+    <meta property="og:url" content="https://protofelix.moip.ai.kr/atlas/">
+    <meta property="og:image" content="https://protofelix.moip.ai.kr/images/expansion/i02-atlas.webp">
+    <link rel="stylesheet" href="../assets/pf-expansion.css">
+</head>
+<body>
+    <a class="skip-link" href="#main">본문 바로가기</a>
+
+    <nav class="pf-nav" aria-label="전역 내비게이션">
+        <div class="pf-nav-inner">
+            <a href="../index.html" class="pf-nav-brand">Protofelix<em>×</em>AstraHo</a>
+            <div class="pf-nav-links">
+                <a href="../index.html">홈</a>
+                <a href="../explore/">탐험 지도</a>
+                <a href="#" class="here">아틀라스</a>
+                <a href="../questions/">질문</a>
+                <a href="../forge/">공방</a>
+                <a href="../frontier/">실험실</a>
+                <a href="../evidence/">증거</a>
+                <a href="../notebook/">노트북</a>
+                <a href="../sources/">원전</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="pf-hero" style="background-image: url('../images/expansion/i02-atlas.webp'), linear-gradient(160deg, #101033 0%, #0a0a23 70%);">
+        <div class="pf-hero-inner">
+            <div>
+                <span class="pf-badge ks-established">Established</span>
+                <span class="pf-badge mode-curated">CURATED</span>
+                <span class="pf-badge pj-prototype">PROTOTYPE</span>
+            </div>
+            <h1>AI 기술 아틀라스</h1>
+            <p class="pf-question">"AI의 능력은 어떤 부품과 학습 방식에서 나오는가?"</p>
+            <p class="pf-hero-meta">읽기 시간 약 15분 · 내용 성격: 기술 개념 · 실행 모드: CURATED(+교육용 브라우저 계산) · 검토일 2026-09-20</p>
+        </div>
+    </header>
+
+    <main id="main" class="pf-wrap">
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">01</span>이곳에서 무엇을 얻는가</h2>
+            <p class="pf-lead">
+                AI를 구성하는 부품(토큰화·어텐션·검색·메모리…)과 학습 방식(RL·파인튜닝·테스트 시점 계산…)의
+                <strong>최소 작동 원리·실패 모드·차이</strong>를 카드로 이해하고, 직접 만져볼 수 있는 교육용 예제로 감각을 얻습니다.
+                특정 기업의 최신 모델 순위 페이지가 아니며, 대화형 예제는 실제 LLM 내부 추론의 시각화가 아닙니다.
+            </p>
+            <div class="pf-grid">
+                <div class="pf-card"><h3>카드 구조</h3><p>해결하는 문제 / 입력·출력 / 최소 원리 / 실패 모드 / 다른 기술과의 차이 / 원전 / 배워볼 실험.</p></div>
+                <div class="pf-card"><h3>교육용 계산 표시</h3><p>"브라우저 계산"은 실제로 계산되고, "편집된 설명 예시"는 큐레이션된 텍스트임을 항상 표시합니다.</p></div>
+                <div class="pf-card"><h3>원전 연결</h3><p>각 카드는 <a href="../sources/">원전 도서관</a>의 문헌과 연결되며, 없는 연결은 만들지 않습니다.</p></div>
+            </div>
+        </section>
+
+        <!-- 개념 카드 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">02</span>24개 기술 개념</h2>
+            <p class="pf-lead">그룹으로 필터링하고 카드를 펼쳐 보세요. <span id="cardCount" class="pf-note info" style="display:inline;"></span></p>
+            <div class="pf-panel" style="margin-bottom:16px;">
+                <div class="pf-field">
+                    <label for="fGroup">그룹</label>
+                    <select id="fGroup" class="pf-select" style="max-width:320px;">
+                        <option value="all">전체</option>
+                        <option value="foundation">기반 — 토큰·임베딩·어텐션</option>
+                        <option value="generation">생성 — 자기회귀·확산·멀티모달</option>
+                        <option value="retrieval">검색·도구 — RAG·MCP</option>
+                        <option value="agent">에이전트 — 워크플로·계획</option>
+                        <option value="training">학습 — RL·파인튜닝</option>
+                        <option value="efficiency">효율·해석 — 양자화·메모리·해석</option>
+                    </select>
+                </div>
+            </div>
+            <div id="conceptList"></div>
+        </section>
+
+        <!-- 인터랙티브 예제 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">03</span>교육용 인터랙티브 예제 6종</h2>
+            <p class="pf-lead">
+                아래 예제는 <strong>교육용 계산</strong>입니다. 실제 LLM 내부 추론의 시각화가 아니며, 수치는 설명을 위해 고정한 값입니다.
+            </p>
+
+            <details class="pf-fold" open>
+                <summary>① 어텐션 — 가중치 행렬 (브라우저 계산)</summary>
+                <p style="margin:10px 0;color:var(--pf-dim);font-size:0.88rem;">세 토큰 ["별", "사이", "빛"]이 있을 때, "빛"이 다른 토큰을 얼마나 참조하는지 보여주는 교육용 행렬입니다. 행을 클릭하세요.</p>
+                <div id="attnDemo" style="display:flex;gap:14px;flex-wrap:wrap;"></div>
+                <p class="pf-note info" id="attnOut">행을 클릭하면 해당 토큰의 어텐션 분포가 표시됩니다.</p>
+            </details>
+
+            <details class="pf-fold">
+                <summary>② 자기회귀 생성 — 다음 토큰 확률 (브라우저 계산)</summary>
+                <p style="margin:10px 0;color:var(--pf-dim);font-size:0.88rem;">고정된 로짓값 [2.2, 1.8, 0.6, 0.1]에 온도(temperature)를 적용해 확률이 어떻게 달라지는지 실제로 계산합니다.</p>
+                <div class="pf-field" style="max-width:420px;">
+                    <label for="tempSlider">온도: <span id="tempVal">1.0</span></label>
+                    <input type="range" id="tempSlider" min="0.1" max="2" step="0.1" value="1" style="width:100%;">
+                </div>
+                <div id="probOut"></div>
+            </details>
+
+            <details class="pf-fold">
+                <summary>③ 양자화 — 비트 수에 따른 품질 (편집된 설명 예시)</summary>
+                <p style="margin:10px 0;color:var(--pf-dim);font-size:0.88rem;">비트 수를 고르면, 편집된 설명 예시를 보여줍니다. 실제 모델의 측정값이 아닙니다.</p>
+                <div class="pf-field" style="max-width:320px;">
+                    <select id="qBits" class="pf-select" onchange="quantDemo()">
+                        <option value="16">16비트 (FP16/BF16)</option>
+                        <option value="8">8비트 (INT8)</option>
+                        <option value="4">4비트 (INT4)</option>
+                    </select>
+                </div>
+                <p id="quantOut" class="pf-result" style="margin-top:10px;"></p>
+            </details>
+
+            <details class="pf-fold">
+                <summary>④ MoE — 전문가 라우팅 (편집된 설명 예시)</summary>
+                <p style="margin:10px 0;color:var(--pf-dim);font-size:0.88rem;">3개 전문가를 가정한 라우팅 예시입니다. 실제 MoE 모델의 내부가 아닙니다.</p>
+                <div class="pf-field" style="max-width:320px;">
+                    <select id="moeTask" class="pf-select" onchange="moeDemo()">
+                        <option value="math">수학 문제</option>
+                        <option value="code">코드 작성</option>
+                        <option value="story">이야기 쓰기</option>
+                    </select>
+                </div>
+                <p id="moeOut" class="pf-result" style="margin-top:10px;"></p>
+            </details>
+
+            <details class="pf-fold">
+                <summary>⑤ RAG — 저장소에 문서가 있을 때/없을 때 (시나리오 재생)</summary>
+                <p style="margin:10px 0;color:var(--pf-dim);font-size:0.88rem;">동일한 질문에 대해 검색 저장소의 상태가 다를 때 흐름이 어떻게 달라지는지 보여주는 편집된 시나리오입니다.</p>
+                <div class="pf-field" style="max-width:340px;">
+                    <label><input type="radio" name="ragDoc" value="yes" checked onchange="ragDemo()"> 저장소에 관련 문서 있음</label><br>
+                    <label><input type="radio" name="ragDoc" value="no" onchange="ragDemo()"> 저장소에 관련 문서 없음</label>
+                </div>
+                <p id="ragOut" class="pf-result" style="margin-top:10px;"></p>
+            </details>
+
+            <details class="pf-fold">
+                <summary>⑥ 테스트 시점 계산 — 추론 스텝 수 (편집된 시나리오)</summary>
+                <p style="margin:10px 0;color:var(--pf-dim);font-size:0.88rem;">추론에 더 많은 계산을 쓸 때 답의 성격이 어떻게 변하는지를 묘사한 편집된 시나리오입니다. 측정 결과가 아닙니다.</p>
+                <div class="pf-field" style="max-width:420px;">
+                    <label for="ttcSlider">추론 스텝: <span id="ttcVal">5</span></label>
+                    <input type="range" id="ttcSlider" min="1" max="20" step="1" value="5" style="width:100%;" oninput="ttcDemo()">
+                </div>
+                <p id="ttcOut" class="pf-result" style="margin-top:10px;"></p>
+            </details>
+        </section>
+
+        <!-- 비교 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">04</span>기술 비교 — 대체재가 아니라 선택지</h2>
+            <p class="pf-lead">2~3개를 골라 비교 설명을 확인하세요. 비교는 편집된 해설입니다.</p>
+            <div class="pf-field" style="max-width:560px;">
+                <label>비교할 기술 (최대 3개)</label><br>
+                <label style="margin-right:12px;"><input type="checkbox" class="cmpBox" value="rag" onchange="cmpDemo()"> RAG</label>
+                <label style="margin-right:12px;"><input type="checkbox" class="cmpBox" value="longctx" onchange="cmpDemo()"> 긴 문맥</label>
+                <label style="margin-right:12px;"><input type="checkbox" class="cmpBox" value="finetune" onchange="cmpDemo()"> 파인튜닝</label>
+                <label style="margin-right:12px;"><input type="checkbox" class="cmpBox" value="memory" onchange="cmpDemo()"> 메모리</label>
+                <label><input type="checkbox" class="cmpBox" value="tools" onchange="cmpDemo()"> 도구 사용</label>
+            </div>
+            <p id="cmpOut" class="pf-result" style="margin-top:12px;">2개 이상 선택하면 비교 설명이 표시됩니다.</p>
+        </section>
+
+        <!-- 반론 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">05</span>가장 강한 반론 — 개념 지도의 위험</h2>
+            <div class="pf-counter">
+                <strong>실패 조건:</strong> 개념 카드가 "모든 것을 설명하는 최신 지도"처럼 보이는 순간 이 아틀라스는 낡습니다.
+                기술·가격·벤치마크는 빠르게 변하므로 확인일을 표기하고, 카드는 원전·실험으로 연결되며,
+                이 페이지의 구조도는 실제 모델 내부가 아닌 편집된 교육 자료임을 계속 명시합니다.
+            </div>
+            <div style="margin-top:16px;">
+                <button class="pf-btn" onclick="saveView()">이 탐색을 노트북에 저장</button>
+            </div>
+            <p class="pf-note" style="margin-top:14px;">관련 페이지: <a href="../questions/">경계의 질문들</a> · <a href="../evidence/">검증과 증거</a> · <a href="../sources/">원전 도서관</a> · <a href="../lulu/">Lulu 개발 로그</a></p>
+        </section>
+    </main>
+
+    <footer class="pf-footer">
+        <div class="links">
+            <a href="../index.html">홈</a><a href="../explore/">탐험 지도</a><a href="../questions/">질문</a>
+            <a href="../notebook/">노트북</a><a href="../sources/">원전</a>
+        </div>
+        <p>AI 기술 아틀라스 · Protofelix × AstraHo © 2026 — 교육용 계산과 편집 해설은 실제 모델 내부의 시각화가 아닙니다.</p>
+    </footer>
+
+    <script src="../assets/pf-common.js"></script>
+    <script>
+        /* ===== 정적 데이터 공급자: 기술 개념 24개 (초기 공개판) ===== */
+        var CONCEPTS = [
+            { id:'tokenization', g:'foundation', n:'토큰화', en:'Tokenization', src:'s01',
+              solve:'문자를 모델이 다룰 수 있는 단위로 쪼갬', io:'입력: 문자열 → 출력: 토큰 ID열',
+              p:'자주 나오는 조각을 사전에 등록하고 문자열을 부분 단위로 분할',
+              fail:'희귀어·다국어·숫자에서 토큰 경계가 어긋나 품질이 떨어질 수 있음',
+              diff:'임베딩의 전 단계 — 의미가 아니라 단위화' },
+            { id:'embedding', g:'foundation', n:'임베딩', en:'Embedding', src:'s01',
+              solve:'토큰·문장을 비교 가능한 벡터로 표현', io:'입력: 토큰 → 출력: 고정 차원 벡터',
+              p:'유사한 의미가 가까운 벡터가 되도록 학습된 함수',
+              fail:'훈련 분포와 다른 문장에서 유사도가 틀릴 수 있음',
+              diff:'토큰화는 단위, 임베딩은 그 단위의 좌표' },
+            { id:'attention', g:'foundation', n:'어텐션', en:'Attention', src:'s01',
+              solve:'문장 안에서 어떤 토큰을 참조할지 가중치 부여', io:'입력: 토큰 벡터열 → 출력: 문맥이 섞인 벡터열',
+              p:'질의-키-값으로 유사도를 구해 가중 평균. 아래 ①번 예제 참조',
+              fail:'길이가 길수록 계산량이 커지고, 주의가 분산될 수 있음',
+              diff:'"가중 평균"이지 문장을 저장하는 기억이 아님' },
+            { id:'transformer', g:'foundation', n:'Transformer', en:'Transformer', src:'s01',
+              solve:'문장 전체를 병렬로 처리하는 표준 구조', io:'입력: 토큰열 → 출력: 각 위치의 표현',
+              p:'어텐션 블록과 피드포워드 블록을 층층이 쌓음',
+              fail:'구조 자체가 "이해"를 보장하지는 않음',
+              diff:'순환 구조(RNN)와 달리 위치를 병렬 계산 — 위치 정보는 별도로 부여' },
+            { id:'autoregressive', g:'generation', n:'자기회귀 생성', en:'Autoregressive', src:'s07',
+              solve:'한 토큰씩 이어 붙여 문장 생성', io:'입력: 지금까지의 토큰 → 출력: 다음 토큰 확률 분포',
+              p:'출력한 토큰을 다시 입력으로 넣는 반복. 아래 ②번 예제 참조',
+              fail:'한 번 잘못 내뱉으면 뒤가 이어서 어긋나는 오류 누적',
+              diff:'확산모델(한꺼번에 다듬기)과 반대 방향의 생성 방식' },
+            { id:'diffusion', g:'generation', n:'확산모델', en:'Diffusion', src:null,
+              solve:'이미지·영상 등 고차원 결과를 점진적으로 생성', io:'입력: 노이즈·조건 → 출력: 이미지 등',
+              p:'노이즈에서 시작해 조건에 맞게 여러 단계로 정제',
+              fail:'단계가 많아 느리고, 세부 사실(문자·손가락 등)이 틀릴 수 있음',
+              diff:'토큰 예측이 아니라 연속 신호의 다듬기' },
+            { id:'multimodal', g:'generation', n:'멀티모달', en:'Multimodal', src:null,
+              solve:'텍스트·이미지·음성 등 여러 양식 통합', io:'입력: 여러 양식 → 출력: 여러 양식',
+              p:'양식별 인코더를 공통 표현 공간으로 맞춤',
+              fail:'한 양식의 오류가 다른 양식으로 전파될 수 있음',
+              diff:'단일 양식 모델의 확장이지, "모든 것을 이해함"의 증거는 아님' },
+            { id:'ssm', g:'foundation', n:'SSM', en:'State Space Model', src:null,
+              solve:'긴 시퀀스를 어텐션보다 적은 계산으로 처리', io:'입력: 시퀀스 → 출력: 상태 요약·다음 예측',
+              p:'연속 상태를 업데이트하며 정보를 압축',
+              fail:'문맥을 요약하므로 일부 세부를 놓칠 수 있음',
+              diff:'어텐션(전체 참조) 대비 상태(요약 참조) 기반' },
+            { id:'moe', g:'efficiency', n:'MoE', en:'Mixture of Experts', src:null,
+              solve:'용량은 키우고 계산량은 아끼기', io:'입력: 토큰 → 출력: 선택된 전문가의 결과',
+              p:'토큰마다 일부 전문가만 활성화. 아래 ④번 예제 참조',
+              fail:'라우팅이 잘못되면 전문가 간 부하·품질 편차 발생',
+              diff:'모든 파라미터를 쓰는 밀집 모델과 달리 부분 활성화' },
+            { id:'rag', g:'retrieval', n:'RAG', en:'Retrieval-Augmented Generation', src:'s02',
+              solve:'외부 지식을 생성 시점에 주입', io:'입력: 질문 → 검색 → 검색 결과+질문 → 출력: 근거 있는 답',
+              p:'질문에 맞는 문서를 찾아 문맥에 넣고 생성. 아래 ⑤번 예제 참조',
+              fail:'검색이 빗나가면 답도 빗나가고, 출처 없는 확신이 생길 수 있음',
+              diff:'파인튜닝(가중치에 녹임)과 달리 지식을 밖에 둠' },
+            { id:'graphrag', g:'retrieval', n:'Graph RAG', en:'Graph RAG', src:'s02',
+              solve:'"누가-무엇을-어떻게" 같은 관계 질의', io:'입력: 질문 → 그래프 탐색 → 출력: 관계 요약',
+              p:'개체와 관계를 그래프로 저장하고 관계 경로를 검색',
+              fail:'그래프 구축 비용이 크고, 부정확한 관계가 누적될 수 있음',
+              diff:'문서 검색(RAG)과 달리 관계를 따라감' },
+            { id:'tooluse', g:'retrieval', n:'도구 사용', en:'Tool Use', src:'s08',
+              solve:'모델 혼자 못 하는 일(계산·검색·실행)을 외부 도구로', io:'입력: 호출 형식 → 도구 실행 → 출력: 결과를 이어받아 계속',
+              p:'호출을 구조화된 형식으로 뽑고, 결과를 대화에 삽입',
+              fail:'도구 실행은 되돌리기 어려운 행동일 수 있어 승인 경계가 필요',
+              diff:'지식 검색(RAG)과 달리 세상에 "작용"함' },
+            { id:'mcp', g:'retrieval', n:'MCP', en:'Model Context Protocol', src:'s08',
+              solve:'모델-도구 연결의 표준 인터페이스', io:'입력: 도구 호출 → 출력: 표준화된 도구 응답',
+              p:'도구를 서버로 분리해 공통 규약으로 노출',
+              fail:'서버 권한 관리가 느슨하면 도구가 위험 경로가 됨',
+              diff:'개별 API 연동과 달리 공통 규약으로 교체 가능' },
+            { id:'a2a', g:'agent', n:'A2A', en:'Agent-to-Agent', src:'s08',
+              solve:'에이전트끼리의 협업 통신', io:'입력: 에이전트 간 요청 → 출력: 상대 에이전트의 결과',
+              p:'에이전트가 서로의 능력을 기술하고 요청을 주고받는 규약',
+              fail:'에이전트 수가 늘면 의존·인증·비용 경계가 복잡해짐',
+              diff:'MCP(도구 연결)와 달리 에이전트 간 대화' },
+            { id:'agentflow', g:'agent', n:'에이전트 워크플로', en:'Agent Workflow', src:'s08',
+              solve:'여러 단계를 조건에 따라 잇는 실행 흐름', io:'입력: 목표 → 출력: 단계별 결과·최종 산출',
+              p:'고정 파이프라인(워크플로)과 스스로 경로를 고르는 에이전트를 구분',
+              fail:'경로 자유도가 높을수록 예산·검증·되돌리기가 어려움',
+              diff:'단일 호출과 달리 흐름을 설계하고 관찰함' },
+            { id:'planning', g:'agent', n:'계획', en:'Planning', src:'s08',
+              solve:'목표를 하위 단계로 분해해 실행', io:'입력: 목표 → 출력: 단계 계획 → 단계별 실행',
+              p:'계획을 먼저 세우고, 실패하면 수정하는 루프',
+              fail:'환경이 바뀌면 계획이 낡고, 집착하면 회복이 늦음',
+              diff:'반응형 행동(그때그때)과 달리 미리 구조화' },
+            { id:'ttc', g:'training', n:'테스트 시점 계산', en:'Test-Time Compute', src:'s06',
+              solve:'학습 없이 추론에 계산을 더 써 성능 올리기', io:'입력: 문제 → 긴 추론(스텝) → 출력: 검토된 답',
+              p:'추론 단계에서 더 많이 생각하게 함. 아래 ⑥번 예제 참조',
+              fail:'비용·지연이 늘고, 더 긴 추론이 항상 더 나은 답을 보장하지 않음',
+              diff:'학습 시점 비용(파인튜닝)과 달리 사용 시점 비용' },
+            { id:'rl', g:'training', n:'강화학습', en:'Reinforcement Learning', src:null,
+              solve:'보상 신호로 행동 정책을 개선', io:'입력: 상태 → 행동 → 보상 → 출력: 개선된 정책',
+              p:'좋은 결과를 더 자주 내도록 반복 조정',
+              fail:'보상이 잘못 설계되면 게이밍(꼼수)이 학습됨',
+              diff:'정답을 직접 주는 지도학습과 달리 보상만 줌' },
+            { id:'vr', g:'training', n:'검증 가능한 보상', en:'Verifiable Reward', src:null,
+              solve:'보상의 게이밍을 줄이기', io:'입력: 시도 → 출력: 검증기로 판정된 보상',
+              p:'정답 판정·테스트 통과처럼 기계로 검증되는 보상만 사용',
+              fail:'검증 가능한 문제(수학·코드)에 유리하고 개방형 문제에 약함',
+              diff:'모델이 매기는 보상(불안정)과 달리 외부 검증기 사용' },
+            { id:'finetune', g:'training', n:'파인튜닝', en:'Fine-tuning', src:null,
+              solve:'기존 모델을 특정 스타일·영역에 적응', io:'입력: 추가 데이터 → 출력: 갱신된 가중치',
+              p:'기존 가중치에서 시작해 소량 데이터로 추가 학습',
+              fail:'지식이 가중치에 녹아 수정·삭제가 어렵고 재앙적 망각 위험',
+              diff:'RAG(지식을 밖에 둠)와 대조적 — 아래 비교 참조' },
+            { id:'quantization', g:'efficiency', n:'양자화', en:'Quantization', src:null,
+              solve:'모델을 가볍게 만들어 더 작은 기기에서 실행', io:'입력: FP32/16 가중치 → 출력: 저비트 가중치',
+              p:'수를 적은 비트로 근사. 아래 ③번 예제 참조',
+              fail:'비트가 낮을수록 품질 손실이 커질 수 있음',
+              diff:'증류(작은 모델 학습)와 달리 같은 모델을 근사' },
+            { id:'memory', g:'efficiency', n:'메모리', en:'Memory', src:null,
+              solve:'대화·경험을 넘겨가며 유지', io:'입력: 대화·사건 → 출력: 저장·검색·요약된 기억',
+              p:'워킹/에피소드/의미로 나누고 동의·삭제 정책을 둠',
+              fail:'기억이 과신을 낳고, 삭제가 모든 사본에 미치지 않을 수 있음',
+              diff:'가중치 학습(파인튜닝)과 다르게 기억은 조회·삭제 가능' },
+            { id:'worldmodel', g:'efficiency', n:'세계모델', en:'World Model', src:'s03',
+              solve:'환경의 다음 상태를 예측해 행동 전에 시뮬레이션', io:'입력: 상태·행동 → 출력: 예측된 다음 상태',
+              p:'환경 표현을 학습해 상상 속에서 계획',
+              fail:'모델과 세계가 어긋나면 계획이 실제에서 실패',
+              diff:'규칙 기반 시뮬레이터(정확한 규칙)와 달리 학습된 예측' },
+            { id:'interpretability', g:'efficiency', n:'해석가능성', en:'Interpretability', src:'s05',
+              solve:'모델이 왜 그 출력을 냈는지 살펴봄', io:'입력: 내부 상태·가중치 → 출력: 원인 가설',
+              p:'어텐션 관찰·개입·요소 제거로 변화를 비교',
+              fail:'설득력 있는 설명이 검증된 원인이 아닐 수 있음',
+              diff:'사후 설명(그럴듯한 이야기)과 인과 개입(검증)을 구분' }
+        ];
+
+        var GROUP_NAMES = { foundation:'기반', generation:'생성', retrieval:'검색·도구', agent:'에이전트', training:'학습', efficiency:'효율·해석' };
+
+        function renderConcepts() {
+            var g = document.getElementById('fGroup').value;
+            var list = CONCEPTS.filter(function (c) { return g === 'all' || c.g === g; });
+            document.getElementById('cardCount').textContent = '표시 중 ' + list.length + '/24개';
+            document.getElementById('conceptList').innerHTML = list.map(function (c) {
+                return '<details class="pf-fold">' +
+                    '<summary>' + PF.esc(c.n) + ' <span class="pf-tag">' + PF.esc(c.en) + '</span> <span class="pf-tag">' + GROUP_NAMES[c.g] + '</span></summary>' +
+                    '<p style="margin-top:10px;color:var(--pf-dim);font-size:0.88rem;"><strong style="color:#fff;">해결하는 문제:</strong> ' + PF.esc(c.solve) + '</p>' +
+                    '<p style="color:var(--pf-dim);font-size:0.88rem;"><strong style="color:#fff;">입력·출력:</strong> ' + PF.esc(c.io) + '</p>' +
+                    '<p style="color:var(--pf-dim);font-size:0.88rem;"><strong style="color:#fff;">최소 작동 원리:</strong> ' + PF.esc(c.p) + '</p>' +
+                    '<p style="color:var(--pf-dim);font-size:0.88rem;"><strong style="color:#fff;">실패 모드:</strong> ' + PF.esc(c.fail) + '</p>' +
+                    '<p style="color:var(--pf-dim);font-size:0.88rem;"><strong style="color:#fff;">다른 기술과의 차이:</strong> ' + PF.esc(c.diff) + '</p>' +
+                    '<p style="margin-top:6px;font-size:0.82rem;">' +
+                    (c.src ? '<a href="../sources/">원전: ' + c.src + ' ↗</a>' : '<span style="color:var(--pf-faint);">원전: 편집 대기 (확인된 원문 없음)</span>') +
+                    ' · <a href="../questions/">배워볼 질문 →</a></p>' +
+                    '</details>';
+            }).join('') || '<p class="pf-note">해당 그룹 카드가 없습니다.</p>';
+        }
+        document.getElementById('fGroup').addEventListener('change', renderConcepts);
+        renderConcepts();
+
+        /* ===== ① 어텐션 교육용 계산 ===== */
+        var ATT_TOKENS = ['별', '사이', '빛'];
+        var ATT_MATRIX = [
+            [0.6, 0.3, 0.1],
+            [0.2, 0.5, 0.3],
+            [0.4, 0.2, 0.4]
+        ];
+        function renderAttn() {
+            var box = document.getElementById('attnDemo');
+            box.innerHTML = ATT_TOKENS.map(function (t, i) {
+                return '<button class="pf-btn" style="min-width:70px;" onclick="showAttn(' + i + ')">"' + t + '" 행</button>';
+            }).join('');
+        }
+        function showAttn(row) {
+            var w = ATT_MATRIX[row];
+            document.getElementById('attnOut').innerHTML =
+                '"' + ATT_TOKENS[row] + '"의 참조 분포: ' +
+                ATT_TOKENS.map(function (t, i) { return t + ' ' + w[i].toFixed(1); }).join(' / ') +
+                ' — 합계 1.0. 교육용 고정 값입니다 (브라우저 계산, 실제 모델 내부가 아님).';
+        }
+        renderAttn(); showAttn(2);
+
+        /* ===== ② 토큰 확률 (실제 softmax 계산) ===== */
+        var TOKENS = ['별', '바다', '시간', '문'];
+        var LOGITS = [2.2, 1.8, 0.6, 0.1];
+        function probDemo() {
+            var T = parseFloat(document.getElementById('tempSlider').value);
+            document.getElementById('tempVal').textContent = T.toFixed(1);
+            var scaled = LOGITS.map(function (l) { return l / T; });
+            var mx = Math.max.apply(null, scaled);
+            var exps = scaled.map(function (s) { return Math.exp(s - mx); });
+            var sum = exps.reduce(function (a, b) { return a + b; }, 0);
+            var probs = exps.map(function (e) { return e / sum; });
+            var argmax = probs.indexOf(Math.max.apply(null, probs));
+            var bars = TOKENS.map(function (t, i) {
+                return '<p style="display:flex;align-items:center;gap:10px;margin:4px 0;">' +
+                    '<span style="width:48px;">"' + t + '"</span>' +
+                    '<span style="flex:1;background:rgba(255,255,255,0.08);border-radius:8px;height:16px;display:inline-block;">' +
+                    '<span style="display:block;width:' + (probs[i] * 100).toFixed(1) + '%;background:linear-gradient(90deg,var(--pf-cyan),var(--pf-violet));height:16px;border-radius:8px;"></span></span>' +
+                    '<span style="width:60px;">' + (probs[i] * 100).toFixed(1) + '%</span></p>';
+            }).join('');
+            document.getElementById('probOut').innerHTML =
+                '<p style="font-size:0.85rem;color:var(--pf-dim);margin-bottom:8px;">softmax(logits / T) — 브라우저에서 실제 계산한 확률입니다. 온도가 낮을수록 최고 후보에 집중, 높을수록 평평해집니다. argmax 선택: "' + TOKENS[argmax] + '"</p>' + bars;
+        }
+        document.getElementById('tempSlider').addEventListener('input', probDemo);
+        probDemo();
+
+        /* ===== ③ 양자화 편집 예시 ===== */
+        function quantDemo() {
+            var b = document.getElementById('qBits').value;
+            var M = {
+                '16': '<strong>16비트:</strong> 원본에 가까운 품질. 메모리는 절반 수준으로 줄어드는 편입니다. (편집된 설명 예시)',
+                '8': '<strong>8비트:</strong> 대부분의 작업에서 품질 저하가 크지 않다고 알려져 있으나, 세부 표현·수치 감도가 높은 작업에서는 차이가 나타날 수 있습니다. (편집된 설명 예시)',
+                '4': '<strong>4비트:</strong> 가장 가볍지만 품질 손실이 뚜렷해질 수 있습니다. "얼마나 손실되는가"는 모델·데이터마다 달라 측정이 필요합니다. (편집된 설명 예시)'
+            };
+            document.getElementById('quantOut').innerHTML = M[b] + '<p class="pf-note">실제 모델 측정값이 아닌 편집된 설명 예시입니다. 배워볼 실험: 같은 모델을 여러 비트로 양자화해 같은 문제를 풀어 보고 차이를 기록해 보세요.</p>';
+        }
+        quantDemo();
+
+        /* ===== ④ MoE 라우팅 예시 ===== */
+        function moeDemo() {
+            var t = document.getElementById('moeTask').value;
+            var M = {
+                math: '<strong>수학 문제:</strong> 편집 예시 — 라우터가 "추론 전문가"에 85%를 보내고, 15%는 검증을 위해 일반 전문가로 보낸다. 전문가별 활성화는 토큰 단위로 달라진다.',
+                code: '<strong>코드 작성:</strong> 편집 예시 — "코드 전문가" 중심으로 라우팅되며, 문법 검증에는 규칙 검사기가 함께 동작한다.',
+                story: '<strong>이야기 쓰기:</strong> 편집 예시 — "언어 전문가"가 주로 활성화되고, 일관성 확인을 위해 요약 전문가가 보조한다.'
+            };
+            document.getElementById('moeOut').innerHTML = M[t] + '<p class="pf-note">실제 MoE 모델의 내부가 아닌 편집된 설명 예시입니다.</p>';
+        }
+        moeDemo();
+
+        /* ===== ⑤ RAG 시나리오 재생 ===== */
+        function ragDemo() {
+            var has = document.querySelector('input[name="ragDoc"]:checked').value === 'yes';
+            document.getElementById('ragOut').innerHTML = has
+                ? '<strong>문서 있음:</strong> 질문 → 검색기가 관련 문서 3건을 찾음 → "문서 + 질문"으로 답 생성 → 답에 출처 표시 가능. <span class="pf-tag">시나리오 재생</span>'
+                : '<strong>문서 없음:</strong> 질문 → 검색기가 빈손 → "저장소에 관련 문서가 없습니다"를 명시하고 모델 자체 지식으로 답하거나 답을 거절. 검색 결과가 없다는 사실을 숨기지 않는 것이 핵심. <span class="pf-tag">시나리오 재생</span>';
+        }
+        ragDemo();
+
+        /* ===== ⑥ 테스트 시점 계산 시나리오 ===== */
+        function ttcDemo() {
+            var s = parseInt(document.getElementById('ttcSlider').value, 10);
+            document.getElementById('ttcVal').textContent = s;
+            var M;
+            if (s <= 3) M = '<strong>짧은 추론(1~3스텝):</strong> 직관적인 답을 빠르게 내지만, 함정이 있는 문제에서는 전제를 놓치기 쉽다.';
+            else if (s <= 10) M = '<strong>중간 추론(4~10스텝):</strong> 답을 낸 뒤 검토 단계가 추가되어, 눈에 띄는 오류를 스스로 잡는 경우가 많아진다.';
+            else M = '<strong>긴 추론(11~20스텝):</strong> 여러 해법을 비교하지만, 비용·지연이 커지고 더 긴 추론이 항상 더 나은 답을 보장하지는 않는다.';
+            document.getElementById('ttcOut').innerHTML = M + ' <span class="pf-tag">편집된 시나리오</span><p class="pf-note">측정 결과가 아닙니다. 실제 변화는 <a href="../evidence/">검증과 증거</a>의 조건을 갖춘 실험으로만 확인할 수 있습니다.</p>';
+        }
+        ttcDemo();
+
+        /* ===== 비교 ===== */
+        var CMP = {
+            'rag:longctx': 'RAG는 지식을 바깥 저장소에 두고 필요한 만큼 가져오고, 긴 문맥은 전부 한 번에 넣습니다. 문서가 자주 바뀌거나 많으면 RAG, 대화 전체의 흐름이 중요하면 긴 문맥이 유리합니다 — 둘 다 쓸 수도 있습니다.',
+            'rag:finetune': 'RAG는 지식을 밖에 두어 교체·삭제가 쉽고, 파인튜닝은 지식을 가중치에 녹여 스타일·형식 적응에 강합니다. "지식을 넣을 것인가(파인튜닝), 지식을 찾게 할 것인가(RAG)"를 구분하는 것이 핵심입니다.',
+            'rag:memory': 'RAG는 질문할 때마다 검색하고, 메모리는 대화·경험을 누적합니다. 검색 결과는 휘발적, 기억은 지속적 — 그래서 기억에는 동의·수정·삭제 정책이 필요합니다.',
+            'rag:tools': 'RAG는 "참고자료를 찾음", 도구 사용은 "세상에 작용함". 검색은 되돌리기 쉽지만 도구 실행은 아닐 수 있어 승인 경계가 더 엄격해야 합니다.',
+            'longctx:finetune': '긴 문맥은 매 호출에 자료를 다시 넣고, 파인튜닝은 자료를 미리 학습합니다. 반복 비용과 품질 안정성, 그리고 수정 가능성(파인튜닝은 어려움)을 기준으로 선택합니다.',
+            'longctx:memory': '긴 문맥은 한 세션의 자료, 메모리는 세션을 넘는 경험입니다. 문맥이 길다고 기억이 생기는 것은 아닙니다 — 무엇을 남기고 무엇을 지울지의 정책이 필요합니다.',
+            'memory:tools': '메모리는 과거를 다시 불러오고, 도구는 지금 세상에 작용합니다. 둘이 만나는 지점(기억에 따라 도구 실행을 제안)이 가장 신중해야 하는 지점입니다.',
+            'finetune:memory': '둘 다 "모델이 변한다"는 오해를 부릅니다. 파인튜닝은 가중치가 변해 되돌리기 어렵고, 메모리는 조회·수정·삭제가 가능합니다. 사이트의 기억 정책은 후자를 전제로 합니다.'
+        };
+        function cmpDemo() {
+            var picked = [];
+            document.querySelectorAll('.cmpBox:checked').forEach(function (c) { picked.push(c.value); });
+            if (picked.length < 2) {
+                document.getElementById('cmpOut').innerHTML = '2개 이상 선택하면 비교 설명이 표시됩니다. (편집된 해설)';
+                return;
+            }
+            var out = [];
+            picked.slice(0, 3).forEach(function (a, i) {
+                for (var j = i + 1; j < Math.min(picked.length, 3); j++) {
+                    var key1 = a + ':' + picked[j];
+                    var key2 = picked[j] + ':' + a;
+                    var txt = CMP[key1] || CMP[key2];
+                    if (txt) out.push('<p style="margin:6px 0;">' + PF.esc(txt) + '</p>');
+                }
+            });
+            document.getElementById('cmpOut').innerHTML = out.join('') || '<p>선택한 조합의 편집된 비교가 아직 없습니다. RAG·긴 문맥·파인튜닝·메모리·도구 사용 중 2개를 골라 보세요.</p>';
+        }
+
+        function saveView() {
+            var g = document.getElementById('fGroup').value;
+            var opened = [];
+            document.querySelectorAll('#conceptList details[open]').forEach(function (d) {
+                opened.push(d.querySelector('summary').textContent.split(' ')[0]);
+            });
+            PF.notebook.add({
+                type: 'bookmark', title: '아틀라스 탐색 ' + PF.fmtDate(),
+                body: '그룹: ' + g + '\n펼쳐 본 개념: ' + (opened.join(', ') || '(없음)'),
+                tags: ['atlas']
+            }).then(function () { PF.toast('노트북에 저장했습니다.'); });
+        }
+    </script>
+</body>
+</html>

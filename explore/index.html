@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>지성 탐험 지도 — Protofelix × AstraHo</title>
+    <meta name="description" content="관심 분야·시간·난이도로 필터링하고, 주제 2개를 고르면 추천 항로를 제안하는 Protofelix 확장 페이지의 탐험 지도. 추천 근거를 함께 표시합니다.">
+    <link rel="canonical" href="https://protofelix.moip.ai.kr/explore/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Protofelix × AstraHo">
+    <meta property="og:title" content="지성 탐험 지도 — Protofelix × AstraHo">
+    <meta property="og:description" content="나는 어떤 종류의 모름을 탐험하고 싶은가? 필터와 추천 항로.">
+    <meta property="og:url" content="https://protofelix.moip.ai.kr/explore/">
+    <meta property="og:image" content="https://protofelix.moip.ai.kr/images/expansion/i01-explore.webp">
+    <link rel="stylesheet" href="../assets/pf-expansion.css">
+</head>
+<body>
+    <a class="skip-link" href="#main">본문 바로가기</a>
+
+    <nav class="pf-nav" aria-label="전역 내비게이션">
+        <div class="pf-nav-inner">
+            <a href="../index.html" class="pf-nav-brand">Protofelix<em>×</em>AstraHo</a>
+            <div class="pf-nav-links">
+                <a href="../index.html">홈</a>
+                <a href="#" class="here">탐험 지도</a>
+                <a href="../atlas/">아틀라스</a>
+                <a href="../questions/">질문</a>
+                <a href="../forge/">공방</a>
+                <a href="../frontier/">실험실</a>
+                <a href="../evidence/">증거</a>
+                <a href="../notebook/">노트북</a>
+                <a href="../sources/">원전</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="pf-hero" style="background-image: url('../images/expansion/i01-explore.webp'), linear-gradient(160deg, #101033 0%, #0a0a23 70%);">
+        <div class="pf-hero-inner">
+            <div>
+                <span class="pf-badge ks-established">Established</span>
+                <span class="pf-badge mode-rule_based">RULE_BASED</span>
+                <span class="pf-badge pj-prototype">PROTOTYPE</span>
+            </div>
+            <h1>지성 탐험 지도</h1>
+            <p class="pf-question">"나는 어떤 종류의 모름을 탐험하고 싶은가?"</p>
+            <p class="pf-hero-meta">읽기 시간 약 6분 · 내용 성격: 항로 탐색·추천 · 실행 모드: RULE_BASED(태그 매칭) · 검토일 2026-09-20</p>
+        </div>
+    </header>
+
+    <main id="main" class="pf-wrap">
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">01</span>이곳에서 무엇을 얻는가</h2>
+            <p class="pf-lead">
+                확장 페이지 전체에서 <strong>내 관심과 시간에 맞는 항로</strong>를 찾습니다.
+                필터는 태그·시간·난이도 기반 규칙이고, 주제 2개를 고르면 <strong>추천 근거</strong>(공통 태그)를 보여주며 3~5개 항로를 제안합니다.
+                지도 개요는 HTML로 만든 안내 시각화이며, 좌표·거리는 의미 거리가 아닙니다.
+            </p>
+            <div class="pf-grid">
+                <div class="pf-card"><h3>필터 초기화·상태 복원</h3><p>필터는 언제든 초기화할 수 있고, 선택한 항로는 노트북에 저장됩니다. URL에는 개인 내용을 넣지 않습니다.</p></div>
+                <div class="pf-card"><h3>추천 규칙 보기</h3><p>항로마다 "어떤 태그가 매칭됐는지"를 표시합니다. 나중에 추천 API로 교체해도 같은 자리에 표시됩니다.</p></div>
+                <div class="pf-card"><h3>30개 페이지 전부 공개</h3><p>R1~R3 전 단계가 공개되었습니다. 아래 상태표가 전체 구현 현황입니다 — 빈 페이지는 없습니다.</p></div>
+            </div>
+        </section>
+
+        <!-- 필터 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">02</span>항로 필터</h2>
+            <div class="pf-panel">
+                <div class="pf-grid" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr));">
+                    <div class="pf-field">
+                        <label for="fArea">관심 분야</label>
+                        <select id="fArea" class="pf-select" onchange="renderRoutes()">
+                            <option value="all">전체</option>
+                            <option value="tech">현재 기술</option>
+                            <option value="cog">인지 확장</option>
+                            <option value="cre">창의 실험</option>
+                            <option value="future">미래 가설</option>
+                            <option value="phi">철학</option>
+                            <option value="sf">SF</option>
+                            <option value="ver">검증</option>
+                        </select>
+                    </div>
+                    <div class="pf-field">
+                        <label for="fTime">시간</label>
+                        <select id="fTime" class="pf-select" onchange="renderRoutes()">
+                            <option value="all">전체</option>
+                            <option value="5">5분</option>
+                            <option value="20">20분</option>
+                            <option value="60">60분</option>
+                        </select>
+                    </div>
+                    <div class="pf-field">
+                        <label for="fDiff">난이도</label>
+                        <select id="fDiff" class="pf-select" onchange="renderRoutes()">
+                            <option value="all">전체</option>
+                            <option value="entry">입문</option>
+                            <option value="deep">심화</option>
+                            <option value="research">연구</option>
+                        </select>
+                    </div>
+                    <div class="pf-field">
+                        <label>&nbsp;</label><br>
+                        <button class="pf-btn ghost small" onclick="resetFilters()">필터 초기화</button>
+                    </div>
+                </div>
+                <p class="pf-note info" id="routeCount"></p>
+            </div>
+            <div id="routeList" style="margin-top:18px;"></div>
+        </section>
+
+        <!-- 2주제 추천 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">03</span>주제 2개로 항로 추천</h2>
+            <div class="pf-panel">
+                <div class="pf-grid" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr));">
+                    <div class="pf-field">
+                        <label for="t1">첫 번째 주제</label>
+                        <select id="t1" class="pf-select" onchange="recommend()">
+                            <option value="">— 선택 —</option>
+                            <option value="tech">현재 기술</option>
+                            <option value="cog">인지 확장</option>
+                            <option value="cre">창의 실험</option>
+                            <option value="future">미래 가설</option>
+                            <option value="phi">철학</option>
+                            <option value="sf">SF</option>
+                            <option value="ver">검증</option>
+                        </select>
+                    </div>
+                    <div class="pf-field">
+                        <label for="t2">두 번째 주제</label>
+                        <select id="t2" class="pf-select" onchange="recommend()">
+                            <option value="">— 선택 —</option>
+                            <option value="tech">현재 기술</option>
+                            <option value="cog">인지 확장</option>
+                            <option value="cre">창의 실험</option>
+                            <option value="future">미래 가설</option>
+                            <option value="phi">철학</option>
+                            <option value="sf">SF</option>
+                            <option value="ver">검증</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="recoOut" class="pf-result" style="margin-top:14px;">
+                    <p>두 주제를 선택하면 태그 교집합이 큰 항로를 추천하고 근거를 표시합니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 지도 개요 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">04</span>지도 개요 (안내 시각화)</h2>
+            <p class="pf-lead">섬 모양의 개요입니다. 배치는 HTML/CSS 구성이며 "가까움"은 의미 거리 측정값이 아닙니다.</p>
+            <div class="pf-grid" id="overviewGrid"></div>
+        </section>
+
+        <!-- 구현 상태표 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">05</span>구현 상태표 (30개 페이지)</h2>
+            <p class="pf-lead">공개 내비게이션은 R1(공개)만 노출합니다. R2/R3은 완성되기 전까지 예정으로 남습니다.</p>
+            <div class="pf-table-wrap">
+                <table class="pf-table" id="statusTable"></table>
+            </div>
+        </section>
+
+        <!-- 반론 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">06</span>가장 강한 반론 — 지도의 한계</h2>
+            <div class="pf-counter">
+                <strong>실패 조건:</strong> 항로 추천이 "나를 꿰뚫어 본 추천"처럼 보이면 안 됩니다.
+                이 지도는 태그 매칭 규칙이며, 그래프 배치와 연결 수는 진실성·중요도 점수가 아닙니다.
+                추천 근거를 숨기지 않고, 항로는 출발점이지 시험이 아닙니다.
+            </div>
+            <p class="pf-note" style="margin-top:14px;">관련 페이지: <a href="../notebook/">나의 탐구 노트북</a> · <a href="../atlas/">AI 기술 아틀라스</a> · <a href="../sources/">원전 도서관</a></p>
+        </section>
+    </main>
+
+    <footer class="pf-footer">
+        <div class="links">
+            <a href="../index.html">홈</a><a href="../atlas/">아틀라스</a><a href="../questions/">질문</a>
+            <a href="../notebook/">노트북</a><a href="../sources/">원전</a>
+        </div>
+        <p>지성 탐험 지도 · Protofelix × AstraHo © 2026 — 추천은 태그 매칭 규칙입니다.</p>
+    </footer>
+
+    <script src="../assets/pf-common.js"></script>
+    <script>
+        /* ===== 정적 데이터 공급자: 항로 12개 ===== */
+        var ROUTES = [
+            { id:'first-ai', title:'처음 만나는 AI', desc:'토큰·어텐션을 만져보고 기술 질문으로 이어가는 입문 항로.',
+              steps:['atlas (토큰화·어텐션·자기회귀)', 'questions (기술)', 'notebook'], time:20, diff:'entry', tags:['tech'], mode:'curated', src:'확인됨' },
+            { id:'sf2arch', title:'SF에서 아키텍처로', desc:'SF 질문을 공방에서 브리프로 바꾸고 세계모델 개념까지.',
+              steps:['questions (SF)', 'forge', 'atlas (세계모델)', 'notebook'], time:20, diff:'entry', tags:['sf', 'cre'], mode:'rule_based', src:'확인됨' },
+            { id:'unblock', title:'창작 고착에서 탈출', desc:'세레나의 작품을 보고 공방에서 조합을 돌린 뒤 창의 질문으로 정리.',
+              steps:['serena', 'forge', 'questions (창의)', 'notebook'], time:20, diff:'entry', tags:['cre'], mode:'rule_based', src:'확인됨' },
+            { id:'trust-ai', title:'AI를 믿어도 되는가', desc:'증거의 조건을 배우고, 철회 기록을 읽고, 원전을 확인하는 신뢰 항로.',
+              steps:['evidence', 'lulu (What Failed)', 'sources', 'questions (사회)'], time:60, diff:'deep', tags:['ver', 'tech'], mode:'curated', src:'확인됨' },
+            { id:'tech-deep', title:'기술 깊이 읽기', desc:'학습·추론 개념에서 개발 로그, Layer 표준, 원전까지 이어지는 심화 항로.',
+              steps:['atlas (학습)', 'lulu', 'layeraicenter', 'sources'], time:60, diff:'deep', tags:['tech'], mode:'curated', src:'확인됨' },
+            { id:'reframe', title:'질문을 바꾸는 연습', desc:'철학 질문을 변형하고, 실험실에서 초안-수정을 비교합니다.',
+              steps:['questions (철학)', 'frontier', 'notebook'], time:20, diff:'entry', tags:['phi', 'cog'], mode:'user_authored', src:'확인됨' },
+            { id:'my-experiment', title:'나만의 실험 설계', desc:'실험실 형식을 익히고 증거 조건을 갖춘 내 실험을 설계합니다.',
+              steps:['frontier', 'evidence', 'notebook', 'challenges'], time:60, diff:'research', tags:['cog', 'ver'], mode:'user_authored', src:'일부 검토 대기' },
+            { id:'memory', title:'기억과 망각', desc:'Layer 기억 정책에서 인지 질문과 기억 실험실로 이어가는 항로.',
+              steps:['layeraicenter (기억 정책)', 'memory-lab', 'questions (인지)', 'notebook'], time:20, diff:'deep', tags:['cog', 'tech'], mode:'rule_based', src:'일부 검토 대기' },
+            { id:'universe', title:'세계관으로 들어가기', desc:'아스트라호에서 전망대와 서재를 거니는 서사형 휴식 항로.',
+              steps:['astra', 'observatory', 'serena'], time:20, diff:'entry', tags:['sf'], mode:'curated', src:'확인됨' },
+            { id:'source-first', title:'근거부터 시작하기', desc:'원전 도서관에서 출발해 증거와 해석가능성까지.',
+              steps:['sources', 'evidence', 'atlas (해석가능성)', 'notebook'], time:20, diff:'deep', tags:['ver'], mode:'curated', src:'확인됨' },
+            { id:'creator', title:'창작자 항로', desc:'작품 감상 → 조합 브리프 → 창의 질문 변형의 창작 루프.',
+              steps:['serena', 'forge', 'questions (창의)', 'notebook'], time:20, diff:'deep', tags:['cre'], mode:'rule_based', src:'확인됨' },
+            { id:'researcher', title:'연구자 항로', desc:'자기 실험 → 증거 조건 → 개발 로그 → 원전의 연구 루프.',
+              steps:['frontier', 'evidence', 'lulu', 'sources', 'challenges'], time:60, diff:'research', tags:['ver', 'cog'], mode:'user_authored', src:'일부 검토 대기' }
+        ];
+
+        var AREA_NAMES = { tech:'현재 기술', cog:'인지 확장', cre:'창의 실험', future:'미래 가설', phi:'철학', sf:'SF', ver:'검증' };
+        var DIFF_NAMES = { entry:'입문', deep:'심화', research:'연구' };
+        var PAGE_LINK = {
+            'atlas':['../atlas/','AI 기술 아틀라스'], 'questions':['../questions/','경계의 질문들'], 'forge':['../forge/','공동창작 공방'],
+            'frontier':['../frontier/','인지경계 실험실'], 'evidence':['../evidence/','검증과 증거'], 'notebook':['../notebook/','나의 탐구 노트북'],
+            'sources':['../sources/','근거와 원전 도서관'], 'serena':['../serena/','세레나의 서재'], 'lulu':['../lulu/','Lulu 개발 로그'],
+            'layeraicenter':['../layeraicenter/','LayerAI Center'], 'astra':['../astra/','AstraHo'], 'observatory':['../observatory/','전망대'],
+            'memory-lab':['../memory-lab/','기억과 망각 연구실'], 'challenges':['../challenges/','열린 창의성 도전'],
+            'philosophy':['../philosophy/','지혜와 AI의 대화'], 'alignment':['../alignment/','가치와 정렬의 협상실'],
+            'council':['../council/','다중관점 의회'], 'systems':['../systems/','AI 시스템 설계대'],
+            'sf-archive':['../sf-archive/','SF 지성 아카이브'], 'future-ai':['../future-ai/','미래 지성 시나리오']
+        };
+
+        function stepHtml(step) {
+            if (step.indexOf('(예정)') >= 0) {
+                return '<span style="color:var(--pf-faint);">' + PF.esc(step) + '</span>';
+            }
+            var name = step.split(' (')[0];
+            var ctx = step.split(' (')[1] ? ' (' + step.split(' (')[1] : '';
+            var info = PAGE_LINK[name];
+            return info ? '<a href="' + info[0] + '">' + PF.esc(info[1]) + PF.esc(ctx) + '</a>' : PF.esc(step);
+        }
+
+        function renderRoutes() {
+            var fArea = document.getElementById('fArea').value;
+            var fTime = document.getElementById('fTime').value;
+            var fDiff = document.getElementById('fDiff').value;
+            var list = ROUTES.filter(function (r) {
+                return (fArea === 'all' || r.tags.indexOf(fArea) >= 0) &&
+                       (fTime === 'all' || r.time === parseInt(fTime, 10)) &&
+                       (fDiff === 'all' || r.diff === fDiff);
+            });
+            document.getElementById('routeCount').textContent = '표시 중 ' + list.length + '/12개 항로 — 추천 규칙: 태그 일치 + 시간·난이도 필터.';
+            document.getElementById('routeList').innerHTML = list.map(function (r) {
+                return '<div class="pf-card" style="margin-bottom:12px;">' +
+                    '<h3>' + PF.esc(r.title) + ' <span class="pf-tag">' + r.time + '분</span> <span class="pf-tag">' + DIFF_NAMES[r.diff] + '</span> <span class="pf-tag">' + r.src + '</span></h3>' +
+                    '<p>' + PF.esc(r.desc) + '</p>' +
+                    '<p style="margin-top:8px;font-size:0.85rem;">' + r.steps.map(stepHtml).join(' → ') + '</p>' +
+                    '<div class="meta-row">' + r.tags.map(function (t) { return '<span class="pf-tag">' + AREA_NAMES[t] + '</span>'; }).join('') +
+                    ' <button class="pf-btn small" onclick="saveRoute(this)" data-route="' + PF.esc(JSON.stringify({ title: r.title, desc: r.desc, steps: r.steps })) + '">노트북에 저장</button></div>' +
+                    '</div>';
+            }).join('') || '<p class="pf-note">조건에 맞는 항로가 없습니다. 필터를 초기화해 보세요.</p>';
+        }
+
+        function resetFilters() {
+            ['fArea', 'fTime', 'fDiff'].forEach(function (id) { document.getElementById(id).value = 'all'; });
+            renderRoutes();
+            PF.toast('필터를 초기화했습니다.');
+        }
+
+        function saveRoute(btn) {
+            var r = JSON.parse(btn.getAttribute('data-route'));
+            PF.notebook.add({ type: 'route', title: '항로: ' + r.title, body: r.desc + '\n\n경로: ' + r.steps.join(' → '), tags: ['route'] })
+                .then(function () { PF.toast('항로를 노트북에 저장했습니다.'); });
+        }
+
+        /* ===== 2주제 추천 (태그 교집합 규칙) ===== */
+        function recommend() {
+            var t1 = document.getElementById('t1').value;
+            var t2 = document.getElementById('t2').value;
+            var out = document.getElementById('recoOut');
+            if (!t1 || !t2) {
+                out.innerHTML = '<p>두 주제를 선택하면 태그 교집합이 큰 항로를 추천하고 근거를 표시합니다.</p>';
+                return;
+            }
+            if (t1 === t2) {
+                out.innerHTML = '<p>같은 주제를 두 번 고르면 한 주제의 항로가 나옵니다. 서로 다른 주제를 골라 보세요.</p>';
+                return;
+            }
+            var scored = ROUTES.map(function (r) {
+                var both = r.tags.indexOf(t1) >= 0 && r.tags.indexOf(t2) >= 0;
+                var one = r.tags.indexOf(t1) >= 0 || r.tags.indexOf(t2) >= 0;
+                return { r: r, score: both ? 2 : (one ? 1 : 0) };
+            }).filter(function (x) { return x.score > 0; })
+              .sort(function (a, b) { return b.score - a.score || a.r.time - b.r.time; })
+              .slice(0, 5);
+            out.innerHTML = '<h4>추천 규칙 보기 — 공통 태그 수 + 시간 순</h4>' +
+                '<p style="margin-bottom:10px;">선택 주제: ' + AREA_NAMES[t1] + ' × ' + AREA_NAMES[t2] + ' — 교집합(두 태그 모두)=2점, 하나만=1점.</p>' +
+                (scored.length ? scored.map(function (x) {
+                    var why = x.score === 2 ? '두 주제 모두 포함' : '한 주제 포함 (' + AREA_NAMES[x.r.tags[0]] + ')';
+                    return '<p style="margin:6px 0;">• <strong>' + PF.esc(x.r.title) + '</strong> (' + x.r.time + '분, ' + DIFF_NAMES[x.r.diff] + ') — 근거: ' + why + '</p>';
+                }).join('') : '<p>이 두 주제를 모두 다루는 항로가 아직 없습니다. 각각의 주제로 따로 탐험해 보세요.</p>');
+        }
+
+        /* ===== 지도 개요 ===== */
+        var OVERVIEW = [
+            { area:'tech', name:'현재 기술', pages:'아틀라스 · 개발 로그 · LayerAI · 설계대', color:'var(--pf-cyan)' },
+            { area:'cog', name:'인지 확장', pages:'실험실 · 확장된 마음 · 기억/추론 연구실', color:'#64B5F6' },
+            { area:'cre', name:'창의 실험', pages:'공방 · 성좌 · 도전 · 세레나의 서재', color:'var(--pf-gold-light)' },
+            { area:'future', name:'미래 가설', pages:'미래 시나리오 · 세계모델 · 문명 · 시간의 지성', color:'var(--pf-violet)' },
+            { area:'phi', name:'철학', pages:'철학 · 의회 · 정렬 · 의식 · 사고실험 · 수평선', color:'var(--pf-ivory)' },
+            { area:'sf', name:'SF', pages:'SF 아카이브 · 아스트라호 · 전망대', color:'var(--pf-violet)' },
+            { area:'ver', name:'검증', pages:'증거 · 원전 도서관 · 항로', color:'#ffb74d' }
+        ];
+        document.getElementById('overviewGrid').innerHTML = OVERVIEW.map(function (o) {
+            return '<div class="pf-card" style="border-top:3px solid ' + o.color + ';">' +
+                '<h3>' + o.name + '</h3><p>' + PF.esc(o.pages) + '</p>' +
+                '<p class="pf-note" style="margin:8px 0 0;">배치는 안내용이며 의미 거리가 아닙니다.</p></div>';
+        }).join('');
+
+        /* ===== 구현 상태표 ===== */
+        var PAGES = [
+            ['P01','/explore/','지성 탐험 지도','R1','공개'],
+            ['P02','/atlas/','AI 기술 아틀라스','R1','공개'],
+            ['P03','/frontier/','인지경계 실험실','R1','공개'],
+            ['P04','/augmented-mind/','확장된 마음','R2','공개'],
+            ['P05','/forge/','공동창작 공방','R1','공개'],
+            ['P06','/constellation/','아이디어 성좌','R2','공개'],
+            ['P07','/council/','다중관점 의회','R2','공개'],
+            ['P08','/questions/','경계의 질문들','R1','공개'],
+            ['P09','/evidence/','검증과 증거','R1','공개'],
+            ['P10','/notebook/','나의 탐구 노트북','R1','공개'],
+            ['P11','/memory-lab/','기억과 망각 연구실','R2','공개'],
+            ['P12','/reasoning-lab/','추론과 반례 연구실','R2','공개'],
+            ['P13','/world-models/','세계모델 시뮬레이터','R2','공개'],
+            ['P14','/embodied/','몸을 가진 지성','R3','공개'],
+            ['P15','/evolution/','열린 진화의 정원','R3','공개'],
+            ['P16','/interpretability/','모델 내부 관측실','R3','공개'],
+            ['P17','/alignment/','가치와 정렬의 협상실','R2','공개'],
+            ['P18','/systems/','AI 시스템 설계대','R2','공개'],
+            ['P19','/future-ai/','미래 지성 시나리오','R2','공개'],
+            ['P20','/alien-minds/','낯선 지성의 박물관','R3','공개'],
+            ['P21','/consciousness/','의식과 정체성의 경계','R3','공개'],
+            ['P22','/philosophy/','지혜와 AI의 대화','R2','공개'],
+            ['P23','/sf-archive/','SF 지성 아카이브','R2','공개'],
+            ['P24','/thought-experiments/','사고실험 극장','R3','공개'],
+            ['P25','/civilization/','문명 설계실','R3','공개'],
+            ['P26','/time-minds/','서로 다른 시간의 지성','R3','공개'],
+            ['P27','/learning-paths/','탐구 항로','R2','공개'],
+            ['P28','/challenges/','열린 창의성 도전','R2','공개'],
+            ['P29','/sources/','근거와 원전 도서관','R1','공개'],
+            ['P30','/horizon/','아직 없는 생각의 방','R3','공개']
+        ];
+        document.getElementById('statusTable').innerHTML =
+            '<thead><tr><th>ID</th><th>경로</th><th>제목</th><th>단계</th><th>상태</th></tr></thead><tbody>' +
+            PAGES.map(function (p) {
+                var isPub = p[4] === '공개';
+                return '<tr><td>' + p[0] + '</td><td>' + (isPub ? '<a href="..' + p[1] + '">' + p[1] + '</a>' : p[1]) + '</td><td>' + p[2] + '</td><td>' + p[3] + '</td><td>' + (isPub ? '<span class="pf-badge ks-established">공개</span>' : '<span class="pf-badge ks-unknown">예정</span>') + '</td></tr>';
+            }).join('') + '</tbody>';
+
+        renderRoutes();
+    </script>
+</body>
+</html>

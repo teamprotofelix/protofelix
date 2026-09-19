@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>탐구 항로 — Protofelix × AstraHo</title>
+    <meta name="description" content="8개 항로, 각 4~7단계 — 단계마다 개념 하나·실험 하나·반론 하나·자기 질문 하나. 완료 체크는 자기 기록이며 공인 수료·지능 측정이 아닙니다.">
+    <link rel="canonical" href="https://protofelix.moip.ai.kr/learning-paths/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Protofelix × AstraHo">
+    <meta property="og:title" content="탐구 항로 — Protofelix × AstraHo">
+    <meta property="og:description" content="어디서 시작하면 내 질문이 더 깊어질까? 단계별 학습 기록.">
+    <meta property="og:url" content="https://protofelix.moip.ai.kr/learning-paths/">
+    <meta property="og:image" content="https://protofelix.moip.ai.kr/images/expansion/i27-learning-paths.webp">
+    <link rel="stylesheet" href="../assets/pf-expansion.css">
+</head>
+<body>
+    <a class="skip-link" href="#main">본문 바로가기</a>
+
+    <nav class="pf-nav" aria-label="전역 내비게이션">
+        <div class="pf-nav-inner">
+            <a href="../index.html" class="pf-nav-brand">Protofelix<em>×</em>AstraHo</a>
+            <div class="pf-nav-links">
+                <a href="../index.html">홈</a>
+                <a href="../explore/">탐험</a>
+                <a href="../atlas/">아틀라스</a>
+                <a href="../questions/">질문</a>
+                <a href="../forge/">공방</a>
+                <a href="../frontier/">실험실</a>
+                <a href="../evidence/">증거</a>
+                <a href="../notebook/">노트북</a>
+                <a href="#" class="here">항로</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="pf-hero" style="background-image: url('../images/expansion/i27-learning-paths.webp'), linear-gradient(160deg, #101033 0%, #0a0a23 70%);">
+        <div class="pf-hero-inner">
+            <div>
+                <span class="pf-badge ks-established">Established</span>
+                <span class="pf-badge mode-user_authored">USER_AUTHORED</span>
+                <span class="pf-badge pj-prototype">PROTOTYPE</span>
+            </div>
+            <h1>탐구 항로</h1>
+            <p class="pf-question">"어디서 시작하면 내 질문이 더 깊어질까?"</p>
+            <p class="pf-hero-meta">읽기 시간 약 8분 · 내용 성격: 학습 경로 안내 · 실행 모드: USER_AUTHORED(자기 기록) · 검토일 2026-09-20</p>
+        </div>
+    </header>
+
+    <main id="main" class="pf-wrap">
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">01</span>이곳에서 무엇을 얻는가</h2>
+            <p class="pf-lead">
+                여덟 개의 항로, 각 4~7단계. 단계마다 <strong>개념 하나·실험 하나·반론 하나·자기 질문 하나</strong>가 묶여 있습니다.
+                완료 체크는 <strong>자기 기록</strong>이며 공인 수료·지능 측정이 아닙니다. 결과는 읽은 것과 바뀐 생각을 연결하는
+                <strong>개인 학습 지도</strong>입니다.
+            </p>
+            <p class="pf-note warn">진행 상황은 이 브라우저(localStorage)에 저장됩니다. 다른 기기로 옮기려면 학습 지도를 내보내세요.</p>
+        </section>
+
+        <!-- 항로 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">02</span>8개 항로</h2>
+            <div id="pathList"></div>
+        </section>
+
+        <!-- 학습 지도 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">03</span>나의 학습 지도</h2>
+            <div class="pf-panel">
+                <div id="mapOut"><p class="pf-note">아직 완료한 단계가 없습니다. 항로를 따라가 보세요.</p></div>
+                <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">
+                    <button class="pf-btn primary" onclick="saveMap()">학습 지도 저장 (노트북)</button>
+                    <button class="pf-btn ghost" onclick="exportMap()">학습 지도 MD 다운로드</button>
+                    <button class="pf-btn ghost" onclick="resetPaths()">진행 초기화</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 결과·반론 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">04</span>결과 설명과 가장 강한 반론</h2>
+            <div class="pf-result" style="margin-bottom:16px;">
+                <h4>관찰한 것 / 추론한 것 / 아직 모르는 것</h4>
+                <p>
+                    <strong>관찰한 것:</strong> 내가 체크한 단계와 항로별 진행률.<br>
+                    <strong>추론한 것:</strong> "완료"는 내 자기보고입니다 — 이해의 깊이를 측정하지 않습니다.<br>
+                    <strong>아직 모르는 것:</strong> 이 항로가 실제로 내 질문을 깊게 했는지는 시간이 지나야 알 수 있습니다.
+                </p>
+            </div>
+            <div class="pf-counter">
+                <strong>실패 조건:</strong> 체크박스를 채우는 것 자체가 목표가 되는 것입니다. 각 단계의 자기 질문에
+                한 문장이라도 쓰지 않았다면 그 단계는 완료가 아닙니다. 항로는 시험이 아니라 지도이며,
+                지도 위를 걷는 속도는 내가 정합니다.
+            </div>
+            <p class="pf-note" style="margin-top:14px;">다음 질문 — 쉬운: "지금 나에게 가장 필요한 항로는 무엇인가?" · 반대: "항로를 벗어난 질문이 더 좋은 질문일 수 있지 않은가?" · 먼 분야: "등산의 '완주 증명' 문화는 학습의 완료 체크에 무엇을 시사하는가?"</p>
+            <p class="pf-note">관련 페이지: <a href="../explore/">지성 탐험 지도</a> · <a href="../notebook/">나의 탐구 노트북</a> · <a href="../challenges/">열린 창의성 도전</a></p>
+        </section>
+    </main>
+
+    <footer class="pf-footer">
+        <div class="links">
+            <a href="../index.html">홈</a><a href="../explore/">탐험 지도</a><a href="../challenges/">도전</a>
+            <a href="../notebook/">노트북</a>
+        </div>
+        <p>탐구 항로 · Protofelix × AstraHo © 2026 — 완료 체크는 자기 기록이며 공인 수료가 아닙니다.</p>
+    </footer>
+
+    <script src="../assets/pf-common.js"></script>
+    <script>
+        /* ===== 정적 데이터 공급자: 항로 8개 (단계: 개념/실험/반론/자기질문 + 링크) ===== */
+        var PATHS = [
+            { id:'first', title:'AI 첫걸음', steps:[
+                ['토큰·어텐션이란 — <a href="../atlas/">아틀라스</a> 기반 카드 3개', '어텐션 행렬 예제를 직접 눌러 보기', '가중치 = 이해라는 착각을 반박하는 문장 쓰기', '내가 AI에 대해 가장 궁금한 것 한 줄'],
+                ['자기회귀 생성 — <a href="../atlas/">아틀라스</a>', '온도 슬라이더로 확률 변화 관찰', '"출력이 그럴듯함 = 이해"라는 반론 정리', '생성된 문장과 내가 쓴 문장의 차이는?'],
+                ['기술 질문 — <a href="../questions/">질문</a> 기술 12개 중 2개', '질문 하나를 "측정 가능하게" 변형', '변형이 오히려 질문을 좁힌 반례 찾기', '내 질문의 필요 증거는 무엇인가'],
+                ['정리 — <a href="../notebook/">노트북</a>', '오늘의 노트 1건 저장·MD 내보내기', '저장이 보존이 아니라는 반론 확인', '다음에 다시 볼 내 문장 하나'] ] },
+            { id:'systems', title:'LLM에서 시스템으로', steps:[
+                ['RAG·메모리 카드 — <a href="../atlas/">아틀라스</a>', 'RAG 시나리오(문서 유/무) 재생', '검색 결과가 틀리면? 반론 쓰기', '내 도구는 어디에 지식을 두는가'],
+                ['에이전트 워크플로·MCP·A2A 카드', 'MCP 설명 예시와 A2A 비교 읽기', '"자율성이 높으면 성과가 오른다" 반례', '도구 실행 전 승인이 필요한 경우는?'],
+                ['블록 조합 — <a href="../systems/">설계대</a>', '프리셋 하나를 불러와 경고 확인', '블록이 많다고 안전하다는 반론', '내 설계에서 빠진 블록은?'],
+                ['Layer 표준 — <a href="../layeraicenter/">LayerAI Center</a>', '캐스케이딩 전환 조건표 읽기', '"자동 캐스케이딩"의 남용 사례 반론', 'Layer 중 구현 가능한 것과 목표인 것을 구분하기'],
+                ['개발 로그 — <a href="../lulu/">Lulu</a> What Failed', '철회 기록 1건을 원인과 함께 정리', '철회를 숨기면 좋은 점은? (반대 질문)', '내가 최근 믿었던 수치는 무엇인가'] ] },
+            { id:'creativity', title:'창의성 확장', steps:[
+                ['창작 고착 카드 — <a href="../atlas/">아틀라스</a>·<a href="../questions/">질문(창의)</a>', '조합 엔진에서 같은 시드로 두 번 돌려 같은 결과 확인', '낯섦 = 창의성이라는 반론 쓰기', '내가 고착된 소재는 무엇인가'],
+                ['공방 — <a href="../forge/">forge</a>', '영역·원리·제약을 고정해 브리프 1개 저장', '브리프가 가설이지 결론이 아니라는 반론', '이 브리프의 다음 실험 한 가지'],
+                ['서재 — <a href="../serena/">Serena</a> 공동 창작 사례', '기여 표기(인간/AI/공동)를 읽고 내 사례로 옮기기', '기여를 나누는 것 자체가 창작을 해친다는 반론', '내 창작에서 AI의 기여는 무엇인가'],
+                ['변주 연습', '같은 소재로 강제 변주 5개 쓰기', '변주가 피상적이면 무의미하다는 반론', '가장 마음에 드는 변주와 이유'] ] },
+            { id:'evidence', title:'지식·근거', steps:[
+                ['실험 카드 12필드 — <a href="../evidence/">검증과 증거</a>', '교육용 합성 데이터 카드와 실제 카드의 차이 찾기', '"검증된 결과 없음"을 채우고 싶은 유혹 반론', '내가 본 주장 중 조건 없는 수치는?'],
+                ['원전 — <a href="../sources/">도서관</a>', '논문 1건의 "초록 수준" 표기를 확인', '초록만 읽고 결론을 추정하는 습관 반론', '내가 마지막으로 직접 확인한 원문은?'],
+                ['What Failed — <a href="../lulu/">Lulu</a>', '철회 수치 1개의 원인(조건 미공개) 정리', '실패를 공개하면 신뢰가 떨어진다는 반론', '실패를 공개한 조직의 예를 하나 찾기'],
+                ['내 데이터 분석 — <a href="../evidence/">증거</a>', 'CSV 하나를 만들어 업로드·검증', '필터로 성공만 보는 습관의 위험 반론', '내 데이터에서 실패 데이터는 어디에 있는가'] ] },
+            { id:'memory', title:'기억·정체성', steps:[
+                ['기억 정책 — <a href="../layeraicenter/">LayerAI Center</a>', '저장·수정·삭제 정책을 한 문장씩 요약', '"완전 삭제 보장"의 함정 반론', '내가 지우고 싶은 디지털 기록은?'],
+                ['검색 샌드박스 — <a href="../memory-lab/">기억 연구실</a>', '가중치를 바꿔 같은 검색어의 결과 변화 관찰', '더 많이 기억 = 더 좋은 동반자라는 반론', '망각이 유리한 상황 한 가지'],
+                ['상충 해결', '상충 기억 그룹 2개를 해결해 보기', '어느 쪽도 지우지 않으면? (병합의 비용)', '서로 다른 기억이 공존하는 경우는?'],
+                ['SF — <a href="../sf-archive/">아카이브</a> 기억 변조·분산 인격', 'SF 설정 1개를 연구 질문으로 변환', 'SF를 로드맵으로 읽는 오류 반론', '기억이 정체성의 전부가 아닌 이유는?'] ] },
+            { id:'sf', title:'SF에서 설계로', steps:[
+                ['작품 2개 — <a href="../sf-archive/">아카이브</a>', '필터(기억/권한)로 작품 골라 카드 읽기', 'SF 설정 = 기술 예언이라는 반론', '가장 설계 질문으로 바꾸고 싶은 작품은?'],
+                ['SF→실험 변환 카드', '변환 카드를 만들어 노트북 저장', '허구가 설계를 가두는 반례 찾기', '변환된 실험의 기준선은 무엇인가'],
+                ['철학 렌즈 — <a href="../philosophy/">철학</a>', '한 문제에 3관점 질문 겹쳐 보기', '"현자의 예언"화의 위험 반론', '내가 빌리고 싶은 관점은?'],
+                ['공방 연결', '작품 질문 2개를 공방 프롬프트로 복사', '조합이 그럴듯할수록 검증이 필요하다는 반론', '이 설계의 실패 가능성 한 가지'] ] },
+            { id:'society', title:'사회·정렬', steps:[
+                ['정렬 협상실 — <a href="../alignment/">alignment</a>', '가중치를 바꿔 1위 옵션의 변화 확인', '점수표 = 도덕 계산기라는 반론', '내가 가장 높게 두는 가치는?'],
+                ['의회 — <a href="../council/">council</a>', '논제 1개의 조건(정보/가정)을 바꿔 결말 비교', '역할 수 = 독립 증거라는 반론', '소수 의견이 중요한 사례 하나'],
+                ['미래 시나리오 — <a href="../future-ai/">future-ai</a>', '조건 슬라이더로 시나리오 3개 매칭', '확률 수치를 만들지 않는 이유 반론', '어떤 조건이 먼저 무너질까'],
+                ['질문(사회) — <a href="../questions/">질문</a>', '사회 질문 1개를 주체 바꾸기로 변형', '기술이 격차를 자동으로 줄인다는 반론', '이 기술의 비용을 지는 사람은?'] ] },
+            { id:'research', title:'작은 연구 시작', steps:[
+                ['실험 설계 — <a href="../frontier/">인지경계 실험실</a>', '초안 잠금 → 보조 공개 → 수정까지 1회 완주', '교육 체험 = 연구 주장이라는 반론', '내 실험의 반복·통제 조건은?'],
+                ['평가 조건 — <a href="../evidence/">검증과 증거</a>', '내 실험을 12필드 카드로 채워 보기', '최고 사례만 남기는 일반화 반론', '실패 데이터를 어떻게 모을까'],
+                ['도전 — <a href="../challenges/">열린 창의성 도전</a>', '도전 1개를 골라 제출 파일 만들기', '제출 = 전송이라는 착각 반론', '내 결과를 비교할 기준은?'],
+                ['기록 — <a href="../notebook/">노트북</a>', '실험 기록 JSON을 저장·내보내기', '로컬 저장이 보존이 아니라는 반론 재확인', '다음 실험의 가설 한 문장'] ] }
+        ];
+
+        var LS_KEY = 'pf-learning-paths-v1';
+        var done = {};
+        try { done = JSON.parse(localStorage.getItem(LS_KEY)) || {}; } catch (e) { done = {}; }
+        function persist() { try { localStorage.setItem(LS_KEY, JSON.stringify(done)); } catch (e) {} }
+
+        function renderPaths() {
+            document.getElementById('pathList').innerHTML = PATHS.map(function (p) {
+                var total = p.steps.length;
+                var cnt = p.steps.filter(function (_, i) { return done[p.id + '-' + i]; }).length;
+                var pct = Math.round(cnt / total * 100);
+                return '<div class="pf-card" style="margin-bottom:14px;">' +
+                    '<h3>' + PF.esc(p.title) + ' <span class="pf-tag">' + cnt + '/' + total + ' 단계</span></h3>' +
+                    '<div style="background:rgba(255,255,255,0.08);border-radius:8px;height:10px;margin:10px 0;"><div style="width:' + pct + '%;background:linear-gradient(90deg,var(--pf-cyan),var(--pf-violet));height:10px;border-radius:8px;"></div></div>' +
+                    p.steps.map(function (s, i) {
+                        var key = p.id + '-' + i;
+                        return '<p style="margin:6px 0;font-size:0.88rem;"><label><input type="checkbox" ' + (done[key] ? 'checked' : '') + ' onchange="toggleStep(\'' + key + '\',this.checked)"> ' +
+                            '<strong style="color:#fff;">' + (i + 1) + '. ' + s[0] + '</strong></label><br>' +
+                            '<span style="color:var(--pf-dim);">실험: ' + PF.esc(s[1]) + '</span><br>' +
+                            '<span style="color:var(--pf-amber);">반론: ' + PF.esc(s[2]) + '</span><br>' +
+                            '<span style="color:var(--pf-faint);">자기 질문: ' + PF.esc(s[3]) + '</span></p>';
+                    }).join('') + '</div>';
+            }).join('');
+            renderMap();
+        }
+
+        function toggleStep(key, on) {
+            if (on) done[key] = true; else delete done[key];
+            persist();
+            renderPaths();
+        }
+
+        function resetPaths() {
+            if (!confirm('진행 상황을 초기화할까요? (이 브라우저 기록만 지워집니다)')) return;
+            done = {};
+            persist();
+            renderPaths();
+            PF.toast('초기화했습니다.');
+        }
+
+        function mapText() {
+            var lines = ['# 나의 학습 지도', ''];
+            var any = false;
+            PATHS.forEach(function (p) {
+                var idxs = p.steps.map(function (_, i) { return i; }).filter(function (i) { return done[p.id + '-' + i]; });
+                if (!idxs.length) return;
+                any = true;
+                lines.push('## ' + p.title);
+                idxs.forEach(function (i) {
+                    lines.push('- ' + p.steps[i][0].replace(/<[^>]+>/g, '') + ' → 자기 질문: ' + p.steps[i][3]);
+                });
+                lines.push('');
+            });
+            if (!any) lines.push('(아직 완료한 단계가 없습니다)');
+            return lines.join('\n');
+        }
+
+        function renderMap() {
+            var any = PATHS.some(function (p) { return p.steps.some(function (_, i) { return done[p.id + '-' + i]; }); });
+            document.getElementById('mapOut').innerHTML = any
+                ? '<pre style="white-space:pre-wrap;color:var(--pf-dim);font-size:0.88rem;font-family:inherit;">' + PF.esc(mapText()) + '</pre>'
+                : '<p class="pf-note">아직 완료한 단계가 없습니다. 항로를 따라가 보세요.</p>';
+        }
+
+        function saveMap() {
+            PF.notebook.add({ type: 'note', title: '학습 지도 ' + PF.fmtDate(), body: mapText(), tags: ['learning-paths'] })
+                .then(function () { PF.toast('학습 지도를 노트북에 저장했습니다.'); });
+        }
+        function exportMap() {
+            PF.download('pf-learning-map-' + Date.now() + '.md', mapText(), 'text/markdown;charset=utf-8');
+            PF.toast('학습 지도 MD를 다운로드했습니다.');
+        }
+
+        renderPaths();
+    </script>
+</body>
+</html>

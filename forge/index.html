@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>공동창작 공방 — Protofelix × AstraHo</title>
+    <meta name="description" content="12개 영역 × 12개 영감 원리 × 8개 제약을 시드 기반 규칙으로 조합해 아이디어 브리프를 만드는 공동창작 공방. 같은 시드는 같은 조합을 돌려줍니다.">
+    <link rel="canonical" href="https://protofelix.moip.ai.kr/forge/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Protofelix × AstraHo">
+    <meta property="og:title" content="공동창작 공방 — Protofelix × AstraHo">
+    <meta property="og:description" content="서로 어울리지 않던 것들을 유용한 새 구조로 바꿀 수 있는가? 시드 기반 조합 엔진.">
+    <meta property="og:url" content="https://protofelix.moip.ai.kr/forge/">
+    <meta property="og:image" content="https://protofelix.moip.ai.kr/images/expansion/i05-forge.webp">
+    <link rel="stylesheet" href="../assets/pf-expansion.css">
+</head>
+<body>
+    <a class="skip-link" href="#main">본문 바로가기</a>
+
+    <nav class="pf-nav" aria-label="전역 내비게이션">
+        <div class="pf-nav-inner">
+            <a href="../index.html" class="pf-nav-brand">Protofelix<em>×</em>AstraHo</a>
+            <div class="pf-nav-links">
+                <a href="../index.html">홈</a>
+                <a href="../explore/">탐험 지도</a>
+                <a href="../atlas/">아틀라스</a>
+                <a href="../questions/">질문</a>
+                <a href="#" class="here">공방</a>
+                <a href="../frontier/">실험실</a>
+                <a href="../evidence/">증거</a>
+                <a href="../notebook/">노트북</a>
+                <a href="../sources/">원전</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="pf-hero" style="background-image: url('../images/expansion/i05-forge.webp'), linear-gradient(160deg, #101033 0%, #0a0a23 70%);">
+        <div class="pf-hero-inner">
+            <div>
+                <span class="pf-badge ks-hypothesis">Hypothesis</span>
+                <span class="pf-badge mode-rule_based">RULE_BASED</span>
+                <span class="pf-badge pj-prototype">PROTOTYPE</span>
+            </div>
+            <h1>공동창작 공방</h1>
+            <p class="pf-question">"서로 어울리지 않던 것들을 유용한 새 구조로 바꿀 수 있는가?"</p>
+            <p class="pf-hero-meta">읽기 시간 약 8분 · 내용 성격: 규칙 기반 조합 도구 · 실행 모드: RULE_BASED(+편집 예제) · 검토일 2026-09-20</p>
+        </div>
+    </header>
+
+    <main id="main" class="pf-wrap">
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">01</span>이곳에서 무엇을 얻는가</h2>
+            <p class="pf-lead">
+                <strong>문제 영역 × 영감 원리 × 제약</strong>을 골라 조합하면, 편집된 적합성 규칙이 후보 아이디어 3~5개를 만들어
+                <strong>문제·가설·사용자·핵심 작동·기대 효과·실패 가능성·다음 실험</strong>이 담긴 브리프를 돌려줍니다.
+                무작위 나열이 아니라 <strong>어떤 선택에서 나온 조합인지</strong>를 함께 보여줍니다.
+            </p>
+            <div class="pf-grid">
+                <div class="pf-card"><h3>재현 가능한 조합</h3><p>같은 시드(seed)와 조건이면 같은 후보가 나옵니다. 고정한 조건은 재조합해도 유지됩니다.</p></div>
+                <div class="pf-card"><h3>적합성 규칙 공개</h3><p>원리-영역 적합도, 제약 충돌 제거, 시드 tie-break — 어떤 규칙이 적용됐는지 후보마다 표시합니다.</p></div>
+                <div class="pf-card"><h3>시장성 검증 아님</h3><p>산출물은 "편집 규칙상 적합도"이며 실제 AI 추론·시장성 검증을 수행하지 않았습니다.</p></div>
+            </div>
+        </section>
+
+        <!-- 조합 엔진 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">02</span>조합 엔진</h2>
+            <div class="pf-panel">
+                <div class="pf-grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
+                    <div class="pf-field">
+                        <label for="fDomain">문제 영역</label>
+                        <select id="fDomain" class="pf-select"></select>
+                    </div>
+                    <div class="pf-field">
+                        <label for="fPrinciple">영감 원리</label>
+                        <select id="fPrinciple" class="pf-select"></select>
+                    </div>
+                    <div class="pf-field">
+                        <label for="fConstraint">제약</label>
+                        <select id="fConstraint" class="pf-select"></select>
+                    </div>
+                    <div class="pf-field">
+                        <label for="fSeed">시드 (재현용)</label>
+                        <input id="fSeed" class="pf-input" type="number" min="1" max="999999" placeholder="숫자 — 비우면 새 시드">
+                    </div>
+                </div>
+                <div style="margin:10px 0;">
+                    <label style="font-size:0.82rem;color:var(--pf-dim);">
+                        <input type="checkbox" id="lockDomain" onchange="syncLock('domain')"> 영역 고정
+                    </label>
+                    <label style="font-size:0.82rem;color:var(--pf-dim);margin-left:14px;">
+                        <input type="checkbox" id="lockPrinciple" onchange="syncLock('principle')"> 원리 고정
+                    </label>
+                    <label style="font-size:0.82rem;color:var(--pf-dim);margin-left:14px;">
+                        <input type="checkbox" id="lockConstraint" onchange="syncLock('constraint')"> 제약 고정
+                    </label>
+                </div>
+                <button class="pf-btn primary" onclick="forge()">조합 생성</button>
+                <button class="pf-btn ghost" onclick="randomize()">전체 새로 뽑기</button>
+                <p class="pf-note info">생성된 후보마다 "어떤 선택에서 나왔는지"와 적용된 규칙을 표시합니다. 생뚱맞은 연결은 설명과 편집을 요구하는 상태로 남습니다.</p>
+            </div>
+            <div id="forgeOut" style="margin-top:20px;"></div>
+        </section>
+
+        <!-- 편집된 예제 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">03</span>편집된 예제 <span style="font-size:0.7em;color:var(--pf-faint);">(초기 공개 6/18 — 나머지는 검토 대기)</span></h2>
+            <p class="pf-lead">브리프의 형태를 보여주는 편집 예제입니다. 실제 검증된 서비스가 아닙니다.</p>
+            <div id="exampleList" class="pf-grid"></div>
+        </section>
+
+        <!-- 결과/반론 -->
+        <section class="pf-section">
+            <h2 class="pf-h2"><span class="num">04</span>결과 설명과 가장 강한 반론</h2>
+            <div class="pf-result" style="margin-bottom:16px;">
+                <h4>관찰한 것 / 추론한 것 / 아직 모르는 것</h4>
+                <p>
+                    <strong>관찰한 것:</strong> 선택된 조건과 시드, 그리고 규칙이 매칭한 후보들.<br>
+                    <strong>추론한 것:</strong> "적합도"는 편집 규칙상 점수일 뿐 독창성·시장성 점수가 아닙니다.<br>
+                    <strong>아직 모르는 것:</strong> 후보가 실제로 유용한지는 사용자 검증 실험(다음 실험 칸)을 거쳐야 알 수 있습니다.
+                </p>
+            </div>
+            <div class="pf-counter">
+                <strong>실패 조건:</strong> 무작위 조합을 "창의적 아이디어"라고 부르는 순간 이 공방은 실패합니다.
+                적합성 규칙 없이 12×12×8 전수 나열은 하지 않으며, 후보마다 출처가 되는 선택을 표시하고
+                사용자가 설명·편집할 수 있게 합니다. 브리프는 가설이지 결론이 아닙니다.
+            </div>
+            <p class="pf-note" style="margin-top:14px;">관련 페이지: <a href="../serena/">Serena 서재</a> · <a href="../questions/">경계의 질문들</a> · <a href="../constellation/">아이디어 성좌</a> · <a href="../systems/">AI 시스템 설계대</a></p>
+        </section>
+    </main>
+
+    <footer class="pf-footer">
+        <div class="links">
+            <a href="../index.html">홈</a><a href="../explore/">탐험 지도</a><a href="../questions/">질문</a>
+            <a href="../notebook/">노트북</a><a href="../sources/">원전</a>
+        </div>
+        <p>공동창작 공방 · Protofelix × AstraHo © 2026 — 규칙 기반 조합이며 시장성·독창성 검증을 수행하지 않습니다.</p>
+    </footer>
+
+    <script src="../assets/pf-common.js"></script>
+    <script>
+        /* ===== 정적 데이터 공급자 ===== */
+        var DOMAINS = {
+            edu:'교육', env:'환경', acc:'접근성', cre:'창작', ver:'정보 검증', col:'협업',
+            health:'건강', city:'도시', mem:'기록·기억', sci:'과학', play:'놀이·여가', civic:'시민 참여'
+        };
+        var PRINCIPLES = {
+            reef:'산호초 — 분산된 협력', root:'뿌리 — 깊은 축적', storm:'폭풍 — 짧은 급변',
+            garden:'기억의 정원 — 선택적 망각', echo:'메아리 — 반복 변주', river:'강 — 연속 흐름',
+            star:'별자리 — 성긴 연결', mirror:'거울 — 자기 반영', seed:'씨앗 — 작은 시작',
+            fire:'불 — 변환', fog:'안개 — 불확실성 수용', bridge:'다리 — 경계 연결'
+        };
+        var CONSTRAINTS = {
+            offline:'오프라인 우선', budget:'예산 최소', nolang:'언어 장벽 없음',
+            privacy:'개인정보 보호', lowpow:'저전력', tenmin:'10분 안에 사용',
+            opendata:'개방 데이터만', reversible:'되돌릴 수 있음'
+        };
+
+        /* 원리-영역 적합도 (2=적합, 1=보통). 이 표에 없는 조합은 1점. */
+        var FIT = {
+            reef: ['col', 'env', 'city', 'civic'],
+            root: ['edu', 'sci', 'mem'],
+            storm: ['cre', 'play', 'civic'],
+            garden: ['mem', 'health', 'edu'],
+            echo: ['cre', 'edu', 'play'],
+            river: ['health', 'city', 'env'],
+            star: ['sci', 'col', 'cre'],
+            mirror: ['edu', 'health', 'civic'],
+            seed: ['edu', 'env', 'civic', 'play'],
+            fire: ['cre', 'sci', 'city'],
+            fog: ['sci', 'ver', 'cre'],
+            bridge: ['acc', 'ver', 'col', 'civic']
+        };
+        /* 제약-원리 충돌 (이 조합은 후보에서 제외) */
+        var CONFLICTS = { storm: ['reversible', 'privacy'], fire: ['privacy', 'lowpow'], fog: ['tenmin'] };
+
+        var EXAMPLES = [
+            { d:'mem', p:'reef', c:'offline',
+              title:'분산된 지역 지식 교환 (도서관 × 산호초 × 연결 불가)',
+              brief:'문제: 마을마다 다른 지식이 인터넷 없이 고립되어 있다. 가설: 지역 소규모 지식 저장소들이 느슨한 규약으로 연결되면 중앙 서버 없이도 지식이 흐른다. 사용자: 작은 도서관과 학교. 핵심 작동: 오프라인 우선 동기화. 실패 가능성: 저장소 간 형식 불일치. 다음 실험: 두 마을 간 시범 교환.' },
+            { d:'edu', p:'seed', c:'tenmin',
+              title:'하루 10분 질문 연습 (교육 × 씨앗 × 10분)',
+              brief:'문제: 긴 강의는 질문 연습을 만들지 못한다. 가설: 매일 10분짜리 질문 변형 연습이 질문 능력을 키운다. 사용자: 초·중등 학습자. 핵심 작동: 질문 하나를 5가지 규칙으로 변형. 실패 가능성: 10분이 형식적으로 끝남. 다음 실험: 2주간 일지 비교.' },
+            { d:'acc', p:'bridge', c:'nolang',
+              title:'언어 장벽 없는 인터페이스 (접근성 × 다리 × 언어 없음)',
+              brief:'문제: 문자 중심 UI가 읽기 어려운 사용자를 막는다. 가설: 리듬·그림·동작의 조합이 문자를 대체할 수 있다. 사용자: 읽기 어려움이 있는 사용자. 핵심 작동: 패턴 기반 안내. 실패 가능성: 의미가 모호해짐. 다음 실험: 동일 과제 문자 UI와 비교.' },
+            { d:'ver', p:'fog', c:'reversible',
+              title:'불확실성을 보여주는 정보 안내 (검증 × 안개 × 되돌릴 수 있음)',
+              brief:'문제: 정보의 확실성 정도가 사라진다. 가설: 근거 상태(확인/미확인)를 표시하면 판단이 신중해진다. 사용자: 뉴스·공공 정보 이용자. 핵심 작동: 확인일·출처 상태 표기. 실패 가능성: 표기가 무시됨. 다음 실험: 표기 유무 그룹 비교.' },
+            { d:'cre', p:'echo', c:'budget',
+              title:'변주 연습 창작 도구 (창작 × 메아리 × 예산 최소)',
+              brief:'문제: 첫 아이디어에 고착된다. 가설: 같은 소재의 강제 변주 20개가 고착을 깬다. 사용자: 초보 창작자. 핵심 작동: 규칙 기반 변주 생성. 실패 가능성: 변주가 피상적이 됨. 다음 실험: 변주 후 최종 선택의 새로움 측정.' },
+            { d:'col', p:'star', c:'privacy',
+              title:'성긴 연결의 협업 지도 (협업 × 별자리 × 개인정보 보호)',
+              brief:'문제: 협업자가 서로의 전체 정보를 공유해야만 연결된다. 가설: 관심 태그만 공유하는 성긴 연결로 협업이 시작될 수 있다. 사용자: 소규모 연구 그룹. 핵심 작동: 최소 프로필 매칭. 실패 가능성: 연결이 너무 약해 무산. 다음 실험: 연결 성사율 비교.' }
+        ];
+
+        function fillSelect(id, map, placeholder) {
+            var sel = document.getElementById(id);
+            sel.innerHTML = '<option value="any">' + placeholder + '</option>' +
+                Object.keys(map).map(function (k) { return '<option value="' + k + '">' + map[k] + '</option>'; }).join('');
+        }
+        fillSelect('fDomain', DOMAINS, '자동 선택');
+        fillSelect('fPrinciple', PRINCIPLES, '자동 선택');
+        fillSelect('fConstraint', CONSTRAINTS, '자동 선택');
+
+        function syncLock(kind) {
+            var map = { domain: ['fDomain', 'lockDomain'], principle: ['fPrinciple', 'lockPrinciple'], constraint: ['fConstraint', 'lockConstraint'] };
+            var pair = map[kind];
+            var locked = document.getElementById(pair[1]).checked;
+            document.getElementById(pair[0]).value = locked ? document.getElementById(pair[0]).value : 'any';
+        }
+
+        function fitScore(domain, principle) {
+            var arr = FIT[principle] || [];
+            return arr.indexOf(domain) >= 0 ? 2 : 1;
+        }
+        function conflicts(principle, constraint) {
+            var arr = CONFLICTS[principle] || [];
+            return arr.indexOf(constraint) >= 0;
+        }
+
+        var lastSeed = null;
+        function forge() {
+            var dSel = document.getElementById('fDomain').value;
+            var pSel = document.getElementById('fPrinciple').value;
+            var cSel = document.getElementById('fConstraint').value;
+            var seedInput = document.getElementById('fSeed').value.trim();
+            lastSeed = seedInput ? parseInt(seedInput, 10) : Math.floor(Math.random() * 999999) + 1;
+            if (!seedInput) document.getElementById('fSeed').value = lastSeed;
+            var rnd = PF.mulberry32(lastSeed);
+
+            var dKeys = Object.keys(DOMAINS);
+            var pKeys = Object.keys(PRINCIPLES);
+            var cKeys = Object.keys(CONSTRAINTS);
+
+            var candidates = [];
+            var used = {};
+            var guard = 0;
+            while (candidates.length < 4 && guard < 60) {
+                guard++;
+                var domain = dSel !== 'any' ? dSel : dKeys[Math.floor(rnd() * dKeys.length)];
+                var principle = pSel !== 'any' ? pSel : pKeys[Math.floor(rnd() * pKeys.length)];
+                var constraint = cSel !== 'any' ? cSel : cKeys[Math.floor(rnd() * cKeys.length)];
+                var key = domain + '|' + principle + '|' + constraint;
+                if (used[key]) continue;
+                if (conflicts(principle, constraint)) continue;
+                var score = fitScore(domain, principle);
+                if (score === 1 && rnd() < 0.35) continue; // 낮은 적합도는 일부만 통과 (적합성 규칙)
+                used[key] = true;
+                candidates.push({ domain: domain, principle: principle, constraint: constraint, score: score, rnd: rnd });
+            }
+
+            document.getElementById('forgeOut').innerHTML =
+                '<p style="font-size:0.85rem;color:var(--pf-faint);margin-bottom:14px;">시드 ' + lastSeed + ' · 후보 ' + candidates.length + '개 · 규칙: 원리-영역 적합도(2점=적합), 제약-원리 충돌 제거, 시드 tie-break — 같은 조건이면 같은 결과가 나옵니다.</p>' +
+                candidates.map(function (c, i) {
+                    var brief = buildBrief(c);
+                    return '<div class="pf-card" style="margin-bottom:14px;">' +
+                        '<h3>' + (i + 1) + '. ' + PF.esc(DOMAINS[c.domain]) + ' × ' + PF.esc(PRINCIPLES[c.principle]) + ' × ' + PF.esc(CONSTRAINTS[c.constraint]) + '</h3>' +
+                        '<p style="margin-bottom:8px;">' + brief + '</p>' +
+                        '<div class="meta-row">' +
+                        '<span class="pf-tag">영역: ' + DOMAINS[c.domain] + (dSel !== 'any' ? ' (고정)' : '') + '</span>' +
+                        '<span class="pf-tag">원리: ' + PRINCIPLES[c.principle].split(' — ')[0] + '</span>' +
+                        '<span class="pf-tag">제약: ' + CONSTRAINTS[c.constraint] + '</span>' +
+                        '<span class="pf-tag">편집 적합도: ' + c.score + '/2</span>' +
+                        '</div>' +
+                        '<p style="margin-top:8px;">' +
+                        '<button class="pf-btn small" onclick="saveBrief(this)" data-brief="' + PF.esc(JSON.stringify({ title: DOMAINS[c.domain] + ' × ' + PRINCIPLES[c.principle] + ' × ' + CONSTRAINTS[c.constraint], brief: brief, seed: lastSeed })) + '">노트북에 저장</button> ' +
+                        '<button class="pf-btn small ghost" onclick="copyPrompt(this)" data-brief="' + PF.esc(JSON.stringify({ title: DOMAINS[c.domain] + ' × ' + PRINCIPLES[c.principle] + ' × ' + CONSTRAINTS[c.constraint], brief: brief })) + '">외부 LLM용 프롬프트 복사</button>' +
+                        '</p></div>';
+                }).join('') || '<p class="pf-note">적합한 조합을 찾지 못했습니다. 제약을 바꿔 보세요.</p>';
+        }
+
+        function buildBrief(c) {
+            var dName = DOMAINS[c.domain];
+            var pName = PRINCIPLES[c.principle].split(' — ')[0];
+            var cName = CONSTRAINTS[c.constraint];
+            return '문제: ' + dName + ' 영역의 익숙한 방식이 막혀 있다. ' +
+                '가설: "' + pName + '" 원리로 접근하면 기존에 없던 구조가 생긴다. ' +
+                '사용자: ' + dName + ' 영역의 현장 사용자. ' +
+                '핵심 작동: ' + cName + ' 조건 안에서 ' + pName + ' 원리를 적용한 최소 구조. ' +
+                '기대 효과: 익숙한 답을 우회한 새 후보. ' +
+                '실패 가능성: 원리가 피상적으로 붙어 실제 제약(' + cName + ')을 해결하지 못함. ' +
+                '다음 실험: 동일 제약에서 기존 방식과 1:1 비교.';
+        }
+
+        function saveBrief(btn) {
+            var data = JSON.parse(btn.getAttribute('data-brief'));
+            PF.notebook.add({ type: 'brief', title: data.title, body: data.brief + '\n\n시드: ' + data.seed, tags: ['forge'] })
+                .then(function () { PF.toast('브리프를 노트북에 저장했습니다.'); });
+        }
+
+        function copyPrompt(btn) {
+            var data = JSON.parse(btn.getAttribute('data-brief'));
+            var prompt = '당신은 제품 설계 파트너입니다. 다음 교육용 아이디어 브리프를 비판하고 개선안 2개를 제안하세요.\n\n' + data.title + '\n' + data.brief;
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(prompt).then(function () { PF.toast('프롬프트를 복사했습니다. 외부로 전송되지 않았습니다 — 직접 붙여 넣으세요.'); });
+            } else {
+                PF.toast('복사가 지원되지 않습니다. 브리프를 직접 선택해 복사하세요.');
+            }
+        }
+
+        function randomize() {
+            ['fDomain', 'fPrinciple', 'fConstraint'].forEach(function (id) { document.getElementById(id).value = 'any'; });
+            document.getElementById('fSeed').value = '';
+            forge();
+        }
+
+        /* 편집 예제 렌더 */
+        document.getElementById('exampleList').innerHTML = EXAMPLES.map(function (e) {
+            return '<div class="pf-card"><h3>' + PF.esc(e.title) + '</h3><p>' + PF.esc(e.brief) + '</p>' +
+                '<div class="meta-row"><span class="pf-badge mode-curated">CURATED</span><span class="pf-tag">편집된 예제 — 검증된 서비스 아님</span></div></div>';
+        }).join('');
+    </script>
+</body>
+</html>
