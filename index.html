@@ -279,7 +279,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            perspective: 1000px;
+            overflow: hidden;
             padding: 80px 20px 110px;
         }
         .hero-bg {
@@ -303,13 +303,11 @@
         .hero-content {
             text-align: center;
             z-index: 2;
-            transform-style: preserve-3d;
-            animation: heroFloat 6s ease-in-out infinite;
             max-width: 900px;
         }
         @keyframes heroFloat {
-            0%, 100% { transform: translateZ(0) translateY(0); }
-            50% { transform: translateZ(25px) translateY(-8px); }
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
         }
         .hero-badge {
             display: inline-block;
@@ -324,6 +322,7 @@
             backdrop-filter: blur(10px);
             background: rgba(0,229,255,0.06);
             text-transform: uppercase;
+            animation: heroFloat 6s ease-in-out infinite;
         }
         .hero-title {
             font-family: 'Orbitron', monospace;
@@ -365,6 +364,8 @@
             gap: 16px;
             justify-content: center;
             flex-wrap: wrap;
+            position: relative;
+            z-index: 3;
         }
         .hero-poem {
             margin-top: 30px;
@@ -383,7 +384,7 @@
             align-items: center;
             gap: 6px;
             animation: bounceDown 2s ease-in-out infinite;
-            z-index: 2;
+            z-index: 1;
             cursor: pointer;
         }
         .scroll-indicator span {
@@ -407,6 +408,10 @@
             max-width: 1100px;
             margin: 0 auto;
             position: relative;
+        }
+        /* 고정 내비게이션 높이만큼 앵커 스크롤 목표를 보정 */
+        section[id] {
+            scroll-margin-top: 76px;
         }
         .section-label {
             font-family: 'Orbitron', monospace;
